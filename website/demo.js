@@ -72,7 +72,6 @@ function uploadFile() {
         formdata.append('data', file)
         formdata.append('username', username)
         formdata.append('name', file.name)
-        formdata.append('filetype', file.type)
 
         $.ajax({
             url: url,
@@ -95,36 +94,62 @@ function downloadFile() {
     var url = "http://" + host + ":" + port + "/api/getmusicfile"
 
     var info = {
-        username: username,
-        filename: filename
+        "username": username,
+        "filename": filename,
+        "fileid": "5c30abe1cc2a423041d7db36"
+    }
+    var xmlhttp = new XMLHttpRequest()
+    xmlhttp.open('POST', url, true)
+    xmlhttp.setRequestHeader('Content-Type', 'application/json')
+    xmlhttp.send(JSON.stringify(info))
+
+    xmlhttp.onreadystatechange = function() {//Call a function when the state changes.
+        if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            /*
+            //alert(xmlhttp.response.length)
+            var source = document.getElementById('source')
+            var audio = document.getElementById('audio')
+
+            source.type = 'audio/wav'
+            var base64 = btoa(String.fromCharCode(...new Uint8Array(xmlhttp.response)))
+            source.src = `data:${source.type};base64,${base64}`
+            // audio.appendChild(source)
+            audio.load()
+            audio.play()
+            */
+        }
     }
 
-    $.post(url, info, function(data) {
-        console.log(data.length)
-        var bytes=[]
+    /*
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(info),
+        contentType: 'application/json',
+        responseType: 'blob',
+        processData: true,
 
-        for(var i = 0; i < data.length; i++) {
-            var code = data.charCodeAt(i)
-            bytes.push(code)
+        success: function(data) {
+            var buffer = new ArrayBuffer( data.length ), // res is this.response in your case
+            view   = new Uint8Array( buffer ),
+            len    = view.length,
+            fromCharCode = String.fromCharCode,
+            i, s, str;
+
+            str = "";
+
+            for ( i = 0; i < len; ++i ) {
+            str += fromCharCode( data[i].charCodeAt(0) & 0xff );
+            }
+
+            console.log(typeof(data))
+            
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            var audioSrc = URL.createObjectURL(new Blob([str], {type: 'audio/x-wav'}))
+            var audio = new Audio(audioSrc)
+            audio.play()
         }
-
-        console.log(bytes.length)
-
-        var file = new File(bytes, filename)
-
-        
-        var a = document.createElement('a')
-        document.body.appendChild(a)
-
-        a.style = 'display: none'
-
-        var objUrl = window.URL.createObjectURL(file)
-
-        a.href = objUrl
-        a.download = filename
-        a.click()
-
-        window.URL.revokeObjectURL(objUrl)
-        
     })
+    */
 }
