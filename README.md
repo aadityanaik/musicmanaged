@@ -21,3 +21,5 @@ for the database, make sure mysql is installed
 In mysql, add user called musicmanaged with password amusicalpassword, and add a database called musicmanaged for that user
 
 If no work, I'll check next time we meet
+
+If no work yet*
