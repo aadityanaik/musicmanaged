@@ -9,7 +9,7 @@ const dbname = 'musicmanaged'
 
 const client = new MongoClient(url)
 
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt-nodejs')
 
 const saltRounds = 10
 
@@ -42,7 +42,7 @@ MongoDBHandler.prototype.addUser = function(response, username, password) {
             response.json(error)
             response.end()
         } else {
-            bcrypt.hash(password, salt, function(hashErr, hash) {
+            bcrypt.hash(password, salt, null, function(hashErr, hash) {
                 if(hashErr) {
                     // console.log(hashErr)
                     response.json(hashErr)

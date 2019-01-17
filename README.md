@@ -3,12 +3,18 @@ Some intro
 Basically, to go to normal website, do
 
 ```
-$ node server.js
+$ ./server-test.sh
+```
+
+or for windows
+
+```
+> server-test.bat
 ```
 
 If you want to go to website, go to http://localhost:5000
 
-If you want to use the API, go to http://localhost:5000/<endpoint>
+If you want to use the API, go to http://localhost:5000/endpoint
 
 Endpoints-
 
