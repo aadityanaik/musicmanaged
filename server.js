@@ -29,6 +29,7 @@ app.get('/api/adduser/:username/:password', function(req, res) {
 app.post('/api/adduser', function(req, res) {
     var uname = req.body.username
     var pword = req.body.password
+    console.log(uname, pword)
     mongoDBManager.addUser(res, uname, pword)
 })
 

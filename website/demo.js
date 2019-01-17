@@ -21,7 +21,7 @@ function adduser(username, password) {
         "username": username,
         "password": password
     }
-
+    
     $.post(url, info, function(data) {
         console.log(data)
     }, "json")
@@ -47,7 +47,7 @@ function verifyUsr(username, password) {
     }
 
     $.post(url, info, function(data) {
-        alert(data)
+        console.log(data)
     }, "json")
 }
 

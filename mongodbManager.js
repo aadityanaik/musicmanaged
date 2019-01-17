@@ -74,7 +74,16 @@ MongoDBHandler.prototype.addUser = function(response, username, password) {
                         db.collection('user_login').insertOne({"user_id" : username, "pass" : hash}, function(insertErr, res) {
                             if(insertErr) {
                                 // console.log(insertErr)
-                                response.json(insertErr)
+                                message = ''
+                                if(insertErr['code'] == 11000) {
+                                    message = 'username already taken'
+                                } else {
+                                    message = 'reason unknown'
+                                }
+                                response.json({
+                                    stat: 66600,
+                                    msg: "Could not insert user-" + message
+                                })
                                 response.end()
                             } else {
                                 db.collection('user_files').insertOne({"user_id": username, "files": []}, function(anotherInsertErr, otherRes) {
@@ -102,20 +111,41 @@ MongoDBHandler.prototype.addUser = function(response, username, password) {
                                 db.collection('user_login').insertOne({"user_id" : username, "pass" : hash}, function(insertErr, res) {
                                     if(insertErr) {
                                         // console.log(insertErr)
-                                        response.json(insertErr)
+                                        // response.json(insertErr)
+                                        message = ''
+                                        if(insertErr['code'] == 11000) {
+                                            message = 'username already taken'
+                                        } else {
+                                            message = 'reason unknown'
+                                        }
+                                        response.json({
+                                            stat: 66600,
+                                            msg: "Could not insert user-" + message
+                                        })
                                         response.end()
                                     } else {
                                         db.collection('user_files').insertOne({"user_id": username, "files": []}, function(anotherInsertErr, otherRes) {
-                                        if(anotherInsertErr) {
-                                            // console.log(anotherInsertErr)
-                                            response.json(anotherInsertErr)
-                                            response.end()
-                                        } else {
-                                            // console.log(otherRes)
-                                            response.json(otherRes)
-                                            response.end()
-                                        }
-                                    })
+                                            if(anotherInsertErr) {
+                                                // console.log(anotherInsertErr)message = ''
+                                                if(anotherInsertErr['code'] == 11000) {
+                                                    message = 'username already taken'
+                                                } else {
+                                                    message = 'reason unknown'
+                                                }
+                                                response.json({
+                                                    stat: 66600,
+                                                    msg: "Could not insert user-" + message
+                                                })
+                                                response.end()
+                                            } else {
+                                                // console.log(otherRes)
+                                                response.json({
+                                                    stat: 200,
+                                                    msg: "Successfully added user"
+                                                })
+                                                response.end()
+                                            }
+                                        })
                                     }
                                 })
                             }
@@ -133,7 +163,10 @@ MongoDBHandler.prototype.checkCredentials = function(response, username, entered
         db.collection('user_login').find({"user_id": username}).toArray(function(err, res) {
             if(err) {
                 // console.log(err)
-                response.json(err)
+                response.status(500).json({
+                    stat: 500,
+                    msg: "something diabolical happened"
+                })
                 response.end()
             } else {
                 if(res[0]) {
@@ -142,17 +175,33 @@ MongoDBHandler.prototype.checkCredentials = function(response, username, entered
                     bcrypt.compare(enteredPass, password, function(bcryptErr, bcryptRes) {
                         if(bcryptErr) {
                             // console.log(bcryptErr)
-                            response.json(bcryptErr)
+                            response.status(500).json({
+                                stat: 500,
+                                msg: "something diabolical happened"
+                            })
                             response.end()
                         } else {
                             // console.log(bcryptRes)
-                            response.json(bcryptRes)
+
+                            stat = 200
+                            if(bcryptRes == false) {
+                                stat = 696
+                            }
+
+                            response.json({
+                                stat: stat,
+                                msg: "authenticated- " + bcryptRes
+                            })
+
                             response.end()
                         }
                     })
                 } else {
                     // console.log('No user ' + username + ' found')
-                    response.json('No user ' + username + ' found')
+                    response.json({
+                        stat: 66601,
+                        msg: 'No user ' + username + ' found'
+                    })
                     response.end()
                 }
             }
@@ -161,7 +210,10 @@ MongoDBHandler.prototype.checkCredentials = function(response, username, entered
         client.connect(function(err) {
             if(err) {
                 // console.log('Could not connect to the server')
-                response.json('Could not connect to the server')
+                response.status(500).json({
+                    stat: 500,
+                    msg: 'something diabolical happened'
+                })
                 response.end()
             } else {
                 // console.log('Initiated connection to mongodb server')
@@ -190,7 +242,10 @@ MongoDBHandler.prototype.checkCredentials = function(response, username, entered
                 db.collection('user_login').find({"user_id": username}).toArray(function(error, res) {
                     if(error) {
                         // console.log(error)
-                        response.json(error)
+                        response.status(500).json({
+                            stat: 500,
+                            msg: "something diabolical happened"
+                        })
                         response.end()
                     } else {
                         if(res[0]) {
@@ -199,17 +254,32 @@ MongoDBHandler.prototype.checkCredentials = function(response, username, entered
                             bcrypt.compare(enteredPass, password, function(bcryptErr, bcryptRes) {
                                 if(bcryptErr) {
                                     // console.log(bcryptErr)
-                                    response.json(bcryptErr)
+                                    response.status(500).json({
+                                        stat: 500,
+                                        msg: "something diabolical happened"
+                                    })
                                     response.end()
                                 } else {
                                     // console.log(bcryptRes)
-                                    response.json(bcryptRes)
+                                    stat = 200
+                                    if(bcryptRes == false) {
+                                        stat = 696
+                                    }
+
+                                    response.json({
+                                        stat: stat,
+                                        msg: "authenticated- " + bcryptRes
+                                    })
+
                                     response.end()
                                 }
                             })
                         } else {
                             // console.log('No user ' + username + ' found')
-                            response.json('No user ' + username + ' found')
+                            response.json({
+                                stat: 66601,
+                                msg: 'No user ' + username + ' found'
+                            })
                             response.end()
                         }
                     }
@@ -236,7 +306,10 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
 
         uploadStream.on('error', function() {
             // console.log('YIKES')
-            response.status(400).json({"errmsg": "Failed to upload file"}).end()
+            response.status(400).json({
+                stat: 66604,
+                msg: "Failed to upload file"
+            }).end()
         })
 
         uploadStream.on('finish', function() {
@@ -249,10 +322,31 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
             }}, function(err, res) {
                 if(err) {
                     // console.log('OOPS')
-                    response.status(400).json({"errmsg": "Failed to upload file"}).end()
+                    // console.log(res)
+                    response.json({
+                        stat: 66604,
+                        msg: "Failed to upload file"
+                    }).end()
                 } else {
                     // console.log('DONE')
-                    response.json(res).end()
+                    if(res.matchedCount == 1) {
+                        response.json({
+                            stat: 200,
+                            msg: "uploaded file successfully"
+                        }).end()
+                    } else {
+                        bucket.delete(id, function(err) {
+                            if(err) {
+                                throw err
+                            } else {
+                                // console.log('Deleted')
+                            }
+                        })
+                        response.json({
+                            stat: 66601,
+                            msg: "user not found"
+                        }).end()
+                    }
                 }
             })
             // console.log('DONE')
@@ -297,24 +391,46 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
 
                 uploadStream.on('error', function() {
                     // console.log('YIKES')
-                    response.status(400).json({"errmsg": "Failed to upload file"}).end()
+                    response.status(400).json({
+                        stat: 66604,
+                        msg: "Failed to upload file"
+                    }).end()
                 })
-
+        
                 uploadStream.on('finish', function() {
                     // console.log(id)
-                    // console.log('Hmmmm')
                     db.collection('user_files').updateOne({"user_id": username}, {$push: {
                         "files": {
                             "file_name": fileName,
                             "file_id": id.toString()
                         }
-                    }}, function(err1, res) {
-                        if(err1) {
+                    }}, function(err, res) {
+                        if(err) {
                             // console.log('OOPS')
-                            response.status(400).json({"errmsg": "Failed to upload file"}).end()
+                            response.json({
+                                stat: 66604,
+                                msg: "Failed to upload file"
+                            }).end()
                         } else {
                             // console.log('DONE')
-                            response.json(res).end()
+                            if(res.matchedCount == 1) {
+                                response.json({
+                                    stat: 200,
+                                    msg: "uploaded file successfully"
+                                }).end()
+                            } else {
+                                bucket.delete(id, function(err) {
+                                    if(err) {
+                                        throw err
+                                    } else {
+                                        // console.log('Deleted')
+                                    }
+                                })
+                                response.json({
+                                    stat: 66601,
+                                    msg: "user not found"
+                                }).end()
+                            }
                         }
                     })
                     // console.log('DONE')
@@ -332,7 +448,10 @@ MongoDBHandler.prototype.getMusic = function(response, username, filename, filei
         db.collection('user_files').find({"user_id": username}).toArray(function(error, resArr) {
             if(error) {
                 // console.log(error)
-                response.status(400).json({"errmsg": "Failed to find user"}).end()
+                response.json({
+                    stat: 66601,
+                    msg: "Failed to find user"
+                }).end()
             } else {
                 if(resArr[0]) {
                     var userFiles = resArr[0].files
@@ -363,18 +482,24 @@ MongoDBHandler.prototype.getMusic = function(response, username, filename, filei
                             })
 
                             downloadStream.on('error', function() {
-                                response.status(400).json({"errmsg": "Failed to send file over download"})
+                                response.status(400).json({"msg": "Failed to send file over download"})
                             })
 
                             downloadStream.on('end', function() {
                                 response.end()
                             })
                         } else {
-                            response.status(400).json({"errmsg": "Could not get requested file"}).end()
+                            response.json({
+                                stat: 66603,
+                                "msg": "Could not get requested file"
+                            }).end()
                         }
                 } else {
                     // console.log('User ' + username + ' not found')
-                    response.status(400).json({"errmsg": "Could not find user's files"}).end()
+                    response.json({
+                        stat: 66601,
+                        "msg": "user name not found"
+                    }).end()
                 }
             }
         })
@@ -407,7 +532,10 @@ MongoDBHandler.prototype.getMusic = function(response, username, filename, filei
                 db.collection('user_files').find({"user_id": username}).toArray(function(error, resArr) {
                     if(error) {
                         // console.log(error)
-                        response.status(400).json({"errmsg": "Failed to find user"}).end()
+                        response.json({
+                            stat: 66601,
+                            msg: "Failed to find user"
+                        }).end()
                     } else {
                         if(resArr[0]) {
                             var userFiles = resArr[0].files
@@ -438,18 +566,24 @@ MongoDBHandler.prototype.getMusic = function(response, username, filename, filei
                                 })
     
                                 downloadStream.on('error', function() {
-                                    response.status(400).json({"errmsg": "Failed to send file over download"})
+                                    response.status(400).json({"msg": "Failed to send file over download"})
                                 })
     
                                 downloadStream.on('end', function() {
                                     response.end()
                                 })
                             } else {
-                                response.status(400).json({"errmsg": "Could not get requested file"})
+                                response.json({
+                                    stat: 66603,
+                                    "msg": "Could not get requested file"
+                                }).end()
                             }
                         } else {
                             // console.log('User ' + username + ' not found')
-                            response.status(400).json({"errmsg": "Could not find user's files"}).end()
+                            response.json({
+                                stat: 66601,
+                                "msg": "user name not found"
+                            }).end()
                         }
                     }
                 })
