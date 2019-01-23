@@ -29,20 +29,6 @@ app.get('/signin', function(req, res) {
     res.render('pages/signin');
 });
 
-/*
-app.get('/api/listuser', function (req, res) {
-    dbManager.getUser(res)
-})
-
-/*
-app.get('/api/adduser/:username/:password', function(req, res) {
-    uname = req.params.username
-    pword = req.params.password
-
-    dbManager.addUser(res, uname, pword)
-})
-*/
-
 app.post('/api/adduser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
@@ -54,6 +40,12 @@ app.post('/api/verifyuser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
     mongoDBManager.checkCredentials(res, uname, pword)
+})
+
+app.post('/api/deleteuser', function(req, res) {
+    console.log('DELETE THEM USERS')
+    console.log('WHAT ABOUT DEM LIAM NEESONS DOE?')
+    console.log('NAW NAW NAW NOT HIM')
 })
 
 app.post('/api/addmusicfile', function (req, res) {
@@ -96,6 +88,10 @@ app.post('/api/getmusicfile', function (req, res) {
     // res.attachment('./media/mudmud/audio/The Godfather Theme Song.wav')
     // res.download('./media/mudmud/audio/The Godfather Theme Song.wav')
     mongoDBManager.getMusic(res, req.body.username, req.body.filename, req.body.fileid)
+})
+
+app.post('/api/deletemusicfile', function(req, res) {
+    console.log('DELETE THEM MUSICS')
 })
 
 var server = app.listen(5000, function () {
