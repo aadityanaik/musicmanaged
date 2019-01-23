@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Music Managed - A Service for the 21st Century.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css" />
+    <script src="scripts/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="intro_bar">
+        <div id="title_section">
+            <p id="title">MUSIC MANAGED.</p>
+            <!-- <p id="sub_title">A streaming service for the 21st Century.</p> -->
+        </div>
+        <div id="nav_section">
+            <a href="about.html">About Music Managed.</a>
+            <a href="terms.html">Terms.</a>
+            <a href="contact.html">Get in touch.</a>
+        </div>
+    </nav>
+    <div class="content">
+        <form name="credentials_form" action="api/users" method="POST">
+            <table>
+                <tr>
+                    <th colspan="2">
+                        <p class="form_title">Let's get acquainted!</p>
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        <label for="username">Pick a username...</label>
+                    </td>
+                    <td>
+                        <input type="text" name="username" id="username" placeholder="...Spooderman?">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        <label for="password">Set a password...</label>
+                    </td>
+                    <td>
+                        <input type="password" name="password" id="password" placeholder="zxcvb (a horrible passsword)">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        <button type="button" name="submit" onclick="validateInput()" class="actionbutton">Sign up!</button>
+                        <button class="helper">Already a user? Sign in!</button>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p id="error"></p>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+<footer>
+    <p>Made for the Fundamentals of Web Technology class by Utkarsh Pant, Aaditya Naik and Aditya Pansare.</p>
+</footer>
+
+</html>
+<!-- 
+<div class="col-md-10 col-lg-10 col-sm-7 col-xs-12 ml-auto">
+    <input type="text" name="username" id="username" required>
+    <br />
+    <input type="password" name="password" id="password" required>
+    <br />
+    <button type="submit" name="submit" id="submit" onclick="adduserfromform()">
+        Submit
+    </button>
+    <button type="button" name="check" id="check" onclick="verifyUserCreds()">
+        Check Credentials
+    </button>
+    <br />
+    <br />
+    <input type="text" name="username" id="uploadSongUName">
+    <br />
+    <input type="file" name="file" id="file">
+    <button type="submit" id="upload" name="file" onclick="uploadFile()">
+        Upload
+    </button>
+    <br />
+    <input type="text" name="username" id="downloadSongUName">
+    <br />
+    <input type="text" name="filename" id="filename">
+    <br />
+    <button type="submit" id="download" name="download" onclick="downloadFile()">
+        Upload
+    </button>
+    <br />
+    <audio controls id="audio">
+        <source id="source" src="">
+    </audio>
+</div> -->
