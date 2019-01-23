@@ -35,16 +35,16 @@ client.connect(function(err) {
 function MongoDBHandler() {}
 
 MongoDBHandler.prototype.addUser = function(response, username, password) {
-    // console.log('Trying to add user ' + username)
+    console.log('Trying to add user ' + username)
     bcrypt.genSalt(saltRounds, function(error, salt) {
         if(error) {
-            // console.log(error)
+            console.log(error)
             response.json(error)
             response.end()
         } else {
             bcrypt.hash(password, salt, null, function(hashErr, hash) {
                 if(hashErr) {
-                    // console.log(hashErr)
+                    console.log(hashErr)
                     response.json(hashErr)
                     response.end()
                 } else {
@@ -56,6 +56,7 @@ MongoDBHandler.prototype.addUser = function(response, username, password) {
                             {unique: true},
                             function(err, res) {
                                 if(err) {
+                                    console.log(err)
                                     throw(err)
                                 }
                             }
@@ -73,7 +74,7 @@ MongoDBHandler.prototype.addUser = function(response, username, password) {
 
                         db.collection('user_login').insertOne({"user_id" : username, "pass" : hash}, function(insertErr, res) {
                             if(insertErr) {
-                                // console.log(insertErr)
+                                console.log(insertErr)
                                 message = ''
                                 if(insertErr['code'] == 11000) {
                                     message = 'username already taken'
