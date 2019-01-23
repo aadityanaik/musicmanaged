@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views/');
 
 app.get('/', function(req, res) {
-    res.render('/pages/index');
+    res.render('pages/index');
 });
 
 app.get('/signup', function(req, res) {
@@ -29,6 +29,7 @@ app.get('/signin', function(req, res) {
     res.render('pages/signin');
 });
 
+/*
 app.get('/api/listuser', function (req, res) {
     dbManager.getUser(res)
 })
