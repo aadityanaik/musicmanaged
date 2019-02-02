@@ -26,7 +26,7 @@ app.get('/signup', function(req, res) {
 });
 
 app.get('/signin', function(req, res) {
-    res.render('pages/signin');
+    res.render('pages/index');
 });
 
 app.post('/api/adduser', function (req, res) {
