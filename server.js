@@ -25,6 +25,10 @@ app.use(session({secret: String (date.getTime())}));
 app.get('/', function(req, res) {
     // sess = req.session
 
+    if (req.session.username){
+        console.log('REDIRECTED TO HOME PAGE with '+ req.session.username)
+    } 
+
     if(req.session.page_views) {
         req.session.page_views++
         console.log(req.session.page_views)
