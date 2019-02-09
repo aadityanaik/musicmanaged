@@ -41,6 +41,17 @@ function getResponseOfAPI(endpoint) {
     })
 }
 
+function signUpForm() {
+    var username = document.login_form.username.value;
+    var password = document.login_form.password.value;
+
+    // alert(username + ' = ' + password)
+
+    //TODO: VERIFICATION LINK I GUESS...
+
+    adduser(username,password);
+}
+
 function adduser(username, password) {
     // TODO: Make the transfer secure over https by adding that one header everyone talks about
     var host = window.location.hostname
