@@ -69,7 +69,7 @@ nav {
 }
 
 h1 {
-    border-bottom: 5px solid #000000;
+    border-bottom: 2px solid #000000;
     padding: 10px 0px;
     width: auto;
     text-align: left;
@@ -121,11 +121,11 @@ input {
     padding: 10px;
     margin: 5px 0px;
     color: #000000;
-    border: 5px solid #ff6060;
+    border: 2px solid #ff6060;
 }
 
 button {
-    border: 5px solid #ffffff;
+    border: 2px solid #ffffff;
     padding: 10px;
     color: #000000;
     font-weight: 600;
@@ -135,7 +135,7 @@ button {
 }
 
 button {
-    border: 5px solid #ffffff;
+    border: 2px solid #ffffff;
     padding: 10px;
     color: #000000;
     font-weight: 600;
@@ -145,7 +145,7 @@ button {
 }
 
 button:hover {  
-    border: 5px solid #000000;
+    border: 2px solid #000000;
     padding: 10px;
     color: #000000;
     font-weight: 600;
