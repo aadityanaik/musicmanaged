@@ -52,6 +52,13 @@ function signUpForm() {
     adduser(username,password);
 }
 
+function signInForm() {
+    var username = document.login_form.username.value;
+    var password = document.login_form.password.value;
+
+    verifyUsr(username, password);
+}
+
 function adduser(username, password) {
     // TODO: Make the transfer secure over https by adding that one header everyone talks about
     var host = window.location.hostname

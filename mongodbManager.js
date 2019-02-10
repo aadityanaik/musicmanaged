@@ -13,29 +13,22 @@ var bcrypt = require('bcrypt-nodejs')
 
 const saltRounds = 10
 
-/*
-client.connect(function(err) {
-    if(err) {
-        // console.log('Shitty luck')
-    } else {
-        // console.log('Cool')
-        var db = client.db(dbname)
-        db.collection('user_login').find({"name" : "dumdum"}).toArray(function(err, res) {
-            if(err) {
-                // console.log('Again, shite')
-            } else {
-                // console.log('No docs found')
-            }
-        })
-        client.close()
-    }
-})
-*/
-
 function MongoDBHandler() {}
 
-MongoDBHandler.prototype.addUser = function(request, response, username, password) {
+MongoDBHandler.prototype.addUser = function(response, username, password, callback) {
     console.log('Trying to add user ' + username)
+
+    let success = false
+
+    if(password == "") {
+        message = "No password entered"
+        response.json({
+            stat: 66600,
+            msg: "Could not insert user-" + message
+        })
+        response.end()
+    }
+
     bcrypt.genSalt(saltRounds, function(error, salt) {
         if(error) {
             console.log(error)
@@ -51,30 +44,9 @@ MongoDBHandler.prototype.addUser = function(request, response, username, passwor
                     if(client.isConnected()) {
                         var db = client.db(dbname)
 
-                        db.collection('user_login').createIndex(
-                            {"user_id": 1},
-                            {unique: true},
-                            function(err, res) {
-                                if(err) {
-                                    console.log(err)
-                                    throw(err)
-                                }
-                            }
-                        )
-
-                        db.collection('user_files').createIndex(
-                            {"user_id": 1},
-                            {unique: true},
-                            function(err, res) {
-                                if(err) {
-                                    throw(err)
-                                }
-                            }
-                        )
-
                         db.collection('user_login').insertOne({"user_id" : username, "pass" : hash}, function(insertErr, res) {
                             if(insertErr) {
-                                console.log(insertErr)
+                                console.log(insertErr + "Here")
                                 message = ''
                                 if(insertErr['code'] == 11000) {
                                     message = 'username already taken'
@@ -101,18 +73,17 @@ MongoDBHandler.prototype.addUser = function(request, response, username, passwor
                                         })
                                         response.end()
                                     } else {
-                                        // console.log(otherRes)
+                                        console.log("OK1")
                                         // response.json(otherRes)
+                                        callback(username)
                                         
-                                        request.session.username = username
+                                        console.log(success)
                                         
                                         response.json({
                                             stat: 200,
                                             msg: "Successfully added user"
                                         })
                                         response.end()
-                                        console.log(request.session)
-                                        return request
                                     }
                                 })
                             }
@@ -124,12 +95,35 @@ MongoDBHandler.prototype.addUser = function(request, response, username, passwor
                                 response.json('Could not connect to the server')
                                 response.end()
                             } else {
-                                // console.log('Initiated connection to mongodb server')
+                                console.log('Initiated connection to mongodb server')
                                 var db = client.db(dbname)
+
+                                db.collection('user_login').createIndex(
+                                    {"user_id": 1},
+                                    {unique: true},
+                                    function(err, res) {
+                                        if(err) {
+                                            console.log(err)
+                                            throw(err)
+                                        }
+                                    }
+                                )
+        
+                                db.collection('user_files').createIndex(
+                                    {"user_id": 1},
+                                    {unique: true},
+                                    function(err, res) {
+                                        if(err) {
+                                            throw(err)
+                                        }
+                                    }
+                                )
+
                                 db.collection('user_login').insertOne({"user_id" : username, "pass" : hash}, function(insertErr, res) {
                                     if(insertErr) {
-                                        // console.log(insertErr)
+                                        console.log(insertErr + "Here")
                                         // response.json(insertErr)
+                                        
                                         message = ''
                                         if(insertErr['code'] == 11000) {
                                             message = 'username already taken'
@@ -156,16 +150,14 @@ MongoDBHandler.prototype.addUser = function(request, response, username, passwor
                                                 })
                                                 response.end()
                                             } else {
-                                                // console.log(otherRes)
-                                                
-                                                request.session.username = username
+                                                console.log("OK2")
+                                                callback(username)
+                                                console.log(success)
                                                 response.json({
                                                     stat: 200,
                                                     msg: "Successfully added user"
                                                 })
                                                 response.end()
-                                                console.log(request.session)
-                                                return request
                                             }
                                         })
                                     }
@@ -180,7 +172,7 @@ MongoDBHandler.prototype.addUser = function(request, response, username, passwor
 
 }
 
-MongoDBHandler.prototype.checkCredentials = function(request, response, username, enteredPass) {
+MongoDBHandler.prototype.checkCredentials = function(response, username, enteredPass, callback) {
     if(client.isConnected()) {
         var db = client.db(dbname)
         db.collection('user_login').find({"user_id": username}).toArray(function(err, res) {
@@ -210,7 +202,7 @@ MongoDBHandler.prototype.checkCredentials = function(request, response, username
                             if(bcryptRes == false) {
                                 stat = 696
                             } else {
-                                request.session.username = username
+                                callback(username)
                             }
 
                             response.json({
@@ -290,7 +282,7 @@ MongoDBHandler.prototype.checkCredentials = function(request, response, username
                                     if(bcryptRes == false) {
                                         stat = 696
                                     } else {
-                                        request.session.username = username
+                                        callback(username)
                                     }
 
                                     response.json({
@@ -314,8 +306,6 @@ MongoDBHandler.prototype.checkCredentials = function(request, response, username
             }
         })
     }
-
-    return request
 }
 
 MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileBuffer) {

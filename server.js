@@ -52,23 +52,24 @@ app.get('/signin', function(req, res) {
 app.post('/api/adduser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
-    console.log(uname, pword)
-    r = mongoDBManager.addUser(req, res, uname, pword)
-    // console.log(r.session)
-    if(r && r.session.username) {
-        req.session.username = r.session.username
-    }
+    mongoDBManager.addUser(res, uname, pword, function(val) {
+        if(val) {
+            req.session.username = val
+        }
+    })
     // console.log(req)
 })
 
 app.post('/api/verifyuser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
-    r = mongoDBManager.checkCredentials(req, res, uname, pword)
+    mongoDBManager.checkCredentials(res, uname, pword, function(param) {
+        if(param) {
+            console.log(param  + " to be sessioned")
+            req.session.username = param
+        }
+    })
 
-    if(r && r.session.username) {
-        req.session.username = r.session.username
-    }
 })
 
 app.post('/api/deleteuser', function(req, res) {
