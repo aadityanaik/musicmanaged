@@ -5,6 +5,7 @@ var fs = require('fs')
 var bodyParser = require('body-parser')
 var mongoDB = require('./mongodbManager')
 var path = require('path')
+var session = require('express-session');
 
 var mongoDBManager = new mongoDB.MongoDBHandler()
 
@@ -16,8 +17,27 @@ app.use(express.static('public'));
 app.use(busboy());
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views/');
+date = new Date();
+app.use(session({secret: String (date.getTime())}));
 
+
+// var sess = null;
 app.get('/', function(req, res) {
+    // sess = req.session
+
+    if (req.session.username){
+        console.log('REDIRECTED TO HOME PAGE with '+ req.session.username)
+    } 
+
+    if(req.session.page_views) {
+        req.session.page_views++
+        console.log(req.session.page_views)
+    } else {
+        req.session.page_views = 1;
+        console.log(req.session.page_views)
+    }
+    
+    console.log(req.session)
     res.render('pages/index');
 });
 
@@ -33,13 +53,22 @@ app.post('/api/adduser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
     console.log(uname, pword)
-    mongoDBManager.addUser(res, uname, pword)
+    r = mongoDBManager.addUser(req, res, uname, pword)
+    // console.log(r.session)
+    if(r && r.session.username) {
+        req.session.username = r.session.username
+    }
+    // console.log(req)
 })
 
 app.post('/api/verifyuser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
-    mongoDBManager.checkCredentials(res, uname, pword)
+    r = mongoDBManager.checkCredentials(req, res, uname, pword)
+
+    if(r && r.session.username) {
+        req.session.username = r.session.username
+    }
 })
 
 app.post('/api/deleteuser', function(req, res) {
