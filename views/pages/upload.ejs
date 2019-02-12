@@ -37,17 +37,26 @@
                         <label for="username">Browse for a File to add.</label>
                     </td>
                     <td>
-                        <input type="text" name="username" id="username" placeholder="...Spooderman?">
+                        <input type="file" name="filename" id="filename" placeholder="No File Selected">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="1">
-                        <label for="password">Set a password...</label>
+                        <label for="SongTitle">Enter Song Name: </label>
                     </td>
                     <td>
-                        <input type="password" name="password" id="password" placeholder="zxcvb (a horrible passsword)">
+                        <input type="text" name="SongTitle" id="SongTitle" placeholder="Song Title">
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="1">
+                        <label for="ArtistName">Enter Artist Name: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="ArtistName" id="ArtistName" placeholder="Artist Name">
+                    </td>
+                </tr>
+
                 <tr>
                     <td colspan="1">
                         <button type="button" name="submit" onclick="validateInput()" class="actionbutton">Sign up!</button>
