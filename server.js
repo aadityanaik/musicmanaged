@@ -27,18 +27,20 @@ app.get('/', function(req, res) {
 
     if (req.session.username){
         console.log('REDIRECTED TO HOME PAGE with '+ req.session.username)
-    } 
-
-    if(req.session.page_views) {
-        req.session.page_views++
-        console.log(req.session.page_views)
+        res.render('pages/home')
     } else {
-        req.session.page_views = 1;
-        console.log(req.session.page_views)
+
+        if(req.session.page_views) {
+            req.session.page_views++
+            console.log(req.session.page_views)
+        } else {
+            req.session.page_views = 1;
+            console.log(req.session.page_views)
+        }
+        
+        console.log(req.session)
+        res.render('pages/index');
     }
-    
-    console.log(req.session)
-    res.render('pages/index');
 });
 
 app.get('/signup', function(req, res) {
@@ -48,6 +50,14 @@ app.get('/signup', function(req, res) {
 app.get('/signin', function(req, res) {
     res.render('pages/index');
 });
+
+app.get('/upload', function(req, res) {
+    if(req.session.username) {
+        res.render('pages/upload')
+    } else {
+        res.render('pages/index')
+    }
+})
 
 app.post('/api/adduser', function (req, res) {
     var uname = req.body.username
@@ -65,7 +75,6 @@ app.post('/api/verifyuser', function (req, res) {
     var pword = req.body.password
     mongoDBManager.checkCredentials(res, uname, pword, function(param) {
         if(param) {
-            console.log(param  + " to be sessioned")
             req.session.username = param
         }
     })
