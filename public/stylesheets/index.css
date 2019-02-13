@@ -29,7 +29,7 @@ nav {
     display: flex;
     flex-flow: row wrap;
     align-items: baseline;
-    border-bottom: 2px solid #000000;
+    border-bottom: 5px solid #000000;
 }
 
 .mm-navbar-brand {

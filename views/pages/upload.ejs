@@ -4,110 +4,110 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Music Managed - A Service for the 21st Century.</title>
+    <title>Music Managed.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <script src="scripts/index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/index.css" />
 </head>
 
 <body>
-    <nav class="intro_bar">
-        <div id="title_section">
-            <p id="title">MUSIC MANAGED.</p>
-        </div>
-        <div id="nav_section">
-            <a href="about.html">About Music Managed.</a>
-            <a href="terms.html">Terms.</a>
-            <a href="contact.html">Get in touch.</a>
+    <nav>
+        <div class="row mm-navbar">
+            <div class="col-md-6">
+                <div class="mm-navbar-brand">
+                    Music Managed?
+                </div>
+            </div>
+            <div class="col-md-6 mm-navbar-items">
+                <a href="/hello" class="mm-nav-link">Get In Touch.</a>
+                <a href="/terms" class="mm-nav-link">Terms.</a>
+                <a href="/404" class="mm-nav-link">Stuff.</a>
+            </div>
         </div>
     </nav>
-    <div class="content">
-        <form name="upload_form" action="api/users" method="POST">
-            <table>
-                <tr>
-                    <th colspan="2">
-                        <p class="form_title">Add to your Music Managed library.</p>
-                    </th>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label for="username">Browse for a File to add.</label>
-                    </td>
-                    <td>
-                        <input type="file" name="filename" id="filename" placeholder="No File Selected">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label for="SongTitle">Enter Song Name: </label>
-                    </td>
-                    <td>
-                        <input type="text" name="SongTitle" id="SongTitle" placeholder="Song Title">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="1">
-                        <label for="ArtistName">Enter Artist Name: </label>
-                    </td>
-                    <td>
-                        <input type="text" name="ArtistName" id="ArtistName" placeholder="Artist Name">
-                    </td>
-                </tr>
+    
+    <div class="row">
+        <div class="col-md-6 some align-self-center">
+            <svg id="graph" width="100%" height="400px">
 
-                <tr>
-                    <td colspan="1">
-                        <button type="button" name="submit" onclick="validateInput()" class="actionbutton">Sign up!</button>
-                        <button class="helper">Already a user? Sign in!</button>
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <p id="error"></p>
-                    </td>
-                </tr>
-            </table>
-        </form>
+                <!-- pattern -->
+                <defs>
+                    <pattern id="image" x="0%" y="0%" height="100%" width="100%">
+                        <image x="0" y="0" width="300" height="300" xlink:href="../images/icon.png"></image>
+                    </pattern>
+                </defs>
+                <circle id="sd" class="medium" cx="50%" cy="50%" r="20%" fill="url(#image)" stroke="lightblue"
+                    stroke-width="0.5%" />
+                <text x="50%" y="50%" text-anchor="middle" fill="#ffffff" stroke="white">HELLO</text>
+
+            </svg>
+        </div>
+        <div class="col-md-6 some">
+            <div class="h1-caption">
+                <h1>
+                    Your music, now Managed. 
+                </h1>
+                <p>
+                    For everyone, everywhere. Experience a new way to listen to music!
+                </p>
+            </div>
+            <div>
+                <form name="login_form" method="POST" action="api/verifyuser" class="form">
+                    <div class="form-group">
+                        <table class="align-middle">
+                            <tr>
+                                <td colspan="2">
+                                    <input type="text" name = 'username' maxlength=20 placeholder="Username">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan=2>
+                                    <input type="password" name ='password' maxlength=20 placeholder="Password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan=1>
+                                    <button type="submit" name="submit_button" >Sign In.</button>
+                                    <button type="button" name="register_button" onclick="signUpForm()">Sign Up.</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="disclaimer">
+                                        By Signing Up for, or making use of Music Managed, You agree to the Terms of
+                                        Service. If not, shove it up your ass. Good day, sir/madam/thing.<br><i>Did you just assume the user's gender(s)</i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <footer class="row">
+        <div class="col-md-6">
+            <h3>
+                Made for the Fundamentals of Web Technology Course, 2019.
+            </h3>
+            <p>
+                By Aaditya Naik, Aditya Pansare and Utkarsh Pant.<br>
+                Music Managed was made using NodeJS, EJS and the whole shebang! To see the source code, head over to
+                GitHub.
+            </p>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </footer>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
 </body>
-
-<footer>
-    <p>Made for the Fundamentals of Web Technology class by Utkarsh Pant, Aaditya Naik and Aditya Pansare.</p>
-</footer>
-
-</html>
-<!-- 
-<div class="col-md-10 col-lg-10 col-sm-7 col-xs-12 ml-auto">
-    <input type="text" name="username" id="username" required>
-    <br />
-    <input type="password" name="password" id="password" required>
-    <br />
-    <button type="submit" name="submit" id="submit" onclick="adduserfromform()">
-        Submit
-    </button>
-    <button type="button" name="check" id="check" onclick="verifyUserCreds()">
-        Check Credentials
-    </button>
-    <br />
-    <br />
-    <input type="text" name="username" id="uploadSongUName">
-    <br />
-    <input type="file" name="file" id="file">
-    <button type="submit" id="upload" name="file" onclick="uploadFile()">
-        Upload
-    </button>
-    <br />
-    <input type="text" name="username" id="downloadSongUName">
-    <br />
-    <input type="text" name="filename" id="filename">
-    <br />
-    <button type="submit" id="download" name="download" onclick="downloadFile()">
-        Upload
-    </button>
-    <br />
-    <audio controls id="audio">
-        <source id="source" src="">
-    </audio>
-</div> -->
