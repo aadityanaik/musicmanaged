@@ -13,16 +13,7 @@
 </head>
 
 <body>
-    <nav class="intro_bar">
-        <div id="title_section">
-            <p id="title">MUSIC MANAGED.</p>
-        </div>
-        <div id="nav_section">
-            <a href="about.html">About Music Managed.</a>
-            <a href="terms.html">Terms.</a>
-            <a href="contact.html">Get in touch.</a>
-        </div>
-    </nav>
+    <% include ../partials/navbar.ejs %>
     <div class="content">
         <form name="upload_form" action="api/users" method="POST">
             <table>
@@ -33,12 +24,13 @@
                 </tr>
                 <tr>
                     <td colspan="1">
-                        <label for="username">Browse for a File to add.</label>
+                        <label for="filename">Browse for a File to add.</label>
                     </td>
                     <td>
                         <input type="file" name="filename" id="filename" placeholder="No File Selected">
                     </td>
                 </tr>
+                <!--
                 <tr>
                     <td colspan="1">
                         <label for="SongTitle">Enter Song Name: </label>
@@ -55,11 +47,12 @@
                         <input type="text" name="ArtistName" id="ArtistName" placeholder="Artist Name">
                     </td>
                 </tr>
+                -->
 
                 <tr>
                     <td colspan="1">
-                        <button type="button" name="submit" onclick="validateInput()" class="actionbutton">Sign up!</button>
-                        <button class="helper">Already a user? Sign in!</button>
+                        <button type="button" name="submit" onclick="validateInput()" class="actionbutton">Upload</button>
+                        <button class="helper disabled">Download</button>
                     </td>
                     
                 </tr>

@@ -25,6 +25,8 @@ app.use(session({secret: String (date.getTime())}));
 app.get('/', function(req, res) {
     // sess = req.session
 
+    mongoDBManager.createConnectionIfNotThere()
+
     if (req.session.username){
         console.log('REDIRECTED TO HOME PAGE with '+ req.session.username)
         res.render('pages/home')
