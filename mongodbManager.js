@@ -20,9 +20,7 @@ MongoDBHandler.prototype.createConnectionIfNotThere = function() {
         console.log('Connecting')
         client.connect(function(connectErr, res) {
             if(connectErr) {
-                // console.log('Could not connect to the server')
-                response.json('Could not connect to the server')
-                response.end()
+                throw(connectErr)
             } else {
                 console.log('Initiated connection to mongodb server')
                 var db = client.db(dbname)
