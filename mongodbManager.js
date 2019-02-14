@@ -51,31 +51,24 @@ MongoDBHandler.prototype.createConnectionIfNotThere = function() {
 }
 
 
-MongoDBHandler.prototype.addUser = function(response, username, password, callback) {
+MongoDBHandler.prototype.addUser = function(username, password, callback) {
     console.log('Trying to add user ' + username)
 
     let success = false
 
     if(password == "") {
         message = "No password entered"
-        response.json({
-            stat: 66600,
-            msg: "Could not insert user-" + message
-        })
-        response.end()
+        callback(66600, message)
     }
 
     bcrypt.genSalt(saltRounds, function(error, salt) {
         if(error) {
-            console.log(error)
-            response.json(error)
-            response.end()
+            // console.log(error)
+            callback(66600, error)
         } else {
             bcrypt.hash(password, salt, null, function(hashErr, hash) {
                 if(hashErr) {
-                    console.log(hashErr)
-                    response.json(hashErr)
-                    response.end()
+                    callback(66600, hashErr)
                 } else {
                     var db = client.db(dbname)
 
@@ -88,11 +81,7 @@ MongoDBHandler.prototype.addUser = function(response, username, password, callba
                             } else {
                                 message = 'reason unknown'
                             }
-                            response.json({
-                                stat: 66600,
-                                msg: "Could not insert user-" + message
-                            })
-                            response.end()
+                            callback(66600, message)
                         } else {
                             db.collection('user_files').insertOne({"user_id": username, "files": []}, function(anotherInsertErr, otherRes) {
                                 if(anotherInsertErr) {
@@ -102,23 +91,10 @@ MongoDBHandler.prototype.addUser = function(response, username, password, callba
                                     } else {
                                         message = 'reason unknown'
                                     }
-                                    response.json({
-                                        stat: 66600,
-                                        msg: "Could not insert user-" + message
-                                    })
-                                    response.end()
+
+                                    callback(66600, "Could not insert user-" + message)
                                 } else {
-                                    console.log("OK1")
-                                    // response.json(otherRes)
-                                    callback(username)
-                                    
-                                    console.log(success)
-                                    
-                                    response.json({
-                                        stat: 200,
-                                        msg: "Successfully added user"
-                                    })
-                                    response.end()
+                                    callback(200, "Successfully added user", username)
                                 }
                             })
                         }
@@ -129,54 +105,33 @@ MongoDBHandler.prototype.addUser = function(response, username, password, callba
     })
 }
 
-MongoDBHandler.prototype.checkCredentials = function(response, username, enteredPass, callback) {
+MongoDBHandler.prototype.checkCredentials = function(username, enteredPass, callback) {
     // if(client.isConnected()) {
     var db = client.db(dbname)
     db.collection('user_login').find({"user_id": username}).toArray(function(err, res) {
         if(err) {
-            // console.log(err)
-            response.status(500).json({
-                stat: 500,
-                msg: "something diabolical happened"
-            })
-            response.end()
+            callback(500, "something diabolical happened")
         } else {
             if(res[0]) {
-                // console.log(res[0].pass)
                 var password = res[0].pass
                 bcrypt.compare(enteredPass, password, function(bcryptErr, bcryptRes) {
                     if(bcryptErr) {
-                        // console.log(bcryptErr)
-                        response.status(500).json({
-                            stat: 500,
-                            msg: "something diabolical happened"
-                        })
-                        response.end()
+                        callback(500, "something diabolical happened")
                     } else {
                         // console.log(bcryptRes)
 
                         stat = 200
                         if(bcryptRes == false) {
                             stat = 696
+                            callback(696, "authenticated- " + bcryptRes)
                         } else {
-                            callback(username)
+                            callback(200, "authenticated- " + bcryptRes, username)
                         }
-
-                        response.json({
-                            stat: stat,
-                            msg: "authenticated- " + bcryptRes
-                        })
-
-                        response.end()
                     }
                 })
             } else {
-                // console.log('No user ' + username + ' found')
-                response.json({
-                    stat: 66601,
-                    msg: 'No user ' + username + ' found'
-                })
-                response.end()
+                
+                callback(66601, "No user " + username + " found")
             }
         }
     })
@@ -185,7 +140,7 @@ MongoDBHandler.prototype.checkCredentials = function(response, username, entered
     // }
 }
 
-MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileBuffer, callback) {
+MongoDBHandler.prototype.addMusic = function(username, fileName, fileBuffer, callback) {
     //if(client.isConnected()) {
     var db = client.db(dbname)
     const readableTrackStream = new Readable()
@@ -202,10 +157,7 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
 
     uploadStream.on('error', function() {
         // console.log('YIKES')
-        response.status(400).json({
-            stat: 66604,
-            msg: "Failed to upload file"
-        }).end()
+        callback(66604, "Failed to upload file")
     })
 
     uploadStream.on('finish', function() {
@@ -217,19 +169,14 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
             }
         }}, function(err, res) {
             if(err) {
-                // console.log('OOPS')
-                // console.log(res)
-                response.json({
-                    stat: 66604,
-                    msg: "Failed to upload file"
-                }).end()
+                
+                callback(66604, "Failed to upload file")
+
             } else {
                 // console.log('DONE')
                 if(res.matchedCount == 1) {
-                    response.json({
-                        stat: 200,
-                        msg: "uploaded file successfully"
-                    }).end()
+                    
+                    callback(200, "uploaded file successfully")
                 } else {
                     bucket.delete(id, function(err) {
                         if(err) {
@@ -238,10 +185,7 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
                             // console.log('Deleted')
                         }
                     })
-                    response.json({
-                        stat: 66601,
-                        msg: "user not found"
-                    }).end()
+                    callback(66601, "No user " + username + " found")
                 }
             }
         })
@@ -249,18 +193,14 @@ MongoDBHandler.prototype.addMusic = function(response, username, fileName, fileB
     })
 }
 
-MongoDBHandler.prototype.getMusic = function(response, username, filename, fileid, callback) {
+MongoDBHandler.prototype.getMusic = function(username, filename, fileid, callback) {
     // if(client.isConnected()) {
     var db = client.db(dbname)
     
     // first to check if the user has the file needed
     db.collection('user_files').find({"user_id": username}).toArray(function(error, resArr) {
         if(error) {
-            // console.log(error)
-            response.json({
-                stat: 66601,
-                msg: "Failed to find user"
-            }).end()
+            callback(66601, "No user " + username + " found")
         } else {
             if(resArr[0]) {
                 var userFiles = resArr[0].files
@@ -291,24 +231,18 @@ MongoDBHandler.prototype.getMusic = function(response, username, filename, filei
                         })
 
                         downloadStream.on('error', function() {
-                            response.status(400).json({"msg": "Failed to send file over download"})
+                            callback(400, "Failed to send file over download")
                         })
 
                         downloadStream.on('end', function() {
                             response.end()
                         })
                     } else {
-                        response.json({
-                            stat: 66603,
-                            "msg": "Could not get requested file"
-                        }).end()
+                        callback(66603, "Could not get requested file")
                     }
             } else {
-                // console.log('User ' + username + ' not found')
-                response.json({
-                    stat: 66601,
-                    "msg": "user name not found"
-                }).end()
+                
+                callback(66601, "No user " + username + " found")
             }
         }
     })

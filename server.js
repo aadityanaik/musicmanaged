@@ -64,9 +64,16 @@ app.get('/upload', function(req, res) {
 app.post('/api/adduser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
-    mongoDBManager.addUser(res, uname, pword, function(val) {
-        if(val) {
-            req.session.username = val
+    mongoDBManager.addUser(uname, pword, function(resStat, resMsg, username) {
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
+
+        res.end()
+
+        if(username) {
+            req.session.username = username
         }
     })
     // console.log(req)
@@ -75,9 +82,16 @@ app.post('/api/adduser', function (req, res) {
 app.post('/api/verifyuser', function (req, res) {
     var uname = req.body.username
     var pword = req.body.password
-    mongoDBManager.checkCredentials(res, uname, pword, function(param) {
-        if(param) {
-            req.session.username = param
+    mongoDBManager.checkCredentials(uname, pword, function(resStat, resMsg, username) {
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
+
+        res.end()
+
+        if(username) {
+            req.session.username = username
         }
     })
 
@@ -120,7 +134,14 @@ app.post('/api/addmusicfile', function (req, res) {
 
     req.busboy.on('finish', function () {
         console.log(buffer.length)
-        mongoDBManager.addMusic(res, username, fileName, buffer)
+        mongoDBManager.addMusic(username, fileName, buffer, function(resStat, resMsg) {
+            res.json({
+                stat: resStat,
+                msg: resMsg
+            })
+    
+            res.end()
+        })
     })
 })
 
@@ -128,7 +149,14 @@ app.post('/api/getmusicfile', function (req, res) {
     console.log(req.body)
     // res.attachment('./media/mudmud/audio/The Godfather Theme Song.wav')
     // res.download('./media/mudmud/audio/The Godfather Theme Song.wav')
-    mongoDBManager.getMusic(res, req.body.username, req.body.filename, req.body.fileid)
+    mongoDBManager.getMusic(req.body.username, req.body.filename, req.body.fileid, function(resStat, resMsg) {
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
+
+        res.end()
+    })
 })
 
 app.post('/api/deletemusicfile', function(req, res) {
