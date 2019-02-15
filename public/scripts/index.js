@@ -2,34 +2,34 @@ function test() {
     alert("Hello!");
 }
 
-function validateInput() {
-    let valid_flag = false;
-    let username = document.credentials_form.username.value;
-    let password = document.credentials_form.password.value;
+// function validateInput() {
+//     let valid_flag = false;
+//     let username = document.credentials_form.username.value;
+//     let password = document.credentials_form.password.value;
 
-    if (username === null || username === "") {
-        document.getElementById("username").style.borderBottom = "2px solid red";
-        document.getElementById("error").innerHTML = "Please check the information you have entered!";
-        document.getElementById("error").style.visible = "visible";
-        valid_flag = false;
-    } else {
-        valid_flag = true;
-    }
+//     if (username === null || username === "") {
+//         document.getElementById("username").style.borderBottom = "2px solid red";
+//         document.getElementById("error").innerHTML = "Please check the information you have entered!";
+//         document.getElementById("error").style.visible = "visible";
+//         valid_flag = false;
+//     } else {
+//         valid_flag = true;
+//     }
 
-    if (password.length < 8) {
-        document.getElementById("password").style.borderBottom = "2px solid red";
-        document.getElementById("error").innerHTML = "Please check the information you have entered!";
-        document.getElementById("error").style.visibility = "visible";
-        valid_flag = false; 
-    } else {
-        valid_flag = true;
-    }
+//     if (password.length < 8) {
+//         document.getElementById("password").style.borderBottom = "2px solid red";
+//         document.getElementById("error").innerHTML = "Please check the information you have entered!";
+//         document.getElementById("error").style.visibility = "visible";
+//         valid_flag = false; 
+//     } else {
+//         valid_flag = true;
+//     }
 
-    if (valid_flag === true) {
-        // alert("Yahoo! This user is okay.");
-        adduser(username, password);
-    }
-}
+//     if (valid_flag === true) {
+//         // alert("Yahoo! This user is okay.");
+//         adduser(username, password);
+//     }
+// }
 
 function getResponseOfAPI(endpoint) {
     fetch('http://localhost:5000/api/' + endpoint).then(
@@ -44,6 +44,7 @@ function getResponseOfAPI(endpoint) {
 function signUpForm() {
     var username = document.login_form.username.value;
     var password = document.login_form.password.value;
+    alert("came here")
 
     // alert(username + ' = ' + password)
 
@@ -65,7 +66,7 @@ function adduser(username, password) {
     var protocol = window.location.protocol
     var port = window.location.port
 
-    var url = "http://" + host + ":" + port + "/api/adduser"
+    var url = "http://" + host + ":" + port + "/"
     
     var info = {
         "username": username,

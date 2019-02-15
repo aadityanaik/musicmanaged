@@ -10,6 +10,8 @@
   "author": "Aaditya Naik, Aditya Pansare & Utkarsh Pant",
   "license": "ISC",
   "dependencies": {
+    "@material/drawer": "^0.44.0",
+    "@material/fab": "^0.44.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "connect-busboy": "0.0.2",

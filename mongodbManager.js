@@ -53,6 +53,7 @@ MongoDBHandler.prototype.createConnectionIfNotThere = function() {
 
 MongoDBHandler.prototype.addUser = function(response, username, password, callback) {
     console.log('Trying to add user ' + username)
+    // alert("Trying to add user" + username)
 
     let success = false
 

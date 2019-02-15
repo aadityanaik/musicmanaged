@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
 
 * {
     padding: 0;
