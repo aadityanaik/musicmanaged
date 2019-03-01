@@ -12,17 +12,33 @@ $(window).on('pageshow', function() {
 function updateFiles(){
     $.ajax({url: 'http://localhost:5000/api/getMusicFiles', success: function (data) {
         document.getElementById("listFiles").innerHTML = ""
+        files = Array()
         if (data.listFiles) {
             for(var i = 0; i < data.listFiles.length; i++) {
-                var element = document.createTextNode(data.listFiles[i].file_name + " with id- " + data.listFiles[i].file_id)
+                var element = document.createTextNode(data.listFiles[i].file_name)
                 files.push({name: data.listFiles[i].file_name, id: data.listFiles[i].file_id})
                 element.id = "userfiles"
+
+                var play = document.createElement("audio")
+                play.controls = "controls"
+                srcURL = encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
+                play.src = srcURL
+
+                var downloadbtn = document.createElement("a")
+                downloadbtn.innerText = "Download"
+                downloadbtn.setAttribute("class", "btn btn-primary")
+                downloadbtn.id = "downloadBtn"+i
+                downloadbtn.href = encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
+                
                 var btn = document.createElement("button")
                 btn.innerText = "Delete"
                 btn.setAttribute("class", "btn btn-primary")
                 btn.id = "deleteBtn"+i
                 btn.onclick = deleteMusic
+
                 document.getElementById("listFiles").append(element)
+                document.getElementById("listFiles").append(play)
+                document.getElementById("listFiles").append(downloadbtn)
                 document.getElementById("listFiles").append(btn)
                 document.getElementById("listFiles").append(document.createElement("br"))
             }
@@ -35,6 +51,7 @@ function deleteMusic() {
     
     var file = files[pos].name
     var id = files[pos].id
+
     var host = window.location.hostname
     var port = window.location.port
     var url = "http://" + host + ":" + port + "/api/deletemusicfile"

@@ -174,12 +174,18 @@ app.post('/api/addmusicfile', function (req, res) {
     })
 })
 
-app.post('/api/getmusicfile', function (req, res) {
+app.get('/api/getmusicfile', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
     // console.log(req.body)
     // res.attachment('./media/mudmud/audio/The Godfather Theme Song.wav')
     // res.download('./media/mudmud/audio/The Godfather Theme Song.wav')
-    mongoDBManager.getMusic(req.body.username, req.body.filename, req.body.fileid, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
+
+    // res.json(req.query.filename)
+    var username = req.session.username
+    var filename = req.query.filename
+    var fileid = req.query.fileid
+
+    mongoDBManager.getMusic(username, filename, fileid, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
         if (writechunk && writechunk == true) {
             res.write(chunkToWrite)
         } else if (endResponse && endResponse == true) {
