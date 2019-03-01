@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 var mongoDB = require('./mongodbManager')
 var path = require('path')
 var session = require('express-session');
+var portNo = 5000
 
 var mongoDBManager = new mongoDB.MongoDBHandler()
 
@@ -57,53 +58,74 @@ app.get('/upload', function(req, res) {
     if(req.session.username) {
         res.render('pages/upload')
     } else {
-        res.render('pages/index')
+        res.redirect('/')
     }
 })
 
+app.get('/logout', function(req, res) {
+    req.session.destroy(function(err) {
+        if(err) {
+            console.log(err)
+        } else {
+            res.redirect('/')
+        }
+    })
+})
+
 app.post('/api/adduser', function (req, res) {
+    mongoDBManager.createConnectionIfNotThere()
     var uname = req.body.username
     var pword = req.body.password
     mongoDBManager.addUser(uname, pword, function(resStat, resMsg, username) {
-        res.json({
-            stat: resStat,
-            msg: resMsg
-        })
-
-        res.end()
-
         if(username) {
             req.session.username = username
+        }
+        if(req.headers.host == "localhost:" + portNo) {
+            res.redirect('/')
+        } else {
+            res.json({
+                stat: resStat,
+                msg: resMsg
+            })
+    
+            res.end()
         }
     })
     // console.log(req)
 })
 
 app.post('/api/verifyuser', function (req, res) {
+    mongoDBManager.createConnectionIfNotThere()
+    // console.log(req.headers.host)
     var uname = req.body.username
     var pword = req.body.password
     mongoDBManager.checkCredentials(uname, pword, function(resStat, resMsg, username) {
-        res.json({
-            stat: resStat,
-            msg: resMsg
-        })
-
-        res.end()
-
         if(username) {
             req.session.username = username
+        }
+        if(req.headers.host == "localhost:" + portNo) {
+            res.redirect('/')
+        } else {
+            res.json({
+                stat: resStat,
+                msg: resMsg
+            })
+    
+            res.end()
         }
     })
 
 })
 
 app.post('/api/deleteuser', function(req, res) {
+    mongoDBManager.createConnectionIfNotThere()
     console.log('DELETE THEM USERS')
     console.log('WHAT ABOUT DEM LIAM NEESONS DOE?')
     console.log('NAW NAW NAW NOT HIM')
 })
 
 app.post('/api/addmusicfile', function (req, res) {
+    mongoDBManager.createConnectionIfNotThere()
     var fstream;
     req.pipe(req.busboy);
     let formdata = new Map()
@@ -124,13 +146,15 @@ app.post('/api/addmusicfile', function (req, res) {
         })
     });
 
-    var username
+    var username = req.session.username
 
+    /*
     req.busboy.on('field', function (fieldname, val) {
         if (fieldname == 'username') {
             username = val
         }
     })
+    */
 
     req.busboy.on('finish', function () {
         console.log(buffer.length)
@@ -146,24 +170,51 @@ app.post('/api/addmusicfile', function (req, res) {
 })
 
 app.post('/api/getmusicfile', function (req, res) {
-    console.log(req.body)
+    mongoDBManager.createConnectionIfNotThere()
+    // console.log(req.body)
     // res.attachment('./media/mudmud/audio/The Godfather Theme Song.wav')
     // res.download('./media/mudmud/audio/The Godfather Theme Song.wav')
-    mongoDBManager.getMusic(req.body.username, req.body.filename, req.body.fileid, function(resStat, resMsg) {
-        res.json({
-            stat: resStat,
-            msg: resMsg
-        })
-
-        res.end()
+    mongoDBManager.getMusic(req.body.username, req.body.filename, req.body.fileid, function(resStat, resMsg, writechunk, chunkToWrite, endResponse) {
+        if(writechunk && writechunk == true) {
+            res.write(chunkToWrite)
+        } else if(endResponse && endResponse == true) {
+            res.end()
+        } else {
+            res.json({
+                stat: resStat,
+                msg: resMsg
+            })
+    
+            res.end()
+        }
     })
 })
 
 app.post('/api/deletemusicfile', function(req, res) {
+    mongoDBManager.createConnectionIfNotThere()
     console.log('DELETE THEM MUSICS')
 })
 
-var server = app.listen(5000, function () {
+app.get('/api/getMusicFiles', function(req, res) {
+    mongoDBManager.createConnectionIfNotThere()
+    mongoDBManager.getMusicList(req.session.username, function(resStat, resMsg, list) {
+        if(list) {
+            res.json({
+                stat: resStat,
+                msg: resMsg,
+                listFiles: list
+            })
+            
+        } else {
+            res.json({
+                stat: resStat,
+                msg: resMsg
+            })
+        }
+    })
+})
+
+var server = app.listen(portNo, function () {
     var host = server.address().address
     var port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
