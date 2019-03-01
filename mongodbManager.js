@@ -228,7 +228,7 @@ MongoDBHandler.prototype.getMusic = function(username, filename, fileid, callbac
                         let downloadStream = bucket.openDownloadStream(new ObjectID(userFiles[i].file_id))
 
                         downloadStream.on('data', function(chunk) {
-                            response.write(chunk)
+                            callback(0, 0, true, chunk, false)
                         })
 
                         downloadStream.on('error', function() {
@@ -236,7 +236,7 @@ MongoDBHandler.prototype.getMusic = function(username, filename, fileid, callbac
                         })
 
                         downloadStream.on('end', function() {
-                            response.end()
+                            callback(0, 0, false, 0, true)
                         })
                     } else {
                         callback(66603, "Could not get requested file")
@@ -248,6 +248,18 @@ MongoDBHandler.prototype.getMusic = function(username, filename, fileid, callbac
         }
     })
     // } else {
+}
+
+MongoDBHandler.prototype.getMusicList = function(username, callback) {
+    var db = client.db(dbname)
+
+    db.collection('user_files').find({"user_id": username}).toArray(function(err, resArr) {
+        if(err) {
+            callback(66601, "No user " + username + " found")
+        } else if(resArr[0]) {
+            callback(200, "All ok", resArr[0].files)
+        }
+    })
 }
 
 module.exports = {MongoDBHandler}
