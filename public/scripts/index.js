@@ -44,7 +44,7 @@ function getResponseOfAPI(endpoint) {
 function signUpForm() {
     var username = document.login_form.username.value;
     var password = document.login_form.password.value;
-    alert("came here")
+    // alert("came here")
 
     // alert(username + ' = ' + password)
 
@@ -66,7 +66,7 @@ function adduser(username, password) {
     var protocol = window.location.protocol
     var port = window.location.port
 
-    var url = "http://" + host + ":" + port + "/"
+    var url = "http://" + host + ":" + port + "/api/adduser"
     
     var info = {
         "username": username,
