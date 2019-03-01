@@ -19,53 +19,58 @@ app.use(busboy());
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views/');
 date = new Date();
-app.use(session({secret: String (date.getTime())}));
+app.use(session({ secret: String(date.getTime()) }));
 
 
 // var sess = null;
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     // sess = req.session
 
     mongoDBManager.createConnectionIfNotThere()
 
-    if (req.session.username){
-        console.log('REDIRECTED TO HOME PAGE with '+ req.session.username)
+    if (req.session.username) {
+        console.log('REDIRECTED TO HOME PAGE with ' + req.session.username)
         res.render('pages/home')
     } else {
 
-        if(req.session.page_views) {
+        if (req.session.page_views) {
             req.session.page_views++
             console.log(req.session.page_views)
         } else {
             req.session.page_views = 1;
             console.log(req.session.page_views)
         }
-        
+
         console.log(req.session)
         res.render('pages/index');
     }
 });
 
-app.get('/signup', function(req, res) {
+app.get('/signup', function (req, res) {
     res.render('pages/index');
 });
 
-app.get('/signin', function(req, res) {
+app.get('/signin', function (req, res) {
     res.render('pages/index');
 });
 
-app.get('/upload', function(req, res) {
-    if(req.session.username) {
+app.get('/upload', function (req, res) {
+    if (req.session.username) {
         res.render('pages/upload')
     } else {
         res.redirect('/')
     }
 })
 
-app.get('/logout', function(req, res) {
-    req.session.destroy(function(err) {
-        if(err) {
+app.get('/logout', function (req, res) {
+    res.redirect('/api/logout')
+})
+
+app.get('/api/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
             console.log(err)
+            res.redirect('/')
         } else {
             res.redirect('/')
         }
@@ -76,18 +81,18 @@ app.post('/api/adduser', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
     var uname = req.body.username
     var pword = req.body.password
-    mongoDBManager.addUser(uname, pword, function(resStat, resMsg, username) {
-        if(username) {
+    mongoDBManager.addUser(uname, pword, function (resStat, resMsg, username) {
+        if (username) {
             req.session.username = username
         }
-        if(req.headers.host == "localhost:" + portNo) {
+        if (req.headers.host == "localhost:" + portNo) {
             res.redirect('/')
         } else {
             res.json({
                 stat: resStat,
                 msg: resMsg
             })
-    
+
             res.end()
         }
     })
@@ -99,25 +104,25 @@ app.post('/api/verifyuser', function (req, res) {
     // console.log(req.headers.host)
     var uname = req.body.username
     var pword = req.body.password
-    mongoDBManager.checkCredentials(uname, pword, function(resStat, resMsg, username) {
-        if(username) {
+    mongoDBManager.checkCredentials(uname, pword, function (resStat, resMsg, username) {
+        if (username) {
             req.session.username = username
         }
-        if(req.headers.host == "localhost:" + portNo) {
+        if (req.headers.host == "localhost:" + portNo) {
             res.redirect('/')
         } else {
             res.json({
                 stat: resStat,
                 msg: resMsg
             })
-    
+
             res.end()
         }
     })
 
 })
 
-app.post('/api/deleteuser', function(req, res) {
+app.post('/api/deleteuser', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
     console.log('DELETE THEM USERS')
     console.log('WHAT ABOUT DEM LIAM NEESONS DOE?')
@@ -158,12 +163,12 @@ app.post('/api/addmusicfile', function (req, res) {
 
     req.busboy.on('finish', function () {
         console.log(buffer.length)
-        mongoDBManager.addMusic(username, fileName, buffer, function(resStat, resMsg) {
+        mongoDBManager.addMusic(username, fileName, buffer, function (resStat, resMsg) {
             res.json({
                 stat: resStat,
                 msg: resMsg
             })
-    
+
             res.end()
         })
     })
@@ -174,37 +179,46 @@ app.post('/api/getmusicfile', function (req, res) {
     // console.log(req.body)
     // res.attachment('./media/mudmud/audio/The Godfather Theme Song.wav')
     // res.download('./media/mudmud/audio/The Godfather Theme Song.wav')
-    mongoDBManager.getMusic(req.body.username, req.body.filename, req.body.fileid, function(resStat, resMsg, writechunk, chunkToWrite, endResponse) {
-        if(writechunk && writechunk == true) {
+    mongoDBManager.getMusic(req.body.username, req.body.filename, req.body.fileid, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
+        if (writechunk && writechunk == true) {
             res.write(chunkToWrite)
-        } else if(endResponse && endResponse == true) {
+        } else if (endResponse && endResponse == true) {
             res.end()
         } else {
             res.json({
                 stat: resStat,
                 msg: resMsg
             })
-    
+
             res.end()
         }
     })
 })
 
-app.post('/api/deletemusicfile', function(req, res) {
+app.post('/api/deletemusicfile', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
-    console.log('DELETE THEM MUSICS')
+    
+    mongoDBManager.deleteMusic(req.session.username, req.body.filename, req.body.fileid, function(resStat, resMsg) {
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
+
+        res.end()
+    })
+    
 })
 
-app.get('/api/getMusicFiles', function(req, res) {
+app.get('/api/getMusicFiles', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
-    mongoDBManager.getMusicList(req.session.username, function(resStat, resMsg, list) {
-        if(list) {
+    mongoDBManager.getMusicList(req.session.username, function (resStat, resMsg, list) {
+        if (list) {
             res.json({
                 stat: resStat,
                 msg: resMsg,
                 listFiles: list
             })
-            
+
         } else {
             res.json({
                 stat: resStat,
