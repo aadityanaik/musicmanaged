@@ -27,19 +27,19 @@
             <table class="table">
                 <th><label>Select a song from your Device: <input type="file" name="file" id="file"></label></th>
                 <tr><td><label>Artist:</label></td>
-                    <td><input type = "text" name = 'artist' id = 'artist'></td>
+                    <td><input type = "text" name = 'artist' id = 'artist' required></td>
                 </tr>
                 <tr>
                     <td><label>Song Title:</label></td>
-                    <td><input type = "text" name = 'song_title' id = 'song_title'></label></td>
+                    <td><input type = "text" name = 'song_title' id = 'song_title' required></label></td>
                 </tr>
                 <tr>
                     <td><label>Album:</label></td>
-                    <td><input type = "text" name = 'album' id = 'album'></td>
+                    <td><input type = "text" name = 'album' id = 'album' value=""></td>
                 </tr>
                 <tr>
                     <td><label>Release Year:</label></td>
-                    <td><input type = "number" min = 1890 max = 3090 name = 'year' id = 'year'></td>
+                    <td><input type = "number" min = 1890 max = 9999 name = 'year' id = 'year' required></td>
                 </tr>
             </table>
         </form>
@@ -68,4 +68,16 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var dtToday = new Date();
+            var year = dtToday.getFullYear().toString();
+
+                
+            $('#year').attr('max', year);
+            console.log('' + year)
+        });
+    </script>
 </body>
