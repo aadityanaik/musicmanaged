@@ -28,11 +28,13 @@ function uploadFile() {
 
 }
 
-$(document).ready(function(){
+// OYE SEE DISCUSSION. HOLD UP, I'M COMMITTING
+
+$(function(){
     var dtToday = new Date();
     var year = dtToday.getFullYear().toString();
 
         
     $('#year').attr('max', year);
     console.log('' + year)
-}))
+});

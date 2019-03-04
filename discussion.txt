@@ -156,3 +156,7 @@ UKP: Mate, shall I push this? I'll take a quick break and go eat something. Have
 
 ALPHA: Same, meanwhile, check upload.js, in scripts. added a dyanmic upper date validation, although it's not working I believe. Should work, right?
 UKP: Yes, I think so.
+UKP: OYE HOLD UP I'M COMMITTING.
+
+ALPHA: Last Try
+ALPHA: OKAY COMMIT.
