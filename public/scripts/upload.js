@@ -27,3 +27,12 @@ function uploadFile() {
     }
 
 }
+
+$(document).ready(function(){
+    var dtToday = new Date();
+    var year = dtToday.getFullYear().toString();
+
+        
+    $('#year').attr('max', year);
+    console.log('' + year)
+}))

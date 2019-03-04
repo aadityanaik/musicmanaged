@@ -10,61 +10,41 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="scripts/upload.js"></script>
-    <!--<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/upload.css" />-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/upload.css" />
 </head>
 
-<body>
+<body class="container-fluid">
     <% include ../partials/navbar.ejs %>
-    <div class="content">
-        <form name="upload_file_form" method="POST">
-            <table>
-                <tr>
-                    <th colspan="2">
-                        <p class="form_title">Add to your Music Managed library.</p>
-                    </th>
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <h1>Add files to your Music Managed library below.</h1>
+            <p>Once you upload a song, you'll be able to change/review some basic information about the song you are
+                adding to your Library.</p>
+        </div>
+    </div>
+    <div class="row">
+        <form class="col " name="upload_file_form" method="POST">
+            <table class="table">
+                <th><label>Select a song from your Device: <input type="file" name="file" id="file"></label></th>
+                <tr><td><label>Artist:</label></td>
+                    <td><input type = "text" name = 'artist' id = 'artist'></td>
                 </tr>
                 <tr>
-                    <td colspan="1">
-                        <label for="file">Browse for a File to add.</label>
-                    </td>
-                    <td>
-                        <input type="file" name="file" id="file" placeholder="No File Selected">
-                    </td>
-                </tr>
-                <!--
-                <tr>
-                    <td colspan="1">
-                        <label for="SongTitle">Enter Song Name: </label>
-                    </td>
-                    <td>
-                        <input type="text" name="SongTitle" id="SongTitle" placeholder="Song Title">
-                    </td>
+                    <td><label>Song Title:</label></td>
+                    <td><input type = "text" name = 'song_title' id = 'song_title'></label></td>
                 </tr>
                 <tr>
-                    <td colspan="1">
-                        <label for="ArtistName">Enter Artist Name: </label>
-                    </td>
-                    <td>
-                        <input type="text" name="ArtistName" id="ArtistName" placeholder="Artist Name">
-                    </td>
-                </tr>
-                -->
-
-                <tr>
-                    <td colspan="1">
-                        <button type="button" name="submit" onclick="uploadFile()" class="actionbutton">Upload</button>
-                        <!--<button type="button" class="helper disabled">Download</button>-->
-                    </td>
-
+                    <td><label>Album:</label></td>
+                    <td><input type = "text" name = 'album' id = 'album'></td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <p id="error"></p>
-                    </td>
+                    <td><label>Release Year:</label></td>
+                    <td><input type = "number" min = 1890 max = 3090 name = 'year' id = 'year'></td>
                 </tr>
             </table>
         </form>
     </div>
+
 
     <footer class="row">
         <div class="col-md-6">
