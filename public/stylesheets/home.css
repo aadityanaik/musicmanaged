@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
-@import "@material/drawer/mdc-drawer";
-@import "@material/list/mdc-list";
 
 * {
     padding: 0;
@@ -12,63 +10,13 @@ html {
     margin: 0;
 }
 
-.container-fluid {
-    margin: 0;
-}
 body {
     font-family: "Poppins", "sans-serif";
-    background: #ffffff;
-    color: #000000;
+    background: #000000;
+    color: #ffffff;
     padding: 0;
 }
 
-nav {
-    /* background: #ffffff; */
-}
-
-.mm-navbar {
-    /* background: blue; */
-    display: flex;
-    flex-flow: row wrap;
-    align-items: baseline;
-    border-bottom: 2px solid #000000;
-}
-
-.mm-navbar-brand {
-    margin: 10px 0px;
-    /* background: red; */
-    padding: 10px;
-    font-size: 16pt;
-    font-weight: 500;
-}
-
-.mm-navbar-items {
-    padding: 0px 10px;
-    /* background: brown; */
-    font-size: 12pt;
-    height: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: right;
-}
-
-.mm-nav-link {
-    padding: 20px;
-    text-decoration: solid underline #ffffff;
-    color: #000000;
-    /* background: red; */
-}
-
-.mm-nav-link:hover {
-    transition: all 0.5s ease-in;
-    transition-property: text-decoration;
-    padding: 20px;
-    /* background: rgba(255, 255, 255, 0.15); */
-    text-decoration: solid underline #000000;
-    /* border-bottom: 2px solid rgb(255, 255, 255, 1); */
-    color: #000000;
-    /* background: red; */
-}
 
 h1 {
     border-bottom: 2px solid #000000;
@@ -77,136 +25,37 @@ h1 {
     text-align: left;
 }
 
-.disclaimer {
-    font-weight: 300;
-    font-size: 8pt;
-}
 
-.h1-caption {
-    width: 400px;
+.player {
+    width: 100vw;
     padding: 10px;
+    background: red;
+    position: absolute;
+    bottom: 0;
 }
 
-.h1-caption p {
-    font-weight: 300;
-    text-align: justify;
-}
-
-a {
-    height: 100%;
-}
-
-/* .navbar {
+.play {
+    margin: 40px;
     background: yellow;
-} */
+}
 
-.navbar-nav {
+.list-container {
+    padding: 20px;
+}
+
+#list_files:nth-child(even) {
+    background: red;
+}
+
+#list_files:nth-child(odd) {
     background: #000000;
 }
 
-.some {
-    /* background: blue; */
-    height: 600px;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    justify-content: center;
+
+#list_files2 {
+    background: blue;
 }
 
-form {
-    padding: 10px 10px;
-    align-self: center;
-}
-
-input {
-    font-size: 12pt;
-    padding: 10px;
-    margin: 5px 0px;
-    color: #000000;
-    border: 2px solid #ff6060;
-}
-
-button {
-    border: 2px solid #ffffff;
-    padding: 10px;
-    color: #000000;
-    font-weight: 600;
-    font-size: 12pt;
-    border:none;
-    margin: 5px 5px 5px 0px;
-}
-
-button {
-    border: 2px solid #ffffff;
-    padding: 10px;
-    color: #000000;
-    font-weight: 600;
-    font-size: 12pt;
-    border:none;
-    margin: 5px 5px 5px 0px;
-}
-
-button:hover {  
-    border: 2px solid #000000;
-    padding: 10px;
-    color: #000000;
-    font-weight: 600;
-    font-size: 12pt;
-    border:none;
-    margin: 5px 5px 5px 0px;
-}
-
-footer {
-    padding: 10px;
-    background: #000000;
-    color: #ffffff;
-}
-
-svg {
-    height: 500px;
-    width: 500px;
-}
-
-svg:hover {
-    animation: rotation 1s infinite;
-    animation-timing-function: linear;
-    /* background: url("../images/profile-pic.jpeg"); */
-}
-
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(359deg);
-    }
-}
-
-circle {
-    z-index: 100;
-    background: url("../images/profile-pic.jpeg");
-    stroke: #ff6060;
-}
-
-circle:hover {
-    transition: all 0.3s ease-in;
-    transition-property: filter;
-    filter: drop-shadow( 0px 0px 10px rgba(0, 0, 0, .8));
-}
-
-
-
-circle:hover {
-    background: url("../images/profile-pic.jpeg");
-    box-shadow: 2px 2px 15px #000000;
-}
-
-footer p {
-    height: 200px;
-    font-size: 9pt;
-    align-self: center;
-}
-
-p {
-    font-weight: 300;
+.song-title {
+    padding: 20px;
 }

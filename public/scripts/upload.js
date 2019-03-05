@@ -1,8 +1,4 @@
 //var ffmetadata = require('ffmetadata');
-
-
-
-
 function uploadFile() {
 
     var files = document.upload_file_form.file.files
@@ -22,7 +18,6 @@ function uploadFile() {
         formdata.append('data', file)
         //formdata.append('username', username)
         formdata.append('name', file.name)
-        formdata.append()
 
         $.ajax({
             url: url,
