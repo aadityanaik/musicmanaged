@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="row">
-        <form class="col " name="upload_file_form" method="POST">
+        <form class="col " name="upload_file_form">
             <table class="table">
                 <th><label>Select a song from your Device: <input type="file" name="file" id="file"></label></th>
                 <tr><td><label>Artist:</label></td>
@@ -41,7 +41,18 @@
                     <td><label>Release Year:</label></td>
                     <td><input type = "number" min = 1890 max = 9999 name = 'year' id = 'year' required></td>
                 </tr>
+                
+                <tr>
+                    <td>
+                        <button class="btn-outline-primary" name="uploadButton" id = "uploadButton" onclick="uploadFile()" type='button'>
+                            UPLOAD
+                        </button>
+                    </td>
+                </tr>
+            
             </table>
+
+            
         </form>
     </div>
 
