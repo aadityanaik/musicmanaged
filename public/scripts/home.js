@@ -5,6 +5,8 @@ list.wrapFocus = true;
 
 // var list_of_files = Array()
 
+var files = Array()
+
 $(window).on('pageshow', function() {
     updateFiles()
 })
@@ -40,14 +42,14 @@ function updateFiles() {
 
                 $('#list_files')
                 .append("<div class=\" row song-title\">"
-                    + "<div class=\"col-lg-8\">"
+                    + "<div class=\"col-sm-8\">"
                         + element.nodeValue
                     + "</div>"
-                    + "<div class=\"col-lg-2\">"
-                        + "<a class='btn btn-primary' id='download_btn' href=" + encodeURI("http://localhost:5000/api/getmusicfile?filename='" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
+                    + "<div class=\"col-sm-2\">"
+                        + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
                     + "</div>"                
-                    + "<div class=\"col-lg-2\">"
-                        + "<button class='btn btn-danger' id='delete_btn' onclick=deletemusic()>Delete</button>"
+                    + "<div class=\"col-sm-2\">"
+                        + "<button class='btn btn-danger' id='delete_btn" + i + "' onclick=deleteMusic()>Delete</button>"
                     + "</div>"                
                 + "</div>")
                 // document.getElementById("list_files").append(element)
@@ -64,6 +66,7 @@ function updateFiles() {
 }
 
 function deleteMusic() {
+    console.log(this.id)
     pos = this.id.slice(9)
     
     var file = files[pos].name
