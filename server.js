@@ -7,6 +7,8 @@ var mongoDB = require('./mongodbManager')
 var path = require('path')
 var session = require('express-session');
 var portNo = 5000
+//var ffmetadata = require(ffmetadata)
+//const nodeID3 = require('node-id3') 
 
 var mongoDBManager = new mongoDB.MongoDBHandler()
 
@@ -145,13 +147,20 @@ app.post('/api/addmusicfile', function (req, res) {
             buffArr.push(data)
         })
 
+        temp_buffer = Buffer.concat(buffArr)
+
+        
+
         file.on('end', function () {
             buffer = Buffer.concat(buffArr)
             fileName = filename
         })
+
     });
 
     var username = req.session.username
+
+    //console.log("TAGS: " + nodeID3.read(String(buffer), function(err, tags){}))
 
     /*
     req.busboy.on('field', function (fieldname, val) {
