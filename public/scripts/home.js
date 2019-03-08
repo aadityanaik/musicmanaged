@@ -39,7 +39,7 @@ function updateFiles() {
                 btn.setAttribute("class", "btn btn-primary")
                 btn.id = "deleteBtn"+i
                 btn.onclick = deleteMusic
-
+                /*
                 $('#list_files')
                 .append("<div class=\" row song-title\">"
                     + "<div class=\"col-sm-8\">"
@@ -52,11 +52,12 @@ function updateFiles() {
                         + "<button class='btn btn-danger' id='delete_btn" + i + "' onclick=deleteMusic()>Delete</button>"
                     + "</div>"                
                 + "</div>")
-                // document.getElementById("list_files").append(element)
-                // document.getElementById("list_files").append(play)
-                // document.getElementById("list_files").append(downloadbtn)
-                // document.getElementById("list_files").append(btn)
-                // document.getElementById("list_files").append(document.createElement("br"))
+                */
+                document.getElementById("list_files").append(element)
+                document.getElementById("list_files").append(play)
+                document.getElementById("list_files").append(downloadbtn)
+                document.getElementById("list_files").append(btn)
+                document.getElementById("list_files").append(document.createElement("br"))
             }
         }
         // list_of_files = Object.assign(list_of_files, files)
