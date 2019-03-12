@@ -215,6 +215,10 @@ app.post('/api/deletemusicfile', function (req, res) {
     
 })
 
+app.get('/404', function(req, res) {
+    res.render("pages/404")
+})
+
 app.get('/api/getMusicFiles', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
     mongoDBManager.getMusicList(req.session.username, function (resStat, resMsg, list) {

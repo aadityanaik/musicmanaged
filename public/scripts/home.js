@@ -34,11 +34,11 @@ function updateFiles() {
                 downloadbtn.id = "downloadBtn"+i
                 downloadbtn.href = encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
                 
-                var btn = document.createElement("button")
-                btn.innerText = "Delete"
-                btn.setAttribute("class", "btn btn-primary")
-                btn.id = "deleteBtn"+i
-                btn.onclick = deleteMusic
+                var deletebtn = document.createElement("button")
+                deletebtn.innerText = "Delete"
+                deletebtn.setAttribute("class", "btn btn-primary")
+                deletebtn.id = "deleteBtn"+i
+                deletebtn.onclick = deleteMusic
 
                 $('#list_files')
                 .append("<div class=\" row song-title\">"
@@ -49,9 +49,11 @@ function updateFiles() {
                         + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
                     + "</div>"                
                     + "<div class=\"col-sm-2\">"
-                        + "<button class='btn btn-danger' id='delete_btn" + i + "' onclick=deleteMusic()>Delete</button>"
+                        + "<button type=\"button\" class='btn btn-danger' id=\"delete_btn" + i + "\">Delete</button>"
                     + "</div>"                
                 + "</div>")
+                
+                document.getElementById("delete_btn" + i).onclick = deleteMusic
                 // document.getElementById("list_files").append(element)
                 // document.getElementById("list_files").append(play)
                 // document.getElementById("list_files").append(downloadbtn)
@@ -66,8 +68,8 @@ function updateFiles() {
 }
 
 function deleteMusic() {
-    console.log(this.id)
-    pos = this.id.slice(9)
+    console.log("fds")
+    pos = this.id.slice(10)
     
     var file = files[pos].name
     var id = files[pos].id

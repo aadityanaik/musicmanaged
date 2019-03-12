@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>404. Radio Silence.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../../public/stylesheets/404.css">
+    <script src="404.js"></script>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,600');
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .centeroverlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+        }
+
+        video {
+            width: 600px;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        #404vid {
+            scroll-behavior: smooth;
+            z-index: -100;
+        }
+
+        .logo {
+            font-family: "Poppins", 'sans-serif';
+            text-align: center;
+            padding: auto;
+            background: rgba(0, 0, 0, 0.5);
+            color: #101010;
+            width: 100%;
+            padding: 20px;
+        }
+    </style>
+    <div class="logo">
+        <video muted loop id="404vid" autoplay=true>
+            <source src="../../images/404.mp4">
+        </video>
+        <div class="centeroverlay">
+            <h1>
+                404.
+            </h1>
+            <p>
+                Radio Silence.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

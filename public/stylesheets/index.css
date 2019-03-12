@@ -16,8 +16,8 @@ html {
 }
 body {
     font-family: "Poppins", "sans-serif";
-    background: #ffffff;
-    color: #000000;
+    background: #000000;
+    color: #ffffff;
     padding: 0;
 }
 
@@ -25,55 +25,15 @@ nav {
     background: #ffffff;
 }
 
-.mm-navbar {
-    /* background: blue; */
-    display: flex;
-    flex-flow: row wrap;
-    align-items: baseline;
-    border-bottom: 5px solid #000000;
-}
-
-.mm-navbar-brand {
-    margin: 10px 0px;
-    /* background: red; */
-    padding: 10px;
-    font-size: 16pt;
-    font-weight: 500;
-}
-
-.mm-navbar-items {
-    padding: 0px 10px;
-    /* background: brown; */
-    font-size: 12pt;
-    height: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: right;
-}
-
-.mm-nav-link {
-    padding: 20px;
-    text-decoration: solid underline #ffffff;
-    color: #000000;
-    /* background: red; */
-}
-
-.mm-nav-link:hover {
-    transition: all 0.5s ease-in;
-    transition-property: text-decoration;
-    padding: 20px;
-    /* background: rgba(255, 255, 255, 0.15); */
-    text-decoration: solid underline #000000;
-    /* border-bottom: 2px solid rgb(255, 255, 255, 1); */
-    color: #000000;
-    /* background: red; */
-}
-
 h1 {
-    border-bottom: 2px solid #000000;
     padding: 10px 0px;
     width: auto;
     text-align: left;
+    font-weight: 600;
+}
+
+.large {
+    font-size: 72pt;
 }
 
 .disclaimer {
@@ -99,54 +59,13 @@ a {
     background: yellow;
 } */
 
-.navbar-nav {
-    background: #000000;
-}
-
-.some {
-    /* background: blue; */
-    height: 600px;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    justify-content: center;
-}
 
 form {
     padding: 10px 10px;
     align-self: center;
 }
 
-input {
-    font-size: 12pt;
-    padding: 10px;
-    margin: 5px 0px;
-    color: #000000;
-    border: 2px solid #ff6060;
-}
-
 button {
-    border: 2px solid #ffffff;
-    padding: 10px;
-    color: #000000;
-    font-weight: 600;
-    font-size: 12pt;
-    border:none;
-    margin: 5px 5px 5px 0px;
-}
-
-button {
-    border: 2px solid #ffffff;
-    padding: 10px;
-    color: #000000;
-    font-weight: 600;
-    font-size: 12pt;
-    border:none;
-    margin: 5px 5px 5px 0px;
-}
-
-button:hover {  
-    border: 2px solid #000000;
     padding: 10px;
     color: #000000;
     font-weight: 600;
@@ -159,43 +78,6 @@ footer {
     padding: 10px;
     background: #000000;
     color: #ffffff;
-}
-
-svg {
-    height: 500px;
-    width: 500px;
-}
-
-svg:hover {
-    animation: rotation 1s infinite;
-    animation-timing-function: linear;
-} 
-
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(359deg);
-    }
-}
-
-circle {
-    z-index: 100;
-    background: url("../images/profile-pic.jpeg");
-    stroke: #000000;
-}
-
-/* circle:hover {
-    transition: all 0.3s ease-in;
-    transition-property: filter;
-} */
-
-
-
-circle:hover {
-    background: url("../images/profile-pic.jpeg");
-    box-shadow: 2px 2px 15px #000000;
 }
 
 footer p {

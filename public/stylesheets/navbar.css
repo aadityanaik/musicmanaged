@@ -1,38 +1,50 @@
-/* @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600'); */
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 
-.mm-navbar {
-    background: #101010;
-    display: flex;
-    align-items: center;
-}
-
-.navbar-item {
-    /* padding: -20px; */
-    height: 60px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    color: #101010;
-}
-
-p.brand, p.item {
-    font-weight: 500;
-}
-
-.navbar-item {
+.logo {
+    background: #d50914;
+    color: #ffffff;
     font-size: 12pt;
-    font-weight: 600;
+    font-weight: 500;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px;
+    height: 70px;
+}
+
+#search-form button {
+    background: #101010;
+    color: #ffffff;
+}
+
+#search-bar {
+    padding: 10px;
+    background: #101010;
+    height: 50px;
+    border: none;
+    color: #ffffff;
+    text-align: left;
+    align-self: center;
+    border-bottom: 1px solid #ffffff;
+}
+
+#search-bar::placeholder {
+    color: #ffffff;
+}
+.navbar-item {
+    background: #101010;
+    color: #ffffff;
+    font-size: 12pt;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
 }
 .navbar-brand {
-    /* padding: 20px;  */
+    padding: 20px; 
     font-size: 18pt;
-    color: #D40914;
-    background: #101010;
+    color: #ffffff;
+    background: #ffffff;
 }
 
 a.footer-link::after, a.nav-link::after, .strong-link a::after, .project-link::after {

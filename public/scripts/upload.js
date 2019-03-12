@@ -5,7 +5,7 @@ function uploadFile() {
     console.log('In the function')
     console.log(files[0])
 
-    
+
 
     if (files[0].type.lastIndexOf("audio/", 0) == 0) {
         // var username = document.getElementById('uploadSongUName').value

@@ -51,11 +51,33 @@ h1 {
     background: #000000;
 }
 
-
-#list_files2 {
-    background: blue;
-}
-
 .song-title {
     padding: 20px;
+}
+
+.fab {
+    background:#E50914;
+    color: #ffffff;
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    display: flex;
+    display: -moz-box;
+    flex-flow: row wrap;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    font-size: 24pt; 
+    position: absolute;
+    bottom: 90px;
+    right: 20px;
+    z-index: 100;
+    box-shadow: #101010 0px 0px 10px;
+    transition:
+}
+
+.fab:hover {
+    background: #101010;
+    color: #E50914;
 }
