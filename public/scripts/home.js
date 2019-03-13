@@ -34,12 +34,12 @@ function updateFiles() {
                 downloadbtn.id = "downloadBtn"+i
                 downloadbtn.href = encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
                 
-                var deletebtn = document.createElement("button")
-                deletebtn.innerText = "Delete"
-                deletebtn.setAttribute("class", "btn btn-primary")
-                deletebtn.id = "deleteBtn"+i
-                deletebtn.onclick = deleteMusic
-
+                var btn = document.createElement("button")
+                btn.innerText = "Delete"
+                btn.setAttribute("class", "btn btn-primary")
+                btn.id = "deleteBtn"+i
+                btn.onclick = deleteMusic
+                /*
                 $('#list_files')
                 .append("<div class=\" row song-title\">"
                     + "<div class=\"col-sm-8\">"
@@ -52,13 +52,12 @@ function updateFiles() {
                         + "<button type=\"button\" class='btn btn-danger' id=\"delete_btn" + i + "\">Delete</button>"
                     + "</div>"                
                 + "</div>")
-                
-                document.getElementById("delete_btn" + i).onclick = deleteMusic
-                // document.getElementById("list_files").append(element)
-                // document.getElementById("list_files").append(play)
-                // document.getElementById("list_files").append(downloadbtn)
-                // document.getElementById("list_files").append(btn)
-                // document.getElementById("list_files").append(document.createElement("br"))
+                */
+                document.getElementById("list_files").append(element)
+                document.getElementById("list_files").append(play)
+                document.getElementById("list_files").append(downloadbtn)
+                document.getElementById("list_files").append(btn)
+                document.getElementById("list_files").append(document.createElement("br"))
             }
         }
         // list_of_files = Object.assign(list_of_files, files)
