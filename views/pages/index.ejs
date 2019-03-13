@@ -20,7 +20,54 @@
 	<% include ../partials/navbar.ejs %>
 
 	<div class="container-fluid">
-		<h1 class="large">Music Managed.</h1>
+		<h1 class="large">Your Music, now Managed.</h1>
+		<div class="row">
+			<div class="col-lg-6 col-md-12 col-sm-12">
+				<h1>We made Music Managed to Make Music Great Again.</h1>
+			</div>
+			<div class="col-lg-6 col-md-12 col-sm-12">
+					<h1>Already a user? Sign in.</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				
+			</div>
+			<div class="col-lg-6 form">
+				<form name="login_form" method="POST" action="api/verifyuser" class="form">
+					<div class="form-group">
+						<table class="align-middle">
+							<tr>
+								<td colspan="2">
+									<input type="text" name='username' maxlength=20 placeholder="Username">
+								</td>
+							</tr>
+							<tr>
+								<td colspan=2>
+									<input type="password" name='password' maxlength=20 placeholder="Password">
+								</td>
+							</tr>
+							<tr>
+								<td colspan=1>
+									<button type="submit" name="submit_button">Sign In.</button>
+									<button type="button" name="register_button" onclick="signUpForm()">Sign
+										Up.</button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="1">
+									<div class="disclaimer">
+										By Signing Up for, or making use of Music Managed, You agree to the Terms of
+										Service.
+										<!-- If not, shove it up your ass. Good day, sir/madam/thing.<br><i>Did you just assume the user's gender(s)</i> -->
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 
 	<footer class="row">

@@ -16,13 +16,29 @@ html {
 }
 body {
     font-family: "Poppins", "sans-serif";
-    background: #000000;
+    background: linear-gradient(0deg, #d50914, #000000);
+    background-size: 600% 600%;
+
+    -webkit-animation: IndexBackground 60s ease infinite;
+    -moz-animation: AnimationName 60s ease infinite;
+    animation: AnimationName 60s ease infinite;
     color: #ffffff;
     padding: 0;
 }
 
-nav {
-    background: #ffffff;
+@-moz-keyframes AnimationName {
+    0%{background-position:9% 0%}
+    50%{background-position:92% 100%}
+    100%{background-position:9% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:9% 0%}
+    50%{background-position:92% 100%}
+    100%{background-position:9% 0%}
+}
+
+.form {
+    padding: 20px;
 }
 
 h1 {
@@ -32,33 +48,21 @@ h1 {
     font-weight: 600;
 }
 
-.large {
-    font-size: 72pt;
-}
-
-.disclaimer {
-    font-weight: 300;
-    font-size: 8pt;
-}
-
-.h1-caption {
-    width: 400px;
+input {
     padding: 10px;
+    color: #ffffff;
+    background: #000000;
+    border: none;
+    margin: 10px 0px;
 }
 
-.h1-caption p {
-    font-weight: 300;
-    text-align: justify;
+.large {
+    font-size: 64pt;
 }
 
 a {
     height: 100%;
 }
-
-/* .navbar {
-    background: yellow;
-} */
-
 
 form {
     padding: 10px 10px;
