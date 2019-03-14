@@ -32,7 +32,7 @@ function test() {
 // }
 
 function getResponseOfAPI(endpoint) {
-    fetch('http://localhost:5000/api/' + endpoint).then(
+    fetch('http://http://musicmanaged-musicmanaged.1d35.starter-us-east-1.openshiftapps.com/api/' + endpoint).then(
         function(data) {
             return data.json()
         }
@@ -94,6 +94,8 @@ function verifyUsr(username, password) {
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
+
+    console.log(host, port)
 
     var url = "http://" + host + ":" + port + "/api/verifyuser"
     
