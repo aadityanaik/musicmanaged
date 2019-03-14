@@ -31,7 +31,11 @@ function uploadFile() {
             contentType: false,
             processData: false
         }).done(function (data) {
-            console.log(data)
+            if(data.stat == 200) {
+                alert('Uploaded successfully')
+            } else {
+                alert('Error- ' + data.msg)
+            }
         })
     }
 
