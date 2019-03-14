@@ -6,11 +6,11 @@ const { Readable } = require('stream')
 
 var url = null; // = 'mongodb://' + (process.env.MONGODB_SERVICE_HOST || "localhost") + ":27017" || process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL
 if(process.env.MONGODB_SERVICE_HOST) {
-    url = 'mongodb://musicmanaged:musicmanaged@musicmanaged'
+    url = 'mongodb://musicmanaged:musicmanaged@musicmanaged/musicmanaged'
     // Connection URL: mongodb://musicmanaged:musicmanaged@mongodb/musicmanaged
 
 } else {
-    url = 'mongodb://localhost:27017'
+    url = 'mongodb://localhost:27017/musicmanaged'
 }
 
 const dbname = 'musicmanaged'

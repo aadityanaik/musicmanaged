@@ -12,7 +12,16 @@ $(window).on('pageshow', function() {
 })
 
 function updateFiles() {
-    $.ajax({url: 'http://localhost:5000/api/getMusicFiles', success: function (data) {
+    
+    var host = window.location.hostname
+    var protocol = window.location.protocol
+    var port = window.location.port
+
+    // console.log(host, port)
+
+    var url = "http://" + host + ":" + port//  + "/api/getMusicFiles"
+
+    $.ajax({url: url + "/api/getMusicFiles", success: function (data) {
         document.getElementById("list_files").innerHTML = ""
         files = Array()
         song_array = Array()
@@ -23,7 +32,7 @@ function updateFiles() {
 
                 // var play = document.createElement("audio")
                 // play.controls = "controls"
-                srcURL = encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
+                srcURL = encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
                 // // list_of_files.push({source: srcURL})
                 files_global.push({name: data.listFiles[i].file_name, id: data.listFiles[i].file_id, source: srcURL})
                 // play.src = srcURL
@@ -32,7 +41,7 @@ function updateFiles() {
                 // downloadbtn.innerText = "Download"
                 // downloadbtn.setAttribute("class", "btn btn-primary")
                 // downloadbtn.id = "downloadBtn"+i
-                // downloadbtn.href = encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
+                // downloadbtn.href = encodeURI("http://localhost:8080/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
                 
                 // var btn = document.createElement("button")
                 // btn.innerText = "Delete"
@@ -46,7 +55,7 @@ function updateFiles() {
                         + element.nodeValue
                     + "</div>"
                     + "<div class=\"col-sm-2\">"
-                        + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI("http://localhost:5000/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
+                        + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
                     + "</div>"                
                     + "<div class=\"col-sm-2\">"
                         + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
@@ -62,11 +71,12 @@ function updateFiles() {
             $('#player').attr("src", files_global[0].source)
             //Deletion function
             $('.btn-delete').click(function() {
-                console.log("fds")
                 pos = this.id.slice(10)
             
-                var file = files[pos].name
-                var id = files[pos].id
+                // console.log(files[pos], pos)
+
+                var file = files_global[pos].name
+                var id = files_global[pos].id
 
                 var host = window.location.hostname
                 var port = window.location.port
@@ -89,7 +99,7 @@ function updateFiles() {
     })
 }
 
-$('song-row')
+// $('song-row')
 
 function deleteMusic() {
     console.log("fds")
