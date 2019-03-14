@@ -88,16 +88,12 @@ app.post('/api/adduser', function (req, res) {
         if (username) {
             req.session.username = username
         }
-        if (req.headers.host == "localhost:" + portNo) {
-            res.redirect('/')
-        } else {
-            res.json({
-                stat: resStat,
-                msg: resMsg
-            })
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
 
-            res.end()
-        }
+        res.end()
     })
     // console.log(req)
 })
@@ -111,16 +107,12 @@ app.post('/api/verifyuser', function (req, res) {
         if (username) {
             req.session.username = username
         }
-        if (req.headers.host == "localhost:" + portNo) {
-            res.redirect('/')
-        } else {
-            res.json({
-                stat: resStat,
-                msg: resMsg
-            })
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
 
-            res.end()
-        }
+        res.end()
     })
 
 })

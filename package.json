@@ -4,7 +4,7 @@
   "description": "A website to manage your music",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo Working...",
     "start": "node server.js",
     "prestart": "start mongod && start mongo",
     "start-linux": "nodemon server.js",

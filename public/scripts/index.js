@@ -74,7 +74,12 @@ function adduser(username, password) {
     }
     
     $.post(url, info, function(data) {
-        console.log(data)
+        // console.log(data)
+        if(data.stat == 200) {
+            location.reload()
+        } else {
+            alert("Couldn't sign up- " + data.msg)
+        }
     }, "json");
 }
 
@@ -98,13 +103,17 @@ function verifyUsr(username, password) {
     }
 
     $.post(url, info, function(data) {
-        console.log(data)
+        if(data.stat == 200) {
+            location.reload()
+        } else {
+            alert("Wrong credentials- " + data.msg)
+        }
     }, "json")
 }
 
 function verifyUserCreds() {
-    username = document.getElementById('username').value
-    password = document.getElementById('password').value
+    username = document.login_form.username.value
+    password = document.login_form.password.value
     verifyUsr(username, password)
 }
 
