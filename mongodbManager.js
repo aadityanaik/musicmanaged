@@ -6,7 +6,7 @@ const { Readable } = require('stream')
 
 var url = null; // = 'mongodb://' + (process.env.MONGODB_SERVICE_HOST || "localhost") + ":27017" || process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL
 if(process.env.MONGODB_SERVICE_HOST) {
-    url = 'mongodb://musicmanaged:musicmanaged@' + process.env.MONGODB_SERVICE_HOST + ":27017"
+    url = 'mongodb://musicmanaged:musicmanaged@musicmanaged'
     // Connection URL: mongodb://musicmanaged:musicmanaged@mongodb/musicmanaged
 
 } else {
