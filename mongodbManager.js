@@ -4,7 +4,7 @@ var mongo = require('mongodb')
 const ObjectID = require('mongodb').ObjectID;
 const { Readable } = require('stream')
 
-const url = 'mongodb://localhost:27017'
+const url = process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost:27017'
 const dbname = 'musicmanaged'
 
 const client = new MongoClient(url)
@@ -17,7 +17,7 @@ function MongoDBHandler() { }
 
 MongoDBHandler.prototype.createConnectionIfNotThere = function () {
     if (!client.isConnected()) {
-        console.log('Connecting')
+        console.log('Connecting at ' + url)
         client.connect(function (connectErr, res) {
             if (connectErr) {
                 throw (connectErr)
