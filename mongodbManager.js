@@ -25,27 +25,30 @@ MongoDBHandler.prototype.createConnectionIfNotThere = function () {
             } else {
                 console.log('Initiated connection to mongodb server')
                 var db = client.db(dbname)
-
-                db.collection('user_login').createIndex(
-                    { "user_id": 1 },
-                    { unique: true },
-                    function (err, res) {
-                        if (err) {
-                            console.log(err)
-                            throw (err)
-                        }
+                db.authenticate('userM50', 'W1HXofCorwaGfWGV', function(err, result) {
+                    if(result) {
+                        db.collection('user_login').createIndex(
+                            { "user_id": 1 },
+                            { unique: true },
+                            function (err, res) {
+                                if (err) {
+                                    console.log(err)
+                                    throw (err)
+                                }
+                            }
+                        )
+        
+                        db.collection('user_files').createIndex(
+                            { "user_id": 1 },
+                            { unique: true },
+                            function (err, res) {
+                                if (err) {
+                                    throw (err)
+                                }
+                            }
+                        )
                     }
-                )
-
-                db.collection('user_files').createIndex(
-                    { "user_id": 1 },
-                    { unique: true },
-                    function (err, res) {
-                        if (err) {
-                            throw (err)
-                        }
-                    }
-                )
+                })
             }
         })
     }
