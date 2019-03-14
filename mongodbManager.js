@@ -26,7 +26,7 @@ function MongoDBHandler() { }
 MongoDBHandler.prototype.createConnectionIfNotThere = function () {
     if (!client.isConnected()) {
         console.log('Connecting at ' + url)
-        console.log(process.env)
+        // console.log(process.env)
         client.connect(function (connectErr, res) {
             if (connectErr) {
                 throw (connectErr)

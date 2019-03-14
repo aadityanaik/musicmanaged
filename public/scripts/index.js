@@ -95,7 +95,7 @@ function verifyUsr(username, password) {
     var protocol = window.location.protocol
     var port = window.location.port
 
-    console.log(host, port)
+    // console.log(host, port)
 
     var url = "http://" + host + ":" + port + "/api/verifyuser"
     
