@@ -4,7 +4,13 @@ var mongo = require('mongodb')
 const ObjectID = require('mongodb').ObjectID;
 const { Readable } = require('stream')
 
-const url = 'mongodb://' + process.env.MONGODB_SERVICE_HOST + ":27017" || process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL || 'mongodb://localhost:27017'
+var url = null; // = 'mongodb://' + (process.env.MONGODB_SERVICE_HOST || "localhost") + ":27017" || process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL
+if(process.env.MONGODB_SERVICE_HOST) {
+    url = 'mongodb://userM50:W1HXofCorwaGfWGV@' + process.env.MONGODB_SERVICE_HOST + ":27017"
+} else {
+    url = 'mongodb://localhost:27017'
+}
+
 const dbname = 'musicmanaged'
 
 const client = new MongoClient(url)
@@ -25,30 +31,27 @@ MongoDBHandler.prototype.createConnectionIfNotThere = function () {
             } else {
                 console.log('Initiated connection to mongodb server')
                 var db = client.db(dbname)
-                db.authenticate('userM50', 'W1HXofCorwaGfWGV', function(err, result) {
-                    if(result) {
-                        db.collection('user_login').createIndex(
-                            { "user_id": 1 },
-                            { unique: true },
-                            function (err, res) {
-                                if (err) {
-                                    console.log(err)
-                                    throw (err)
-                                }
-                            }
-                        )
-        
-                        db.collection('user_files').createIndex(
-                            { "user_id": 1 },
-                            { unique: true },
-                            function (err, res) {
-                                if (err) {
-                                    throw (err)
-                                }
-                            }
-                        )
+                
+                db.collection('user_login').createIndex(
+                    { "user_id": 1 },
+                    { unique: true },
+                    function (err, res) {
+                        if (err) {
+                            console.log(err)
+                            throw (err)
+                        }
                     }
-                })
+                )
+
+                db.collection('user_files').createIndex(
+                    { "user_id": 1 },
+                    { unique: true },
+                    function (err, res) {
+                        if (err) {
+                            throw (err)
+                        }
+                    }
+                )        
             }
         })
     }
