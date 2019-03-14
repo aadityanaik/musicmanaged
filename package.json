@@ -7,6 +7,8 @@
     "test": "echo Working...",
     "start-windows": "node server.js",
     "prestart-windows": "start mongod && start mongo",
+    "start-linux": "nodemon server.js",
+    "prestart-linux": "mkdir -p $PWD/data; mongod --dbpath $PWD/data/ &",
     "start": "node server.js",
     "prestart": "mkdir -p $PWD/data; mongod --dbpath $PWD/data/ &"
   },
