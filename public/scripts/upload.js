@@ -1,4 +1,6 @@
-function uploadFile() {
+const ID3Writer = require('browser-id3-writer')
+
+global.uploadFile = function() {
 
     var files = document.upload_file_form.file.files
     console.log('In the function')
@@ -17,9 +19,18 @@ function uploadFile() {
         var host = window.location.hostname
         var port = window.location.port
         var url = "http://" + host + ":" + port + "/api/addmusicfile"
+        var fileBuffer = new ArrayBuffer(file)
+        const writer = new ID3Writer(fileBuffer);
+        writer.setFrame('TIT2', 'Home')
+            .setFrame('TPE1', ['Eminem', '50 Cent'])
+            .setFrame('TALB', 'Friday Night Lights')
+            .setFrame('TYER', 2004);
+        writer.addTag();
 
+        console.log(writer.arrayBuffer)
+        var taggedFile = new File([writer.arrayBuffer], file.name)
         var formdata = new FormData()
-        formdata.append('data', file)
+        formdata.append('data', taggedFile)
         //formdata.append('username', username)
         formdata.append('name', file.name)
         //formdata.append('metadata', )
@@ -31,10 +42,14 @@ function uploadFile() {
             contentType: false,
             processData: false
         }).done(function (data) {
-            if(data.stat == 200) {
-                alert('Uploaded successfully')
+            if(data.stat){ 
+                if(data.stat == 200) {
+                    alert('Uploaded successfully')
+                } else {
+                    alert('Error- ' + data.msg)
+                }
             } else {
-                alert('Error- ' + data.msg)
+                console.log(data)
             }
         })
     }

@@ -59,7 +59,10 @@ function updateFiles() {
                     + "</div>"                
                     + "<div class=\"col-sm-2\">"
                         + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
-                    + "</div>"                
+                    + "</div>"                    
+                    + "<div class=\"col-sm-2\">"
+                        + "<a class='btn btn-danger btn-tags' id=\"tags_btn" + i + "\" href='"+ encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) +"'>Get Tags</button>"
+                    + "</div>"             
                 + "</div>")
                 // document.getElementById("list_files").append(element)
                 // document.getElementById("list_files").append(play)

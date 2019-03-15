@@ -4,6 +4,8 @@ var mongo = require('mongodb')
 const ObjectID = require('mongodb').ObjectID;
 const { Readable } = require('stream')
 
+const nodeid3 = require('node-id3')
+
 var url = null; // = 'mongodb://' + (process.env.MONGODB_SERVICE_HOST || "localhost") + ":27017" || process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL
 if(process.env.MONGODB_SERVICE_HOST) {
     url = 'mongodb://musicmanaged:musicmanaged@' + process.env.MONGODB_SERVICE_HOST + ':27017/musicmanaged'
@@ -203,6 +205,70 @@ MongoDBHandler.prototype.addMusic = function (username, fileName, fileBuffer, ca
         })
         // console.log('DONE')
     })
+}
+
+MongoDBHandler.prototype.getMusicTags = function(username, filename, fileid, callback) {
+    var db = client.db(dbname)
+
+    // first to check if the user has the file needed
+    db.collection('user_files').find({ "user_id": username }).toArray(function (error, resArr) {
+        if (error) {
+            callback(66601, "No user " + username + " found")
+        } else {
+            if (resArr[0]) {
+                var userFiles = resArr[0].files
+                // console.log(userFiles)
+                var file, i, len = userFiles.length
+                for (i = 0; i < len; i++) {
+                    // console.log(userFiles[i])
+                    file = userFiles[i]
+                    if (file.file_name == filename && file.file_id == fileid) {
+                        // file found
+                        // console.log('Hurrah!!!!')
+                        break
+                    }
+                }
+
+                if (i < len) {
+                    // file found
+                    // console.log('found')
+                    // console.log(userFiles[i])
+                    let bucket = new mongo.GridFSBucket(db, {
+                        bucketName: 'music_files'
+                    })
+
+                    var fileBuffer
+
+                    let downloadStream = bucket.openDownloadStream(new ObjectID(userFiles[i].file_id))
+
+                    downloadStream.on('data', function (chunk) {
+                        // console.log(chunk)
+                        fileBuffer = Buffer.concat([chunk])
+                    })
+
+                    downloadStream.on('error', function () {
+                        callback(400, "Failed to send file over download")
+                    })
+
+                    downloadStream.on('end', function () {
+                        // callback(0, 0, false, 0, true)
+                        
+                        // console.log(fileBuffer)
+                        let success = nodeid3.read(fileBuffer)
+
+                        callback(200, null, success)
+                    })
+
+                } else {
+                    callback(66603, "Could not get requested file")
+                }
+            } else {
+
+                callback(66601, "No user " + username + " found")
+            }
+        }
+    })
+    // } else {
 }
 
 MongoDBHandler.prototype.getMusic = function (username, filename, fileid, callback) {
