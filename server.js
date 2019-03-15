@@ -111,16 +111,19 @@ app.post('/api/verifyuser', function (req, res) {
         if (username) {
             req.session.username = username
         }
-        if (req.headers.host == "localhost:" + portNo) {
-            res.redirect('/')
-        } else {
-            res.json({
-                stat: resStat,
-                msg: resMsg
-            })
 
-            res.end()
-        }
+        console.log(req.connection.remoteAddress + " HELLO")
+
+        // if (req.headers.host == "localhost:" + portNo) {
+            res.redirect('/')
+        // } else {
+        //     res.json({
+        //         stat: resStat,
+        //         msg: resMsg
+        //     })
+
+        //     res.end()
+        // }
     })
 
 })
@@ -268,6 +271,7 @@ app.get('/404', function(req, res) {
 app.get('/api/getMusicFiles', function (req, res) {
     mongoDBManager.createConnectionIfNotThere()
     mongoDBManager.getMusicList(req.session.username, function (resStat, resMsg, list) {
+        console.log(list)
         if (list) {
             res.json({
                 stat: resStat,

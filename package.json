@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "prestart": "start mongod && start mongo",
     "start-linux": "nodemon server.js",
     "prestart-linux": "mkdir -p $PWD/data; mongod --dbpath $PWD/data/ &"
