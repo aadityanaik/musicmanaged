@@ -68,7 +68,8 @@ function updateFiles() {
                 // document.getElementById("list_files").append(document.createElement("br"))
             }
 
-            // $('#player').attr("src", files_global[0].source)
+            $('#player').attr("src", files_global[0].source)
+            
             //Deletion function
             $('.btn-delete').click(function() {
                 pos = this.id.slice(10)
@@ -101,24 +102,24 @@ function updateFiles() {
 
 // $('song-row')
 
-function deleteMusic() {
-    console.log("fds")
-    pos = this.id.slice(10)
+// function deleteMusic() {
+//     console.log("fds")
+//     pos = this.id.slice(10)
     
-    var file = files[pos].name
-    var id = files[pos].id
+//     var file = files[pos].name
+//     var id = files[pos].id
 
-    var host = window.location.hostname
-    var port = window.location.port
-    var url = "http://" + host + ":" + port + "/api/deletemusicfile"
+//     var host = window.location.hostname
+//     var port = window.location.port
+//     var url = "http://" + host + ":" + port + "/api/deletemusicfile"
 
-    var info = {
-        "filename": file,
-        "fileid": id
-    }
+//     var info = {
+//         "filename": file,
+//         "fileid": id
+//     }
 
-    $.post(url, info, function(data) {
-        console.log(data)
-        updateFiles()
-    }, "json")
-}
+//     $.post(url, info, function(data) {
+//         console.log(data)
+//         updateFiles()
+//     }, "json")
+// }
