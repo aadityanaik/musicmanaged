@@ -59,7 +59,10 @@ function updateFiles() {
                     + "</div>"                
                     + "<div class=\"col-sm-2\">"
                         + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
-                    + "</div>"                
+                    + "</div>"                    
+                    + "<div class=\"col-sm-2\">"
+                        + "<a class='btn btn-danger btn-tags' id=\"tags_btn" + i + "\" href='"+ encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) +"'>Get Tags</button>"
+                    + "</div>"             
                 + "</div>")
                 // document.getElementById("list_files").append(element)
                 // document.getElementById("list_files").append(play)
@@ -68,7 +71,8 @@ function updateFiles() {
                 // document.getElementById("list_files").append(document.createElement("br"))
             }
 
-            // $('#player').attr("src", files_global[0].source)
+            $('#player').attr("src", files_global[0].source)
+            
             //Deletion function
             $('.btn-delete').click(function() {
                 pos = this.id.slice(10)
@@ -101,24 +105,24 @@ function updateFiles() {
 
 // $('song-row')
 
-function deleteMusic() {
-    console.log("fds")
-    pos = this.id.slice(10)
+// function deleteMusic() {
+//     console.log("fds")
+//     pos = this.id.slice(10)
     
-    var file = files[pos].name
-    var id = files[pos].id
+//     var file = files[pos].name
+//     var id = files[pos].id
 
-    var host = window.location.hostname
-    var port = window.location.port
-    var url = "http://" + host + ":" + port + "/api/deletemusicfile"
+//     var host = window.location.hostname
+//     var port = window.location.port
+//     var url = "http://" + host + ":" + port + "/api/deletemusicfile"
 
-    var info = {
-        "filename": file,
-        "fileid": id
-    }
+//     var info = {
+//         "filename": file,
+//         "fileid": id
+//     }
 
-    $.post(url, info, function(data) {
-        console.log(data)
-        updateFiles()
-    }, "json")
-}
+//     $.post(url, info, function(data) {
+//         console.log(data)
+//         updateFiles()
+//     }, "json")
+// }
