@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Music Managed Background Blur Gradient Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/color/jquery.color-2.1.2.js"
+        integrity="sha256-1Cn7TdfHiMcEbTuku97ZRSGt2b3SvZftEIn68UMgHC8=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins');
+
+        .back-container {
+            height: 100vh;
+            width: 100vw;
+            padding: 0;
+            margin: 0;
+            background-size: 100%;
+            background: red;
+            color: white;
+            font-family: "Poppins", "sans-serif";
+        }
+
+        .container-fluid {
+            margin: 0px;
+            padding: 30px;
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(to bottom, #000000cc 0%, #000000 100%) no-repeat;
+            backdrop-filter: blur(10px);
+        }
+
+        button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+
+    <div class="back-container">
+        <div class="container-fluid">
+            <div class="row">
+                <h1>
+                    Your Library
+                </h1>
+            </div>
+            <div class="row">
+                <h3>
+                    The dominant color in album art is used to change the background gradient.
+                </h3>
+            </div>
+            <div class="row">
+                <button id="colorbtn1" type="button">Hover here to change color</button>
+            </div>
+            <div class="row">
+                <button id="colorbtn2" type="button">Hover here to change color</button>
+            </div>
+            <div class="row">
+                <button id="colorbtn3" type="button">Hover here to change color</button>
+            </div>
+            <div class="row">
+                <button id="colorbtn4" type="button">Hover here to change color</button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $("#colorbtn1").hover(function () {
+            $('.back-container').animate({
+                backgroundColor: "#0000ff"
+            }, 1000)
+        })
+
+        
+        $("#colorbtn2").hover(function () {
+            $('.back-container').animate({
+                backgroundColor: "#00ff00"
+            }, 1000)
+        })
+
+        
+        $("#colorbtn3").hover(function () {
+            $('.back-container').animate({
+                backgroundColor: "#654321"
+            }, 1000)
+        })
+
+        
+        $("#colorbtn4").hover(function () {
+            $('.back-container').animate({
+                backgroundColor: "#00bfff"
+            }, 1000)
+        })
+    </script>
+</body>
+
+</html>
