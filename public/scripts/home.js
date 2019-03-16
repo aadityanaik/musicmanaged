@@ -53,7 +53,7 @@ function updateFiles() {
                 $('#list_files')
                 .append("<div class=\" row song-title\">"
                     + "<div class=\"col-sm-8\">"
-                        + element.nodeValue
+                        
                     + "</div>"
                     + "<div class=\"col-sm-2\">"
                         + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"

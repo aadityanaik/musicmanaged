@@ -74,10 +74,12 @@ h1 {
     right: 20px;
     z-index: 100;
     box-shadow: #101010 0px 0px 10px;
-    transition:
+    transition: background 0.5s ease-in;
 }
 
 .fab:hover {
     background: #101010;
     color: #E50914;
 }
+
+.
