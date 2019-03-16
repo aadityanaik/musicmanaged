@@ -1,6 +1,6 @@
 const ID3Writer = require('browser-id3-writer')
 
-global.uploadFile = function() {
+function uploadFile() {
 
     var files = document.upload_file_form.file.files
     console.log('In the function')
