@@ -1,5 +1,7 @@
 const ID3Writer = require('browser-id3-writer')
 
+document.upload_file_form.file.onchange(alert('File Read'))
+
 global.uploadFile = function() {
 
     var files = document.upload_file_form.file.files
@@ -8,7 +10,8 @@ global.uploadFile = function() {
 
     var song_title = document.upload_file_form.song_title.value
     var artist = document.upload_file_form.artist.value
-    var release = document.upload_file_form.year.value
+    artist = artist.split(",")
+    var releaseYear = document.upload_file_form.year.value
     var album = document.upload_file_form.album.value
 
     metadata = [song_title, artist, album, release]
@@ -21,10 +24,10 @@ global.uploadFile = function() {
         var url = "http://" + host + ":" + port + "/api/addmusicfile"
         var fileBuffer = new ArrayBuffer(file)
         const writer = new ID3Writer(fileBuffer);
-        writer.setFrame('TIT2', 'Home')
-            .setFrame('TPE1', ['Eminem', '50 Cent'])
-            .setFrame('TALB', 'Friday Night Lights')
-            .setFrame('TYER', 2004);
+        writer.setFrame('TIT2', song_title)
+            .setFrame('TPE1', artist)
+            .setFrame('TALB', album)
+            .setFrame('TYER', releaseYear);
         writer.addTag();
 
         console.log(writer.arrayBuffer)

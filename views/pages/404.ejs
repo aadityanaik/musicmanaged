@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <% include ../partials/navbar.ejs %> 
     <style>
         @import url('https://fonts.googleapis.com/css?family=Poppins:400,600');
 
@@ -36,10 +37,11 @@
             overflow: hidden;
         }
 
-        #404vid {
+        #a404vid {
             scroll-behavior: smooth;
             z-index: -100;
         }
+
 
         .logo {
             font-family: "Poppins", 'sans-serif';
@@ -52,7 +54,7 @@
         }
     </style>
     <div class="logo">
-        <video muted loop id="404vid" autoplay=true>
+        <video muted loop id="a404vid" autoplay=true>
             <source src="../../images/404.mp4">
         </video>
         <div class="centeroverlay">
@@ -60,7 +62,8 @@
                 404.
             </h1>
             <p>
-                Radio Silence.
+                    ¯\_(ツ)_/¯.
+                Radio Silence. 
             </p>
         </div>
     </div>
