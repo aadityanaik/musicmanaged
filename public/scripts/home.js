@@ -48,8 +48,7 @@ function updateFiles() {
                 // btn.setAttribute("class", "btn btn-primary")
                 // btn.id = "deleteBtn"+i
                 // btn.onclick = deleteMusic
-                
-                appenderString = ""
+
 
                 $('#list_files')
                 .append("<div class=\" row song-title\">"

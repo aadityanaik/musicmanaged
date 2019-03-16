@@ -9,7 +9,7 @@ var session = require('express-session')
 const nodeid3 = require('node-id3')
 var portNo = 5000
 // import * as ID3 from 'id3-parser'
-// var ID3 = require('id3-parser')
+var ID3 = require('id3-parser')
 
 var mongoDBManager = new mongoDB.MongoDBHandler()
 
@@ -171,8 +171,8 @@ app.post('/api/addmusicfile', function (req, res) {
         // let tags = nodeid3.read(buffer)
         // console.log(tags)
         // var ismp3 = require('is-mp3')
-        // const tag = ID3.parse(buffer);
-        // console.log(tag);
+        const tag = ID3.parse(buffer);
+        console.log(tag);
 
         // console.log(ismp3(buffer))
 

@@ -1,6 +1,16 @@
 const ID3Writer = require('browser-id3-writer')
+const ID3Parser = require('id3-parser')
+global.onChange = function(){
+    var files = document.upload_file_form.file.files
+    var file = files[0]
+    if (files[0].type.lastIndexOf("audio/", 0) == 0) {
+        var fileBuffer = new ArrayBuffer(file)
+        const tags = ID3Parser.parse(fileBuffer) 
+        console.log('tags are : ' + tags)
+    };
+    
+}
 
-document.upload_file_form.file.onchange(alert('File Read'))
 
 global.uploadFile = function() {
 
