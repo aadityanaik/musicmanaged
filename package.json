@@ -19,6 +19,7 @@
     "@material/fab": "^0.44.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "browserify": "^16.2.3",
     "connect-busboy": "0.0.2",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
