@@ -17,6 +17,8 @@ function updateFiles() {
     var protocol = window.location.protocol
     var port = window.location.port
 
+    var details = Array()
+
     // console.log(host, port)
 
     var url = "http://" + host + ":" + port//  + "/api/getMusicFiles"
@@ -49,25 +51,33 @@ function updateFiles() {
                     // btn.setAttribute("class", "btn btn-primary")
                     // btn.id = "deleteBtn"+i
                     // btn.onclick = deleteMusic
-                    var details = Array()
+                    
                     // (url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id)
                     tagsURL = encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id)
                     $.ajax({
                         url: tagsURL, 
                         dataType: 'json',
                         success: function(data){
-                            console.log("The Data Object is: \n" + JSON.stringify(data))
-                            console.log("The title is:\t" + data.tags.title)  
+                            // console.log("The Data Object is: \n" + JSON.stringify(data))
+                            // console.log("The title is:\t" + data.tags.title)  
                             //details.push({title: data.tags.title, artist: data.tags.artist, album :  data.tags.album,year: data.tags.year})
+                            details.push({
+                                title: data.tags.title,
+                                artist: data.tags.artist,
+                                album: data.tags.album,
+                                year: data.tags.year
+                            })
+                            
+                            console.log(JSON.stringify(details))                        
                         }
                         
                     })
-
+                    
                     var html_to_append = "<div class=\" row song-title\">"
                         + "<div class=\"col-sm-9\"><br><span class = 'title'>"
-                        +details
+                        +String(details[0].title)
                         +"</span><br><span class = artist>"
-                        +details
+                        +String(details[0].artist)
                         + "</span>"
                         + "</div>"
                         + "<div class=\"col-sm-1\">"
