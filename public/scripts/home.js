@@ -49,18 +49,40 @@ function updateFiles() {
                     // btn.setAttribute("class", "btn btn-primary")
                     // btn.id = "deleteBtn"+i
                     // btn.onclick = deleteMusic
+                    var details = Array()
+                    // (url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id)
+                    tagsURL = encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name +"&fileid=" + data.listFiles[i].file_id)
+                    $.ajax({
+                        tagsURL, function(data){
+                            alert("THE DATA IS : \n" + data)
+                            details = data;
+                            console.log("NWA : " + details)  
+                            //details.push({title: data.tags.title, artist: data.tags.artist, album :  data.tags.album,year: data.tags.year})
+                        }
+                        
+                    }).done(function(){
+                        
+                        alert("NOOOOOOOOO GOD PLEASE NO NOOOOOOOOOOOOOOOOOOOO, TOBY")
+                    }).fail(function() {
+                        alert("NOOOOOOOOO GOD PLEASE NO NOOOOOOOOOOOOOOOOOOOO")
+                    })
+                    
+                    
 
                     var html_to_append = "<div class=\" row song-title\">"
-                        + "<div class=\"col-sm-8\">"
-                        + element.nodeValue
+                        + "<div class=\"col-sm-9\"><br><span class = 'title'>"
+                        +details
+                        +"</span><br><span class = artist>"
+                        +details
+                        + "</span>"
                         + "</div>"
-                        + "<div class=\"col-sm-2\">"
+                        + "<div class=\"col-sm-1\">"
                         + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
                         + "</div>"
-                        + "<div class=\"col-sm-2\">"
+                        + "<div class=\"col-sm-1\">"
                         + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
                         + "</div>"
-                        + "<div class=\"col-sm-2\">"
+                        + "<div class=\"col-sm-1\">"
                         + "<a class='btn btn-danger btn-tags' id=\"tags_btn" + i + "\" href='" + encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Get Tags</button>"
                         + "</div>"
                         + "</div>"
