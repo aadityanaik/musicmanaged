@@ -1,0 +1,30 @@
+#footer-container {
+    height: 300px;
+    margin-top: -300px;
+    background: #000000;
+    /* position: relative;
+    bottom: -300px; */
+}
+
+#footer-row {
+    /* background: blue; */
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#footer-col {
+    /* background: red; */
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: baseline;
+}
+
+footer {
+    height: 300px;
+    background: #000000;
+}

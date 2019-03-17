@@ -19,19 +19,21 @@
 <body>
 	<% include ../partials/navbar.ejs %>
 
-	<div class="container-fluid">
-		<h1 class="large">Your Music, now Managed.</h1>
+	<div class="container-fluid" id="content-container">
+		<div class="row">
+			<h1 class="large">Your Music, now Managed.</h1>
+		</div>
 		<div class="row">
 			<div class="col-lg-6 col-md-12 col-sm-12">
 				<h1>We made Music Managed to Make Music Great Again.</h1>
 			</div>
 			<div class="col-lg-6 col-md-12 col-sm-12">
-					<h1>Already a user? Sign in.</h1>
+				<h1>Already a user? Sign in.</h1>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-6">
-				
+
 			</div>
 			<div class="col-lg-6 form">
 				<form name="login_form" method="POST" action="api/verifyuser" class="form">
@@ -49,7 +51,8 @@
 							</tr>
 							<tr>
 								<td colspan=1>
-									<button type="button" name="submit_button" onclick="verifyUserCreds()">Sign In.</button>
+									<button type="button" name="submit_button" onclick="verifyUserCreds()">Sign
+										In.</button>
 									<button type="button" name="register_button" onclick="signUpForm()">Sign
 										Up.</button>
 								</td>
@@ -70,21 +73,7 @@
 		</div>
 	</div>
 
-	<footer class="row">
-		<div class="col-md-6">
-			<h3>
-				Made for the Fundamentals of Web Technology Course, 2019.
-			</h3>
-			<p>
-				By Aaditya Naik, Aditya Pansare and Utkarsh Pant.<br>
-				Music Managed was made using NodeJS, EJS and the whole shebang! To see the source code, head over to
-				GitHub.
-			</p>
-		</div>
-		<div class="col-md-6">
-
-		</div>
-	</footer>
+	<% include ../partials/footer.ejs %>
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
