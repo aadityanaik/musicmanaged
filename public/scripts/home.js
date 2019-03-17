@@ -99,19 +99,37 @@ function updateFiles() {
                     
                     //Scenes below
                     console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is "+status)
-                       
+
+                    var title, artist, album, year;
+
+                    if(dataJSON[i].title) {
+                        title = (JSON.stringify(dataJSON[i].title)).split("\"").join("")
+                    } else {
+                        title = data.listFiles[i].file_name
+                    }
+                    if(dataJSON[i].artist) {
+                        artist = "<span class = artist>" + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
+                    } else {
+                        artist = ""
+                    }
+                    if(dataJSON[i].album) {
+                        album = "<span class = album>" + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
+                    } else {
+                        album = ""
+                    }
+                    if(dataJSON[i].year && dataJSON[i].year != "NaN") {
+                        year = "<span class = year>" + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
+                    } else {
+                        year = ""
+                    }
                     
                     console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is "+status)
                     html_to_append = "<div class=\" row song-title\">"
                     + "<div class=\"col-sm-9\"><br><span class = 'title'>"
-                    +(JSON.stringify(dataJSON[i].title)).split("\"").join("")
-                    +"</span><br><span class = artist>"
-                    +(JSON.stringify(dataJSON[i].artist)).split("\"").join("")
-                    + "</span><br></span><span class = album>"
-                    +(JSON.stringify(dataJSON[i].album)).split("\"").join("")
-                    + "</span><br></span><span class = year>"
-                    +(JSON.stringify(dataJSON[i].year)).split("\"").join("")
-                    + "</span>"
+                    +title + "<br>"
+                    +artist
+                    +album
+                    +year
                     + "</div>"
                     + "<div class=\"col-sm-1\">"
                     + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
