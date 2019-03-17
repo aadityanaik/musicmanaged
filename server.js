@@ -228,7 +228,10 @@ app.get('/api/getmusicfile', function (req, res) {
     var filename = req.query.filename
     var fileid = req.query.fileid
 
-    mongoDBManager.getMusic(username, filename, fileid, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
+    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
+    res.setHeader('Content-type', 'audio/mpeg')
+
+    mongoDBManager.getMusic(username, filename, fileid, res, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
         if (writechunk && writechunk == true) {
             res.write(chunkToWrite)
         } else if (endResponse && endResponse == true) {

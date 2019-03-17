@@ -237,13 +237,12 @@ MongoDBHandler.prototype.getMusicTags = function(username, filename, fileid, cal
                         bucketName: 'music_files'
                     })
 
-                    var fileBuffer
+                    var fileBuffer = new Buffer([])
 
                     let downloadStream = bucket.openDownloadStream(new ObjectID(userFiles[i].file_id))
 
                     downloadStream.on('data', function (chunk) {
-                        // console.log(chunk)
-                        fileBuffer = Buffer.concat([chunk])
+                        fileBuffer = Buffer.concat([fileBuffer, chunk])
                     })
 
                     downloadStream.on('error', function () {
@@ -252,8 +251,6 @@ MongoDBHandler.prototype.getMusicTags = function(username, filename, fileid, cal
 
                     downloadStream.on('end', function () {
                         // callback(0, 0, false, 0, true)
-                        
-                        // console.log(fileBuffer)
                         let success = nodeid3.read(fileBuffer)
 
                         callback(200, null, success)
@@ -271,7 +268,7 @@ MongoDBHandler.prototype.getMusicTags = function(username, filename, fileid, cal
     // } else {
 }
 
-MongoDBHandler.prototype.getMusic = function (username, filename, fileid, callback) {
+MongoDBHandler.prototype.getMusic = function (username, filename, fileid, response, callback) {
     // if(client.isConnected()) {
     var db = client.db(dbname)
 
@@ -300,6 +297,14 @@ MongoDBHandler.prototype.getMusic = function (username, filename, fileid, callba
                     // console.log(userFiles[i])
                     let bucket = new mongo.GridFSBucket(db, {
                         bucketName: 'music_files'
+                    })
+
+                    bucket.find(new ObjectID(userFiles[i].file_id)).toArray(function(errorArr, resArr) {
+                        if(errorArr) {
+                            console.log(errorArr)
+                        } else if(resArr[0]) {
+                            response.setHeader('Content-length', resArr[0].length)
+                        }
                     })
 
                     let downloadStream = bucket.openDownloadStream(new ObjectID(userFiles[i].file_id))
