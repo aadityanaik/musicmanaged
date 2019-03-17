@@ -922,8 +922,9 @@ global.uploadFile = function() {
     artist = artist.split(",")
     var releaseYear = document.upload_file_form.year.value
     var album = document.upload_file_form.album.value
-
-    metadata = [song_title, artist, album, releaseYear]
+    var images = document.upload_file_form.cover_art.files
+    var image = images[0]
+    //metadata = [song_title, artist, album, release]
 
     if (files[0].type.lastIndexOf("audio/", 0) == 0) {
         // var username = document.getElementById('uploadSongUName').value
@@ -932,18 +933,16 @@ global.uploadFile = function() {
         var port = window.location.port
         var url = "http://" + host + ":" + port + "/api/addmusicfile"
         var fileBuffer = new ArrayBuffer(file)
+        var imageBuffer = new ArrayBuffer(image)
         const writer = new ID3Writer(fileBuffer);
         writer.setFrame('TIT2', song_title)
             .setFrame('TPE1', artist)
             .setFrame('TALB', album)
             .setFrame('TYER', releaseYear);
         writer.addTag();
+
         console.log(writer.arrayBuffer)
         var taggedFile = new File([writer.arrayBuffer], file.name)
-        
-        console.log(ID3Parser.parse(taggedFile))
-        
-        
         var formdata = new FormData()
         formdata.append('data', taggedFile)
         //formdata.append('username', username)

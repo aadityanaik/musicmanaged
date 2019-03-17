@@ -25,13 +25,13 @@
     <div class="row">
         <form class="col " name="upload_file_form">
             <table class="table">
-                <th><label>Select a song from your Device: <input type="file" name="file" id="file" onchange = "onChange()"></label></th>
-                <tr><td><label>Artist:</label></td>
-                    <td><input type = "text" name = 'artist' id = 'artist' ></td>
-                </tr>
+                <th><label>Select a song from your Device: <input type="file" name="file" id="file"></label></th>
                 <tr>
                     <td><label>Song Title:</label></td>
                     <td><input type = "text" name = 'song_title' id = 'song_title' ></label></td>
+                </tr>
+                <tr><td><label>Artist:</label></td>
+                    <td><input type = "text" name = 'artist' id = 'artist' ></td>
                 </tr>
                 <tr>
                     <td><label>Album:</label></td>
@@ -40,6 +40,10 @@
                 <tr>
                     <td><label>Release Year:</label></td>
                     <td><input type = "number" min = 1890 max = 9999 name = 'year' id = 'year' ></td>
+                </tr>
+                <tr>
+                    <td><label>Cover Art</label></td>
+                    <td><input type = "file" accept="image/" name = 'cover_art' id = 'cover_art' ></td>
                 </tr>
                 
                 <tr>
