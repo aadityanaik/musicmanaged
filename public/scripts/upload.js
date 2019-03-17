@@ -1,16 +1,38 @@
 const ID3Writer = require('browser-id3-writer')
-// const ID3Parser = require('id3-parser')
+var jsmediatags = require('jsmediatags')
 
-// global.onChange = function(){
-//     var files = document.upload_file_form.file.files
-//     var file = files[0]
-//     if (files[0].type.lastIndexOf("audio/", 0) == 0) {
-//         var fileBuffer = new ArrayBuffer(file)
-//         console.log(fileBuffer)
-//         const tags = ID3Parser.parse(fileBuffer) 
-//         console.log('tags are : ' + tags)
-//     };
-// }
+global.onChange = function(){
+    var files = document.upload_file_form.file.files
+    var file = files[0]
+    if (files[0].type.lastIndexOf("audio/mpeg", 0) == 0 || files[0].type == "audio/mp3") {
+        // var filereader = new FileReader()
+        // var fileBuffer
+
+        // filereader.readAsArrayBuffer(file)
+
+        // filereader.onload = function(evt) {
+        //     if(evt.target.readyState == FileReader.DONE) {
+        //         fileBuffer = evt.target.result
+        //         console.log(fileBuffer)
+        //         const tags = ID3Parser.parse(fileBuffer) 
+        //         console.log('tags are : ' + tags)
+        //     }
+        // }
+
+        jsmediatags.read(file, {
+            onSuccess: function(tag) {
+                console.log(tag)
+                document.upload_file_form.song_title.value = tag.tags.title
+                document.upload_file_form.album.value = tag.tags.album
+                document.upload_file_form.year.value = tag.tags.year
+                document.upload_file_form.artist.value = tag.tags.artist
+            },
+            onError: function(error) {
+                console.log(error)
+            }
+        })
+    };
+}
 
 
 global.uploadFile = function() {
