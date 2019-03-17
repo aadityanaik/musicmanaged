@@ -126,7 +126,7 @@ function updateFiles() {
                     + "<hr style= \"color: white;\">"
 
                     //console.log("object data is " + JSON.stringify(dataJSON))
-                    $(html_to_append).hide().appendTo("#list_files").fadeIn(500)
+                    $.when($(html_to_append).hide().appendTo("#list_files").fadeIn(500))
                     // $('#list_files')
                     //     .append("<div class=\" row song-title\">"
                     //         + "<div class=\"col-sm-8\">"
@@ -151,7 +151,9 @@ function updateFiles() {
                     // document.getElementById("list_files").append(document.createElement("br"))
                 }
                 
-                $('#player').attr("src", files_global[0].source)
+                $('#player').attr("src", files_global[0].source).then(function() {
+                    alert(String(files_global[0].source))
+                })
 
                 //Deletion function
                 $('.btn-delete').click(function () {
