@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 
+#navbar-container {
+    height: 70px;
+    padding: 0px;
+    box-shadow: #00000080 0px 0px 15px;
+}
+
 .logo {
     background: #d50914;
     color: #ffffff;
@@ -9,6 +15,7 @@
     justify-content: center;
     align-items: center;
     height: 70px;
+    padding: 5px;
 }
 
 #search-form button {

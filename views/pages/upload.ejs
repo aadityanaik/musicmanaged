@@ -9,7 +9,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="scripts/upload.js"></script>
+    <script src="scripts/upload-bind.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/upload.css" />
 </head>
 
@@ -25,13 +25,13 @@
     <div class="row">
         <form class="col " name="upload_file_form">
             <table class="table">
-                <th><label>Select a song from your Device: <input type="file" name="file" id="file"></label></th>
-                <tr><td><label>Artist:</label></td>
-                    <td><input type = "text" name = 'artist' id = 'artist' required></td>
-                </tr>
+                <th><label>Select a song from your Device: <input type="file" name="file" id="file" onchange="onChange()"></label></th>
                 <tr>
                     <td><label>Song Title:</label></td>
-                    <td><input type = "text" name = 'song_title' id = 'song_title' required></label></td>
+                    <td><input type = "text" name = 'song_title' id = 'song_title' ></label></td>
+                </tr>
+                <tr><td><label>Artist:</label></td>
+                    <td><input type = "text" name = 'artist' id = 'artist' ></td>
                 </tr>
                 <tr>
                     <td><label>Album:</label></td>
@@ -39,7 +39,11 @@
                 </tr>
                 <tr>
                     <td><label>Release Year:</label></td>
-                    <td><input type = "number" min = 1890 max = 9999 name = 'year' id = 'year' required></td>
+                    <td><input type = "number" min = 1890 max = 9999 name = 'year' id = 'year' ></td>
+                </tr>
+                <tr>
+                    <td><label>Cover Art</label></td>
+                    <td><input type = "file" accept="image/" name = 'cover_art' id = 'cover_art' ></td>
                 </tr>
                 
                 <tr>
@@ -85,10 +89,10 @@
         $(document).ready(function(){
             var dtToday = new Date();
             var year = dtToday.getFullYear().toString();
-
                 
             $('#year').attr('max', year);
             console.log('' + year)
         });
+        
     </script>
 </body>

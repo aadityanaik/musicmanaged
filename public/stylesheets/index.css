@@ -11,17 +11,18 @@ html {
     margin: 0;
 }
 
-.container-fluid {
-    margin: 0;
+#content-container {
+    padding-bottom: 300px;
+    background: linear-gradient(to bottom, #00000000 0%, #000000 100%);
 }
 body {
     font-family: "Poppins", "sans-serif";
-    background: linear-gradient(0deg, #d50914, #000000);
-    background-size: 600% 600%;
+    background: #d50914;
+    /* background-size: 600% 600%; */
 
-    -webkit-animation: IndexBackground 60s ease infinite;
+    /* -webkit-animation: IndexBackground 60s ease infinite;
     -moz-animation: AnimationName 60s ease infinite;
-    animation: AnimationName 60s ease infinite;
+    animation: AnimationName 60s ease infinite; */
     color: #ffffff;
     padding: 0;
 }
@@ -45,7 +46,7 @@ h1 {
     padding: 10px 0px;
     width: auto;
     text-align: left;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 input {
@@ -53,11 +54,25 @@ input {
     color: #ffffff;
     background: #000000;
     border: none;
+    font-weight: 600;
+    margin: 10px 0px;
+    transition: box-shadow 0.5s ease-in;
+}
+
+input:focus {
+    padding: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #000000;
+    box-shadow: #00000090 0px 0px 20px;
+    border: none;
     margin: 10px 0px;
 }
 
 .large {
+    text-align: center;
     font-size: 64pt;
+    font-weight: 600;
 }
 
 a {
@@ -67,6 +82,7 @@ a {
 form {
     padding: 10px 10px;
     align-self: center;
+    transition: backdrop-filter 0.5s ease-in;
 }
 
 button {
@@ -76,18 +92,6 @@ button {
     font-size: 12pt;
     border:none;
     margin: 5px 5px 5px 0px;
-}
-
-footer {
-    padding: 10px;
-    background: #000000;
-    color: #ffffff;
-}
-
-footer p {
-    height: 200px;
-    font-size: 9pt;
-    align-self: center;
 }
 
 p {
