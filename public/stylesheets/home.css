@@ -82,3 +82,27 @@ h1 {
     color: #E50914;
 }
 
+.title{
+  font-size: 18px;
+  font-weight: 500;  
+}
+
+.artist,.album,.year {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.title:hover{
+
+    font-size: 18px;
+    font-weight: 800;  
+    text-shadow: 2px 2px 4px #ffffff;
+  }
+  
+  .artist:hover,.album:hover,.year:hover {
+      font-size: 14px;
+      font-weight: 500;
+      text-shadow: 2px 2px 4px #ffffff
+  }
+
+

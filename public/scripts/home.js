@@ -108,24 +108,24 @@ function updateFiles() {
                         title = data.listFiles[i].file_name
                     }
                     if(dataJSON[i].artist) {
-                        artist = "<span class = artist>" + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
+                        artist = "<span class = artist>Artist : " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
                     } else {
                         artist = ""
                     }
                     if(dataJSON[i].album) {
-                        album = "<span class = album>" + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
+                        album = "<span class = album>Album : " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
                     } else {
                         album = ""
                     }
                     if(dataJSON[i].year && dataJSON[i].year != "NaN") {
-                        year = "<span class = year>" + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
+                        year = "<span class = year>Year : " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
                     } else {
                         year = ""
                     }
                     
                     console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is "+status)
                     html_to_append = "<div class=\" row song-title\">"
-                    + "<div class=\"col-sm-9\"><br><span class = 'title'>"
+                    + "<div class=\"col-sm-9\"><br><span class = 'title'>Title : "
                     +title + "<br>"
                     +artist
                     +album
