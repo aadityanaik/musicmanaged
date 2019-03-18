@@ -125,7 +125,7 @@ function updateFiles() {
                     
                     console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is "+status)
                     html_to_append = "<div class=\" row song-title\">"
-                    + "<div class=\"col-sm-9\"><br><span class = 'title'>Title : "
+                    + "<div class=\"col-sm-9\"><br><span class = 'title'>"
                     +title + "<br>"
                     +artist
                     +album
