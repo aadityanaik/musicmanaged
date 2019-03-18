@@ -8,10 +8,6 @@
 
 .logo {
     background: #d50914;
-    color: #ffffff;
-    font-size: 12pt;
-    font-weight: 500;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 70px;
@@ -37,7 +33,7 @@
 #search-bar::placeholder {
     color: #ffffff;
 }
-.navbar-item {
+.navbar-item, .navbar-item a {
     background: #101010;
     color: #ffffff;
     font-size: 12pt;
