@@ -16,7 +16,7 @@ $(window).on('pageshow', function () {
 })
 
 function updateFiles() {
-
+    files_global = Array()
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
@@ -31,9 +31,6 @@ function updateFiles() {
 
         url: url + "/api/getMusicFiles", success: function (data) {
             document.getElementById("list_files").innerHTML = ""
-            files = Array()
-            song_array = Array()
-            var songdetails = Array()
             
             if (data.listFiles) {
                 for (var i = 0; i < data.listFiles.length; i++) {
