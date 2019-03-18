@@ -169,12 +169,11 @@ function updateFiles() {
                     // document.getElementById("list_files").append(document.createElement("br"))
                 }
                 
-                $('#player').attr("src", files_global[0].source).then(function() {
-                    alert(String(files_global[0].source))
-                })
+                $('#player').attr("src", files_global[0].source)
 
                 //Deletion function
                 $('.btn-delete').click(function () {
+                    console.log("In delete function")
                     pos = this.id.slice(10)
 
                     // console.log(files[pos], pos)

@@ -2,6 +2,26 @@ function test() {
     alert("Hello!");
 }
 
+$(window).on('pageshow', function() {
+    var usernamefield = document.getElementById('username')
+    var passwordfield = document.getElementById('password')
+
+    usernamefield.addEventListener('keyup', function(event) {
+        console.log('OK')
+        if(event.keyCode == 13) {
+            event.preventDefault()
+            document.getElementById('submit_button').click()
+        }
+    })
+
+    passwordfield.addEventListener('keyup', function(event) {
+        if(event.keyCode == 13) {
+            event.preventDefault()
+            document.getElementById('submit_button').click()
+        }
+    })
+})
+
 // function validateInput() {
 //     let valid_flag = false;
 //     let username = document.credentials_form.username.value;
