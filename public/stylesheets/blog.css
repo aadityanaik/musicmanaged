@@ -16,13 +16,13 @@ footer {
 
 #content-container {
     min-height: 100%;
-    margin-bottom: -300px;
+    margin-bottom: -200px;
 }
 
 #content-container:after {
     content: "";
     display: block;
-    height: 300px;
+    height: 200px;
 }
 
 figure {
@@ -35,7 +35,7 @@ figure figcaption {
     font-size: 8;
 }
 
-.post-title {
+.post-title, .post-title div {
     text-decoration: none;
     color: black;
 }
