@@ -1,0 +1,40 @@
+footer {
+    position: fixed;
+    min-height: 400;
+    clear: both;
+    bottom: 0;
+    width: 100%;
+
+    color: aliceblue;
+}
+
+figure {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+}
+
+.post-title {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :link {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :visited {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :active {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :hover {
+    text-decoration: none;
+    color: black;
+}
