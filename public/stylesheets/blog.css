@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+
 html {
     overflow-x: hidden;
     padding: 0;
     margin: 0;
+}
+
+body {
+    font-family: "Poppins", "sans-serif";
 }
 
 footer {

@@ -20,18 +20,18 @@ function updateFiles() {
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
-    
-    
+
+
 
     // console.log(host, port)
 
     var url = "http://" + host + ":" + port//  + "/api/getMusicFiles"
-    
+
     $.ajax({
 
         url: url + "/api/getMusicFiles", success: function (data) {
             document.getElementById("list_files").innerHTML = ""
-            
+
             if (data.listFiles) {
                 for (var i = 0; i < data.listFiles.length; i++) {
                     counter = i
@@ -57,14 +57,14 @@ function updateFiles() {
                     // btn.setAttribute("class", "btn btn-primary")
                     // btn.id = "deleteBtn"+i
                     // btn.onclick = deleteMusic
-                    
+
                     // (url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id)
                     details = Array()
                     tagsURL = encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id)
                     $.ajax({
-                        url: tagsURL, 
+                        url: tagsURL,
                         dataType: 'json',
-                        success: function(data){
+                        success: function (data) {
                             // console.log("The Data Object is: \n" + JSON.stringify(data))
                             // console.log("The title is:\t" + data.tags.title)  
                             //details.push({title: data.tags.title, artist: data.tags.artist, album :  data.tags.album,year: data.tags.year})
@@ -78,8 +78,8 @@ function updateFiles() {
                             // })
 
                         }, async: false
-                        
-                    }).fail(function(){
+
+                    }).fail(function () {
                         var data = {
                             title: "Unknown",
                             artist: "Unknown",
@@ -88,57 +88,57 @@ function updateFiles() {
                         }
 
                         dataJSON.push(data.tags)
-                        
-                    }).done(function(){ 
+
+                    }).done(function () {
                         console.log("META-TAGS:" + JSON.stringify(dataJSON))
                         status = true
                     })
-                    
+
                     //Scenes below
-                    console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is "+status)
+                    console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
 
                     var title, artist, album, year;
 
-                    if(dataJSON[i].title) {
+                    if (dataJSON[i].title) {
                         title = (JSON.stringify(dataJSON[i].title)).split("\"").join("")
                     } else {
                         title = data.listFiles[i].file_name
                     }
-                    if(dataJSON[i].artist) {
+                    if (dataJSON[i].artist) {
                         artist = "<span class = artist>Artist : " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
                     } else {
                         artist = ""
                     }
-                    if(dataJSON[i].album) {
+                    if (dataJSON[i].album) {
                         album = "<span class = album>Album : " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
                     } else {
                         album = ""
                     }
-                    if(dataJSON[i].year && dataJSON[i].year != "NaN") {
+                    if (dataJSON[i].year && dataJSON[i].year != "NaN") {
                         year = "<span class = year>Year : " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
                     } else {
                         year = ""
                     }
-                    
-                    console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is "+status)
+
+                    console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
                     html_to_append = "<div class=\" row song-title\">"
-                    + "<div class=\"col-sm-9\"><br><span class = 'title'>"
-                    +title + "<br>"
-                    +artist
-                    +album
-                    +year
-                    + "</div>"
-                    + "<div class=\"col-sm-1\">"
-                    + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
-                    + "</div>"
-                    + "<div class=\"col-sm-1\">"
-                    + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
-                    + "</div>"
-                    + "<div class=\"col-sm-1\">"
-                    + "<a class='btn btn-danger btn-tags' id=\"tags_btn" + i + "\" href='" + encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Get Tags</button>"
-                    + "</div>"
-                    + "</div>"
-                    + "<hr style= \"color: white;\">"
+                        + "<div class=\"col-sm-9\"><br><span class = 'title'>"
+                        + title + "<br>"
+                        + artist
+                        + album
+                        + year
+                        + "</div>"
+                        + "<div class=\"col-sm-1\">"
+                        + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
+                        + "</div>"
+                        + "<div class=\"col-sm-1\">"
+                        + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
+                        + "</div>"
+                        + "<div class=\"col-sm-1\">"
+                        + "<a class='btn btn-danger btn-tags' id=\"tags_btn" + i + "\" href='" + encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Get Tags</button>"
+                        + "</div>"
+                        + "</div>"
+                        + "<hr style= \"color: white;\">"
 
                     //console.log("object data is " + JSON.stringify(dataJSON))
                     $.when($(html_to_append).hide().appendTo("#list_files").fadeIn(500))
@@ -165,7 +165,7 @@ function updateFiles() {
                     // document.getElementById("list_files").append(btn)
                     // document.getElementById("list_files").append(document.createElement("br"))
                 }
-                
+
                 $('#player').attr("src", files_global[0].source)
 
                 //Deletion function
