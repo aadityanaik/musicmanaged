@@ -1,17 +1,32 @@
-footer {
-    position: fixed;
-    min-height: 400;
-    clear: both;
-    bottom: 0;
-    width: 100%;
+html {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
 
+footer {
     color: aliceblue;
+}
+
+#content-container {
+    min-height: 100%;
+    margin-bottom: -300px;
+}
+
+#content-container:after {
+    content: "";
+    display: block;
+    height: 300px;
 }
 
 figure {
     align-self: center;
     align-content: center;
     text-align: center;
+}
+
+figure figcaption {
+    font-size: 8;
 }
 
 .post-title {

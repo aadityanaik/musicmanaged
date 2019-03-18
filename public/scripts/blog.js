@@ -10,7 +10,7 @@ $(window).on('pageshow', function () {
                 for (var i = 0; i < itemArray.length; i++) {
                     htmlToAppend += "<a href='#' class='post-title' id='article-" + i + "'><div class='row'><div class='col-sm-12'><h2>" + itemArray[i].title
                         + "</h2><h4 style='font-style:italic;'>" + itemArray[i].author + "</h4></div></div></a><br>"
-                        + "<div class='row' style='display:none;' id='content-" + i + "'><div class='col-sm-12'>" + itemArray[i].content + "</div></div><hr style='border-color:red;'>"
+                        + "<div class='row post-content' style='display:none;' id='content-" + i + "'><div class='col-sm-12'>" + itemArray[i].content + "</div></div><hr style='border-color:red;'>"
                 }
 
                 $(htmlToAppend).appendTo('#content-container')
