@@ -7,7 +7,7 @@ $(window).on('pageshow', function () {
 
                 var htmlToAppend = ""
 
-                for (var i = 0; i < itemArray.length; i++) {
+                for (var i = itemArray.length-1; i >=0 ; i--) {
                     htmlToAppend += "<a href='#' class='post-title' id='article-" + i + "'><div class='row'><div class='col-sm-12'><h2>" + itemArray[i].title
                         + "</h2><h4 style='font-style:italic;'>" + itemArray[i].author + "</h4></div></div></a><br>"
                         + "<div class='row post-content' style='display:none;' id='content-" + i + "'><div class='col-sm-12'>" + itemArray[i].content + "</div></div><hr style='border-color:red;'>"
