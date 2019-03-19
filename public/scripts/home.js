@@ -14,7 +14,9 @@ var status = false
 
 $(window).on('pageshow', function () {
     updateFiles()
+    
 })
+
 
 function updateFiles() {
     files_global = Array()
@@ -138,14 +140,13 @@ function updateFiles() {
                         + year
                         + "</div>"
                         + "<div class=\"col-sm-1\">"
-                        + "<a class='btn btn-primary' id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Download</a>"
+                        + "<a class='btn-play' id=\"play_btn" + i + "\"><i class='fas fa-play-circle fa-2x'></i></a>"
                         + "</div>"
                         + "<div class=\"col-sm-1\">"
-                        + "<button type=\"button\" class='btn btn-danger btn-delete' id=\"delete_btn" + i + "\">Delete</button>"
+                        + "<a  id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
                         + "</div>"
                         + "<div class=\"col-sm-1\">"
-                        + "<a class='btn btn-danger btn-tags' id=\"tags_btn" + i + "\" href='" + encodeURI(url + "/api/getTags?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'>Get Tags</button>"
-                        + "</div>"
+                        + "<a class='btn-delete' id=\"delete_btn" + i + "\"><i class='fas fa-trash-alt fa-2x'></i></a>"
                         + "</div>"
                         + "<hr style= \"color: white;\">"
 
@@ -201,6 +202,36 @@ function updateFiles() {
                         toggleDuration: true
                     });
                 }
+                
+                
+                $('.btn-play').click(function(){
+                    var pos = this.id.slice(8)
+                    console.log(pos)
+                    url = "http://" + host + ":" + port
+                    $("#jquery_jplayer_1").jPlayer({
+                        size: {
+                            width: "100%"
+                        },
+                        backgroundColor: "#E50914",
+                        ready: function (event) {
+                            $(this).jPlayer("setMedia", {
+                                title: tags_global[pos].title,
+                                mp3: encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].file_name + "&fileid=" + files_global[pos].file_id), // files_global[0].source
+                                mp4: encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].file_name + "&fileid=" + files_global[pos].file_id)  // files_global[0].source
+                            });
+                        },
+                        swfPath: "scripts/dist/jplayer",
+                        supplied: "mp3,mp4",
+                        wmode: "window",
+                        useStateClassSkin: true,
+                        autoBlur: false,
+                        smoothPlayBar: true,
+                        keyEnabled: true,
+                        remainingDuration: true,
+                        toggleDuration: true
+                    });
+                })
+                
 
                 //Deletion function
                 $('.btn-delete').click(function () {
@@ -226,13 +257,25 @@ function updateFiles() {
                         updateFiles()
                     }, "json")
                 })
+
+
             }
             // list_of_files = Object.assign(list_of_files, files)
         }, cache: false, async: true
     }).then(function (data, err) {
         // TODO: Set audio paths
     })
+
+    
+    
 }
+
+
+
+
+
+
+
 
 // $('song-row')
 
