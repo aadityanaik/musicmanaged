@@ -303,7 +303,9 @@ MongoDBHandler.prototype.getMusic = function (username, filename, fileid, respon
                         if(errorArr) {
                             console.log(errorArr)
                         } else if(resArr[0]) {
-                            response.setHeader('Content-length', resArr[0].length)
+                            // console.log(resArr[0].length)
+                            // response.setHeader('Content-length', resArr[0].length)
+                            // response.setHeader('Content-range', 'bytes 0-' + resArr[0].length + '/' + resArr[0].length)
                         }
                     })
 
