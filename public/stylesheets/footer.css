@@ -25,6 +25,9 @@
 }
 
 footer {
-    height: 300px;
+    height: 200px;
     background: #000000;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
