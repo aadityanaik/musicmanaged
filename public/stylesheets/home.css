@@ -21,13 +21,13 @@ html, body {
 
 .song-container {
     min-height: 75%;
-    margin-bottom: -75px;
+    margin-bottom: -100px;
 }
 
 .song-container:after {
     content: "";
     display: block;
-    height: 75px;
+    height: 100px;
 }
 
 h1 {
@@ -39,9 +39,9 @@ h1 {
 
 .player {
     width: 100vw;
-    height: 75px;
+    height: 100px;
     padding: 10px;
-    background: red;
+    background: #101010;
     position: fixed;
     bottom: 0;
 }
@@ -56,7 +56,7 @@ h1 {
 }
 
 #list_files:nth-child(even) {
-    background: red;
+    background: #E50914;
 }
 
 #list_files:nth-child(odd) {
@@ -109,12 +109,29 @@ h1 {
     font-size: 18px;
     font-weight: 800;  
     text-shadow: 2px 2px 4px #ffffff;
-  }
-  
-  .artist:hover,.album:hover,.year:hover {
-      font-size: 14px;
-      font-weight: 500;
-      text-shadow: 2px 2px 4px #ffffff
-  }
+}
 
+.artist:hover,.album:hover,.year:hover {
+    font-size: 14px;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px #ffffff
+}
 
+.jp-audio, .jp-progress {
+    width: 100% !important;
+    border: none !important;
+}
+
+.jp-controls-holder {
+    width: 80% !important;
+}
+
+.jp-volume-controls {
+    right: -70px !important;
+    left: auto !important;
+}
+
+.jp-audio * {
+    background-color: #101010 !important;
+    border: none !important;
+}

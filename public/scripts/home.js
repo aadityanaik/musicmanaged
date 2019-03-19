@@ -6,6 +6,7 @@ list.wrapFocus = true;
 // var list_of_files = Array()
 
 var files_global = Array()
+var tags_global = Array()
 var html_to_append = ""
 counter = 0
 var dataJSON = Array()
@@ -17,6 +18,7 @@ $(window).on('pageshow', function () {
 
 function updateFiles() {
     files_global = Array()
+    tags_global = Array()
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
@@ -120,6 +122,13 @@ function updateFiles() {
                         year = ""
                     }
 
+                    tags_global.push({
+                        title: title,
+                        artist: artist,
+                        album, album,
+                        year: year
+                    })
+
                     console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
                     html_to_append = "<div class=\" row song-title\">"
                         + "<div class=\"col-sm-9\"><br><span class = 'title'>"
@@ -166,7 +175,32 @@ function updateFiles() {
                     // document.getElementById("list_files").append(document.createElement("br"))
                 }
 
-                $('#player').attr("src", files_global[0].source)
+                if(files_global[0]) {
+                    console.log(files_global[0].source)
+                    console.log(encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id))
+                    $("#jquery_jplayer_1").jPlayer({
+                        size: {
+                            width: "100%"
+                        },
+                        backgroundColor: "#E50914",
+                        ready: function (event) {
+                            $(this).jPlayer("setMedia", {
+                                title: tags_global[0].title,
+                                mp3: encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id), // files_global[0].source
+                                mp4: encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id)  // files_global[0].source
+                            });
+                        },
+                        swfPath: "scripts/jPlayer-2.9.2/dist/jplayer",
+                        supplied: "mp3,mp4",
+                        wmode: "window",
+                        useStateClassSkin: true,
+                        autoBlur: false,
+                        smoothPlayBar: true,
+                        keyEnabled: true,
+                        remainingDuration: true,
+                        toggleDuration: true
+                    });
+                }
 
                 //Deletion function
                 $('.btn-delete').click(function () {
