@@ -190,7 +190,7 @@ function updateFiles() {
                                 mp4: encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id)  // files_global[0].source
                             });
                         },
-                        swfPath: "scripts/jPlayer-2.9.2/dist/jplayer",
+                        swfPath: "scripts/dist/jplayer",
                         supplied: "mp3,mp4",
                         wmode: "window",
                         useStateClassSkin: true,
