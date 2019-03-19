@@ -135,3 +135,16 @@ h1 {
     background-color: #101010 !important;
     border: none !important;
 }
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: white;
+    text-shadow: 1px 1px 2px #ffffff;
+}
+
+
+
