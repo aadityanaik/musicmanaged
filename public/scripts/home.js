@@ -14,7 +14,9 @@ var status = false
 
 $(window).on('pageshow', function () {
     updateFiles()
+    
 })
+
 
 function updateFiles() {
     files_global = Array()
@@ -200,6 +202,36 @@ function updateFiles() {
                         toggleDuration: true
                     });
                 }
+                
+                
+                $('.btn-play').click(function(){
+                    var pos = this.id.slice(8)
+                    console.log(pos)
+                    url = "http://" + host + ":" + port
+                    $("#jquery_jplayer_1").jPlayer({
+                        size: {
+                            width: "100%"
+                        },
+                        backgroundColor: "#E50914",
+                        ready: function (event) {
+                            $(this).jPlayer("setMedia", {
+                                title: tags_global[pos].title,
+                                mp3: encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].file_name + "&fileid=" + files_global[pos].file_id), // files_global[0].source
+                                mp4: encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].file_name + "&fileid=" + files_global[pos].file_id)  // files_global[0].source
+                            });
+                        },
+                        swfPath: "scripts/dist/jplayer",
+                        supplied: "mp3,mp4",
+                        wmode: "window",
+                        useStateClassSkin: true,
+                        autoBlur: false,
+                        smoothPlayBar: true,
+                        keyEnabled: true,
+                        remainingDuration: true,
+                        toggleDuration: true
+                    });
+                })
+                
 
                 //Deletion function
                 $('.btn-delete').click(function () {
@@ -225,13 +257,25 @@ function updateFiles() {
                         updateFiles()
                     }, "json")
                 })
+
+
             }
             // list_of_files = Object.assign(list_of_files, files)
         }, cache: false, async: true
     }).then(function (data, err) {
         // TODO: Set audio paths
     })
+
+    
+    
 }
+
+
+
+
+
+
+
 
 // $('song-row')
 
