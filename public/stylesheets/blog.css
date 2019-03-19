@@ -31,8 +31,15 @@ figure {
     text-align: center;
 }
 
+figure img {
+    max-height: 200px;
+    width: auto;
+    padding: 10px;
+}
+
 figure figcaption {
     font-size: 8;
+    padding: 10px;
 }
 
 .post-title, .post-title div {
