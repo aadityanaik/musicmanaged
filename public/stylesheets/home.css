@@ -21,13 +21,13 @@ html, body {
 
 .song-container {
     min-height: 75%;
-    margin-bottom: -100px;
+    margin-bottom: -150px;
 }
 
 .song-container:after {
     content: "";
     display: block;
-    height: 100px;
+    height: 150px;
 }
 
 h1 {
@@ -39,7 +39,7 @@ h1 {
 
 .player {
     width: 100vw;
-    height: 100px;
+    height: 150px;
     padding: 10px;
     background: #101010;
     position: fixed;
@@ -134,6 +134,7 @@ h1 {
 .jp-audio * {
     background-color: #101010 !important;
     border: none !important;
+    color: aliceblue;
 }
 
 a{
@@ -145,6 +146,3 @@ a:hover{
     color: white;
     text-shadow: 1px 1px 2px #ffffff;
 }
-
-
-
