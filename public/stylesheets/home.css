@@ -105,7 +105,6 @@ h1 {
 }
 
 .title:hover{
-
     font-size: 18px;
     font-weight: 800;  
     text-shadow: 2px 2px 4px #ffffff;
@@ -153,4 +152,9 @@ a:hover{
 
 .jp-play-bar {
     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
+}
+
+.cover_image {
+    width: 100px;
+    height: 100px;
 }

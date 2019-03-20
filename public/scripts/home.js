@@ -21,6 +21,7 @@ $(window).on('pageshow', function () {
 function updateFiles() {
     files_global = Array()
     tags_global = Array()
+    dataJSON = Array()
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
@@ -100,7 +101,7 @@ function updateFiles() {
                     //Scenes below
                     // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
 
-                    var title, artist, album, year;
+                    var title = "", artist = "", album = "", year = "", pic = "", picArray = null;
 
                     if (dataJSON[i].title) {
                         title = (JSON.stringify(dataJSON[i].title)).split("\"").join("")
@@ -122,17 +123,30 @@ function updateFiles() {
                     } else {
                         year = ""
                     }
+                    if (dataJSON[i].raw && dataJSON[i].raw.APIC) {
+                        console.log(dataJSON[i].raw.APIC)
+                        picArray = new Uint8Array(dataJSON[i].raw.APIC.imageBuffer.data)
+                        // picBuffer = new ArrayBuffer(picArray, 'binary')
+                        pic = new Blob([picArray], { type: 'image/jpeg' })
+                        console.log(picArray, pic)
+                    } else {
+                        pic = new Blob([])
+                    }
 
                     tags_global.push({
                         title: title,
                         artist: artist,
-                        album, album,
-                        year: year
+                        album: album,
+                        year: year,
+                        pic: pic
                     })
 
                     // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
                     html_to_append = "<div class=\" row song-title\">"
-                        + "<div class=\"col-sm-9\"><br><span class = 'title'>"
+                        + "<div class='col-sm-1'>"
+                        + "<img class='cover_image img-circle' id='cover_image_" + i + "'></img>"
+                        + "</div>"
+                        + "<div class=\"col-sm-8\"><span class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
@@ -151,6 +165,17 @@ function updateFiles() {
 
                     //// console.log("object data is " + JSON.stringify(dataJSON))
                     $.when($(html_to_append).hide().appendTo("#list_files").fadeIn(500))
+
+
+                    if (picArray) {
+                        var imageUrl = URL.createObjectURL(pic)
+                        $("#cover_image_" + i).attr("src", imageUrl)
+                    } else {
+                        console.log(i)
+                        console.log()
+                        $("#cover_image_" + i).attr("src", "../images/logo1.png")
+                    }
+
                     // $('#list_files')
                     //     .append("<div class=\" row song-title\">"
                     //         + "<div class=\"col-sm-8\">"
@@ -205,6 +230,7 @@ function updateFiles() {
 
                 $('.btn-play').click(function () {
                     var pos = this.id.slice(8)
+                    console.log(files_global[pos].source)
                     // console.log(files_global[pos])
                     // console.log(encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].name + "&fileid=" + files_global[pos].id))
                     url = "http://" + host + ":" + port
