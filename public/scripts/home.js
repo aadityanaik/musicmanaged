@@ -109,17 +109,17 @@ function updateFiles() {
                         title = data.listFiles[i].file_name
                     }
                     if (dataJSON[i].artist) {
-                        artist = "<span class = artist>Artist : " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
+                        artist = "<span class = artist>Artist: " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
                     } else {
                         artist = ""
                     }
                     if (dataJSON[i].album) {
-                        album = "<span class = album>Album : " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
+                        album = "<span class = album>Album: " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
                     } else {
                         album = ""
                     }
                     if (dataJSON[i].year && dataJSON[i].year != "NaN") {
-                        year = "<span class = year>Year : " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
+                        year = "<span class = year>Year: " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
                     } else {
                         year = ""
                     }
@@ -133,7 +133,7 @@ function updateFiles() {
 
                     console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
                     html_to_append = "<div class=\" row song-title\">"
-                        + "<div class=\"col-sm-9\"><br><span class = 'title'>"
+                        + "<div class=\"col-sm-6\"><br><span class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
@@ -143,12 +143,11 @@ function updateFiles() {
                         + "<a class='btn-play' id=\"play_btn" + i + "\"><i class='fas fa-play-circle fa-2x'></i></a>"
                         + "</div>"
                         + "<div class=\"col-sm-1\">"
-                        + "<a  id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
+                        + "<a class=\"btn-download\" id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
                         + "</div>"
                         + "<div class=\"col-sm-1\">"
                         + "<a class='btn-delete' id=\"delete_btn" + i + "\"><i class='fas fa-trash-alt fa-2x'></i></a>"
                         + "</div>"
-                        + "<hr style= \"color: white;\">"
 
                     //console.log("object data is " + JSON.stringify(dataJSON))
                     $.when($(html_to_append).hide().appendTo("#list_files").fadeIn(500))
