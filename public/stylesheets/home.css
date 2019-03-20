@@ -154,6 +154,12 @@ a:hover{
     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
 }
 
+.jp-progress {
+    height: 5px !important;
+    top: 37px !important;
+}
+
+
 .cover_image {
     width: 100px;
     height: 100px;
