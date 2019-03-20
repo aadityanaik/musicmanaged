@@ -14,7 +14,7 @@ var status = false
 
 $(window).on('pageshow', function () {
     updateFiles()
-    
+
 })
 
 
@@ -175,7 +175,7 @@ function updateFiles() {
                     // document.getElementById("list_files").append(document.createElement("br"))
                 }
 
-                if(files_global[0]) {
+                if (files_global[0]) {
                     console.log(files_global[0].source)
                     console.log(encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id))
                     $("#jquery_jplayer_1").jPlayer({
@@ -201,36 +201,21 @@ function updateFiles() {
                         toggleDuration: true
                     });
                 }
-                
-                
-                $('.btn-play').click(function(){
+
+
+                $('.btn-play').click(function () {
                     var pos = this.id.slice(8)
-                    console.log(pos)
+                    console.log(files_global[pos])
+                    console.log(encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].name + "&fileid=" + files_global[pos].id))
                     url = "http://" + host + ":" + port
-                    $("#jquery_jplayer_1").jPlayer({
-                        size: {
-                            width: "100%"
-                        },
-                        backgroundColor: "#E50914",
-                        ready: function (event) {
-                            $(this).jPlayer("setMedia", {
-                                title: tags_global[pos].title,
-                                mp3: encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].file_name + "&fileid=" + files_global[pos].file_id), // files_global[0].source
-                                mp4: encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].file_name + "&fileid=" + files_global[pos].file_id)  // files_global[0].source
-                            });
-                        },
-                        swfPath: "scripts/dist/jplayer",
-                        supplied: "mp3,mp4",
-                        wmode: "window",
-                        useStateClassSkin: true,
-                        autoBlur: false,
-                        smoothPlayBar: true,
-                        keyEnabled: true,
-                        remainingDuration: true,
-                        toggleDuration: true
-                    });
+                    // $("#jquery_jplayer_1").jPlayer("destroy")
+                    $("#jquery_jplayer_1").jPlayer("setMedia", {
+                        title: tags_global[pos].title,
+                        mp3: files_global[pos].source, // files_global[0].source
+                        mp4: files_global[pos].source  // files_global[0].source
+                    }).jPlayer('play');
                 })
-                
+
 
                 //Deletion function
                 $('.btn-delete').click(function () {
@@ -265,8 +250,8 @@ function updateFiles() {
         // TODO: Set audio paths
     })
 
-    
-    
+
+
 }
 
 
