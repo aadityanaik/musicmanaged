@@ -1,15 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 
 #navbar-container {
-    height: 60px;
+    height: 70px;
     box-shadow: #00000080 0px 0px 15px;
 }
 
+#logo-img {
+    height: 70px;
+    padding: 10px;
+    margin: 0px -50px;
+}
 .logo {
+    display: flex;
     background: #d50914;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    height: 60px;
+    height: 7 0px;
     /* padding: 5px; */
 }
 
@@ -40,7 +46,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px;
+    height: 70px;
 }
 .navbar-brand {
     /* padding: 20px;  */
