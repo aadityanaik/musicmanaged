@@ -53,3 +53,12 @@
 a.footer-link::after, a.nav-link::after, .strong-link a::after, .project-link::after {
     content: "→";
 }
+
+a img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#logo {
+    margin-left: 50px;
+}

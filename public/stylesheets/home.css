@@ -130,7 +130,6 @@ h1 {
 .jp-audio, .jp-progress {
     width: 100% !important;
     border: none !important;
-
 }
 
 .jp-controls-holder {
@@ -155,8 +154,24 @@ a{
 
 a:hover{
     color: white;
-    /* text-shadow: 1px 1px 2px #ffffff; */
+    text-shadow: 1px 1px 2px #ffffff;
+}
+
+.jp-play {
+    background: url('../assets/jplayer_icons/play-circle-solid.svg') !important;
+}
+
+.jp-play-bar {
+    background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
+}
+
+.jp-progress {
+    height: 5px !important;
+    top: 37px !important;
 }
 
 
-
+.cover_image {
+    width: 100px;
+    height: 100px;
+}

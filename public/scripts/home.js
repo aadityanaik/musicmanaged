@@ -21,25 +21,25 @@ $(window).on('pageshow', function () {
 function updateFiles() {
     files_global = Array()
     tags_global = Array()
+    dataJSON = Array()
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
 
+    document.getElementById("list_files").innerHTML = ""
 
-
-    // console.log(host, port)
+    // // console.log(host, port)
 
     var url = "http://" + host + ":" + port//  + "/api/getMusicFiles"
 
     $.ajax({
 
         url: url + "/api/getMusicFiles", success: function (data) {
-            document.getElementById("list_files").innerHTML = ""
 
             if (data.listFiles) {
                 for (var i = 0; i < data.listFiles.length; i++) {
                     counter = i
-                    console.log("COUNTER IS " + counter)
+                    // console.log("COUNTER IS " + counter)
                     var element = document.createTextNode(data.listFiles[i].file_name)
                     element.id = "userfiles"
 
@@ -69,11 +69,11 @@ function updateFiles() {
                         url: tagsURL,
                         dataType: 'json',
                         success: function (data) {
-                            // console.log("The Data Object is: \n" + JSON.stringify(data))
-                            // console.log("The title is:\t" + data.tags.title)  
+                            // // console.log("The Data Object is: \n" + JSON.stringify(data))
+                            // // console.log("The title is:\t" + data.tags.title)  
                             //details.push({title: data.tags.title, artist: data.tags.artist, album :  data.tags.album,year: data.tags.year})
                             dataJSON.push(data.tags)
-                            console.log(dataJSON)
+                            // console.log(dataJSON)
                             // songdetails.push({
                             //     title: JSON.stringify(data.tags.title),
                             //     artist: JSON.stringify(data.tags.artist),
@@ -94,14 +94,14 @@ function updateFiles() {
                         dataJSON.push(data.tags)
 
                     }).done(function () {
-                        console.log("META-TAGS:" + JSON.stringify(dataJSON))
+                        // console.log("META-TAGS:" + JSON.stringify(dataJSON))
                         status = true
                     })
 
                     //Scenes below
-                    console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
+                    // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
 
-                    var title, artist, album, year;
+                    var title = "", artist = "", album = "", year = "", pic = "", picArray = null;
 
                     if (dataJSON[i].title) {
                         title = (JSON.stringify(dataJSON[i].title)).split("\"").join("")
@@ -123,17 +123,30 @@ function updateFiles() {
                     } else {
                         year = ""
                     }
+                    if (dataJSON[i].raw && dataJSON[i].raw.APIC) {
+                        console.log(dataJSON[i].raw.APIC)
+                        picArray = new Uint8Array(dataJSON[i].raw.APIC.imageBuffer.data)
+                        // picBuffer = new ArrayBuffer(picArray, 'binary')
+                        pic = new Blob([picArray], { type: 'image/jpeg' })
+                        console.log(picArray, pic)
+                    } else {
+                        pic = new Blob([])
+                    }
 
                     tags_global.push({
                         title: title,
                         artist: artist,
-                        album, album,
-                        year: year
+                        album: album,
+                        year: year,
+                        pic: pic
                     })
 
-                    console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
+                    // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
                     html_to_append = "<div class=\" row song-title\">"
-                        + "<div class=\"col-sm-6\"><br><span class = 'title'>"
+                        + "<div class='col-sm-1'>"
+                        + "<img class='cover_image img-circle' id='cover_image_" + i + "'></img>"
+                        + "</div>"
+                        + "<div class=\"col-sm-8\"><span class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
@@ -149,8 +162,19 @@ function updateFiles() {
                         + "<a class='btn-delete' id=\"delete_btn" + i + "\"><i class='fas fa-trash-alt fa-2x'></i></a>"
                         + "</div>"
 
-                    //console.log("object data is " + JSON.stringify(dataJSON))
+                    //// console.log("object data is " + JSON.stringify(dataJSON))
                     $.when($(html_to_append).hide().appendTo("#list_files").fadeIn(500))
+
+
+                    if (picArray) {
+                        var imageUrl = URL.createObjectURL(pic)
+                        $("#cover_image_" + i).attr("src", imageUrl)
+                    } else {
+                        console.log(i)
+                        console.log()
+                        $("#cover_image_" + i).attr("src", "../images/logo1.png")
+                    }
+
                     // $('#list_files')
                     //     .append("<div class=\" row song-title\">"
                     //         + "<div class=\"col-sm-8\">"
@@ -176,8 +200,8 @@ function updateFiles() {
                 }
 
                 if (files_global[0]) {
-                    console.log(files_global[0].source)
-                    console.log(encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id))
+                    // console.log(files_global[0].source)
+                    // console.log(encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[0].file_name + "&fileid=" + data.listFiles[0].file_id))
                     $("#jquery_jplayer_1").jPlayer({
                         size: {
                             width: "100%"
@@ -205,8 +229,9 @@ function updateFiles() {
 
                 $('.btn-play').click(function () {
                     var pos = this.id.slice(8)
-                    console.log(files_global[pos])
-                    console.log(encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].name + "&fileid=" + files_global[pos].id))
+                    console.log(files_global[pos].source)
+                    // console.log(files_global[pos])
+                    // console.log(encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].name + "&fileid=" + files_global[pos].id))
                     url = "http://" + host + ":" + port
                     // $("#jquery_jplayer_1").jPlayer("destroy")
                     $("#jquery_jplayer_1").jPlayer("setMedia", {
@@ -219,10 +244,10 @@ function updateFiles() {
 
                 //Deletion function
                 $('.btn-delete').click(function () {
-                    console.log("In delete function")
+                    // console.log("In delete function")
                     pos = this.id.slice(10)
 
-                    // console.log(files[pos], pos)
+                    // // console.log(files[pos], pos)
 
                     var file = files_global[pos].name
                     var id = files_global[pos].id
@@ -237,7 +262,7 @@ function updateFiles() {
                     }
 
                     $.post(url, info, function (data) {
-                        console.log(data)
+                        // console.log(data)
                         updateFiles()
                     }, "json")
                 })
@@ -264,7 +289,7 @@ function updateFiles() {
 // $('song-row')
 
 // function deleteMusic() {
-//     console.log("fds")
+//     // console.log("fds")
 //     pos = this.id.slice(10)
 
 //     var file = files[pos].name
@@ -280,7 +305,7 @@ function updateFiles() {
 //     }
 
 //     $.post(url, info, function(data) {
-//         console.log(data)
+//         // console.log(data)
 //         updateFiles()
 //     }, "json")
 // }
