@@ -142,23 +142,23 @@ function updateFiles() {
                     })
 
                     // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
-                    html_to_append = "<div class=\" row song-title\">"
+                    html_to_append = "<div class=\"row song-title\">"
                         + "<div class='col-sm-1'>"
                         + "<img class='cover_image img-circle' id='cover_image_" + i + "'></img>"
                         + "</div>"
-                        + "<div class=\"col-sm-8\"><span class = 'title'>"
+                        + "<div class=\"col-xs-8 col-sm-8\"><span class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
                         + year
                         + "</div>"
-                        + "<div class=\"col-sm-1\">"
+                        + "<div class=\" col-xs-1 col-sm-1\">"
                         + "<a class='btn-play' id=\"play_btn" + i + "\"><i class='fas fa-play-circle fa-2x'></i></a>"
                         + "</div>"
-                        + "<div class=\"col-sm-1\">"
+                        + "<div class=\"col-xs-1 col-sm-1\">"
                         + "<a class=\"btn-download\" id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
                         + "</div>"
-                        + "<div class=\"col-sm-1\">"
+                        + "<div class=\"col-xs-1 col-sm-1\">"
                         + "<a class='btn-delete' id=\"delete_btn" + i + "\"><i class='fas fa-trash-alt fa-2x'></i></a>"
                         + "</div>"
 

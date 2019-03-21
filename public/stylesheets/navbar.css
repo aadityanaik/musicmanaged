@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 
 #navbar-container {
-    height: 70px;
-    padding: 0px;
+    height: 60px;
     box-shadow: #00000080 0px 0px 15px;
 }
 
@@ -10,8 +9,8 @@
     background: #d50914;
     justify-content: center;
     align-items: center;
-    height: 70px;
-    padding: 5px;
+    height: 60px;
+    /* padding: 5px; */
 }
 
 #search-form button {
@@ -20,7 +19,7 @@
 }
 
 #search-bar {
-    padding: 10px;
+    /* padding: 10px; */
     background: #101010;
     height: 50px;
     border: none;
@@ -41,10 +40,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70px;
+    height: 60px;
 }
 .navbar-brand {
-    padding: 20px; 
+    /* padding: 20px;  */
     font-size: 18pt;
     color: #ffffff;
     background: #ffffff;
