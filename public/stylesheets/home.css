@@ -127,11 +127,15 @@ h1 {
     transition: color 0.2s ease;
 }
 
-.jp-audio, .jp-progress {
+.jp-audio {
     width: 100% !important;
     border: none !important;
 }
 
+.jp-progress {
+    width: 93% !important;
+    border: none !important;
+}
 
 .jp-controls-holder {
     width: 80% !important;
@@ -179,6 +183,10 @@ a:hover{
 .jp-current-time, .jp-duration {
     font-style: normal !important;
     color: #ffffff !important;
+}
+
+.jp-current-time {
+    margin-left: 110px;
 }
 
 .cover_image {
