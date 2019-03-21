@@ -1,3 +1,4 @@
+
 /*import {MDCList} from "@material/list";
 const list = MDCList.attachTo(document.querySelector('.mdc-list'));
 list.wrapFocus = true;
@@ -5,6 +6,16 @@ list.wrapFocus = true;
 
 // var list_of_files = Array()
 
+
+currentSong = {
+    id : 0,
+    playStatus : false,
+    currentTime : 0
+}
+
+playIconUrl = "url('../assets/jplayer_icons/play-circle-solid.svg') !important"
+pauseIconUrl = "url('../assets/jplayer_icons/pause-circle-solid.svg') !important"
+console.log(pauseIconUrl  + '\n' + playIconUrl)
 var files_global = Array()
 var tags_global = Array()
 var html_to_append = ""
@@ -14,7 +25,6 @@ var status = false
 
 $(window).on('pageshow', function () {
     updateFiles()
-
 })
 
 
@@ -203,19 +213,86 @@ function updateFiles() {
                 }
 
 
-                $('.btn-play').click(function () {
-                    var pos = this.id.slice(8)
-                    // console.log(files_global[pos])
-                    // console.log(encodeURI(url + "/api/getmusicfile?filename=" + files_global[pos].name + "&fileid=" + files_global[pos].id))
-                    url = "http://" + host + ":" + port
-                    // $("#jquery_jplayer_1").jPlayer("destroy")
-                    $("#jquery_jplayer_1").jPlayer("setMedia", {
-                        title: tags_global[pos].title,
-                        mp3: files_global[pos].source, // files_global[0].source
-                        mp4: files_global[pos].source  // files_global[0].source
-                    }).jPlayer('play');
+                // .jp-play {
+                //     background: url('../assets/jplayer_icons/play-circle-solid.svg') !important;
+                // }
+                
+                // .jp-play-bar {
+                //     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
+                // }
+                
+                //PLAY-PAUSE FUNCTIONALITY
+                
+                $('.jp-play').click(function(){
+                    if (currentSong.playStatus == false){
+                        //SAME SONG, BUT RESUME
+                        console.log('REACHED HERE' + currentSong.playStatus)
+                        buttonCorrector(currentSong.id)    
+                        document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
+                        $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
+                        currentSong.playStatus = true   
+                        $('.jp-play').css("background", String(pauseIconUrl)); 
+                    }else {
+                        //SAME SONG, BUT PAUSE
+                        console.log('REACHED HERE' + currentSong.playStatus)
+                        $('#jquery_jplayer_1').jPlayer('pause');
+                        document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-play-circle fa-2x'>"
+                        currentSong.playStatus = false
+                        currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
+                        $('.jp-play').css("background", String(pauseIconUrl));
+                    }
+
                 })
 
+                $('.btn-play').click(function () {
+                    var id = this.id.slice(8)
+
+                    //NEW SONG
+                    if(currentSong.id != id){
+
+                        url = "http://" + host + ":" + port
+                        buttonCorrector(id)
+                        document.getElementById(this.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
+                        currentSong.id = id
+                        currentSong.playStatus = true
+                        currentSong.currentTime = 0
+                        $("#jquery_jplayer_1").jPlayer("setMedia", {
+                            title: tags_global[id].title,
+                            mp3: files_global[id].source, // files_global[0].source
+                            mp4: files_global[id].source  // files_global[0].source
+                        }).jPlayer('play',currentSong.currentTime)
+
+                        $('.jp-play').css("background", String(pauseIconUrl));
+
+                    }else if (currentSong.playStatus == false){
+                        //SAME SONG, BUT RESUME
+                        
+                        buttonCorrector(id)    
+                        document.getElementById(this.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
+                        $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
+                        currentSong.playStatus = true   
+                        $('.jp-play').css("background", String(pauseIconUrl)); 
+                    }else {
+                        //SAME SONG, BUT PAUSE
+                        
+                        $('#jquery_jplayer_1').jPlayer('pause');
+                        document.getElementById(this.id).innerHTML= "<i class='fas fa-play-circle fa-2x'>"
+                        currentSong.playStatus = false
+                        currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
+                        $('.jp-play').css("background", String(playIconUrl));
+                    
+                    }
+                })
+
+                function buttonCorrector(id){
+                    console.log("ID is" + id)
+                    console.log("len is " + files_global.length)
+                    for (let i=0; i < files_global.length;i++){
+                        if( i != id ){
+                            document.getElementById('play_btn' + i).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
+                        }
+                    }
+                }
 
                 //Deletion function
                 $('.btn-delete').click(function () {
