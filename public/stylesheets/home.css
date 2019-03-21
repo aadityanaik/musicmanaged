@@ -116,8 +116,13 @@ h1 {
     text-shadow: 2px 2px 4px #ffffff
 }
 
-.jp-audio, .jp-progress {
+.jp-audio {
     width: 100% !important;
+    border: none !important;
+}
+
+.jp-progress {
+    width: 93% !important;
     border: none !important;
 }
 
@@ -159,6 +164,9 @@ a:hover{
     top: 37px !important;
 }
 
+.jp-current-time {
+    margin-left: 110px;
+}
 
 .cover_image {
     width: 100px;
