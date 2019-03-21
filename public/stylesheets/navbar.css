@@ -2,16 +2,21 @@
 
 #navbar-container {
     height: 70px;
-    padding: 0px;
     box-shadow: #00000080 0px 0px 15px;
 }
 
-.logo {
-    background: #d50914;
-    justify-content: center;
-    align-items: center;
+#logo-img {
     height: 70px;
-    padding: 5px;
+    padding: 10px;
+    margin: 0px -50px;
+}
+.logo {
+    display: flex;
+    background: #d50914;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 7 0px;
+    /* padding: 5px; */
 }
 
 #search-form button {
@@ -20,7 +25,7 @@
 }
 
 #search-bar {
-    padding: 10px;
+    /* padding: 10px; */
     background: #101010;
     height: 50px;
     border: none;
@@ -44,7 +49,7 @@
     height: 70px;
 }
 .navbar-brand {
-    padding: 20px; 
+    /* padding: 20px;  */
     font-size: 18pt;
     color: #ffffff;
     background: #ffffff;
@@ -52,4 +57,13 @@
 
 a.footer-link::after, a.nav-link::after, .strong-link a::after, .project-link::after {
     content: "→";
+}
+
+a img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#logo {
+    margin-left: 50px;
 }

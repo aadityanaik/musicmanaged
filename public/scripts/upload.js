@@ -1,7 +1,10 @@
 const ID3Writer = require('browser-id3-writer')
 var jsmediatags = require('jsmediatags')
 
+global.picFile = null;
+
 global.onChange = function () {
+    picFile = null;
     var files = document.upload_file_form.file.files
     var file = files[0]
     if (files[0].type.lastIndexOf("audio/mpeg", 0) == 0 || files[0].type == "audio/mp3") {
@@ -13,16 +16,45 @@ global.onChange = function () {
                 document.upload_file_form.album.value = tag.tags.album
                 document.upload_file_form.year.value = tag.tags.year
                 document.upload_file_form.artist.value = tag.tags.artist
+                if(tag.tags.picture) {
+                    var picArray = new Uint8Array(tag.tags.picture.data)
+                    var pic = new Blob([picArray], {type: tag.tags.picture.format})
+                    picFile = new File([pic], 'coverimage', {type: tag.tags.picture.format})
+                    picURL = URL.createObjectURL(pic)
+                    console.log(picURL)
+                    $('#cover_image').attr('src', picURL)
+                } else {
+                    picFile = null
+                    console.log('stuff')
+                    document.upload_file_form.cover_art.value = ""
+                    $('#cover_image').attr('src', 'images/logo1.png')
+                }
             },
             onError: function (error) {
+                picFile = null
                 console.log(error)
                 document.upload_file_form.song_title.value = ""
                 document.upload_file_form.album.value = ""
                 document.upload_file_form.year.value = ""
                 document.upload_file_form.artist.value = ""
+                document.upload_file_form.cover_art.value = ""
+                $('#cover_image').attr('src', 'images/logo1.png')
             }
         })
     };
+}
+
+global.onCoverArtChange = function() {
+    var cover = document.upload_file_form.cover_art.files
+    var file = cover[0]
+    console.log(file)
+    if(file && file.type.lastIndexOf("image/", 0) == 0) {
+        picFile = file
+        $('#cover_image').attr('src', URL.createObjectURL(file))
+    } else {
+        picFile = null;
+        $('#cover_image').attr('src', 'images/logo1.png');
+    }
 }
 
 
@@ -42,7 +74,12 @@ global.uploadFile = function () {
         cover = cover[0]
     } else {
         cover = ""
+        if(picFile != null) {
+            cover = picFile
+        }
     }
+
+    console.log(cover)
 
     var writer
 

@@ -14,6 +14,13 @@ body {
     color: #ffffff;
 }
 
+.artist, .album, .year {
+    color: darkgray;
+    font-size: 14px;
+    font-weight: 200;
+    transition: text-shadow 0.2s ease-in;
+}
+
 
 html, body {
     height: 100%;
@@ -55,14 +62,6 @@ h1 {
     padding: 20px;
 }
 
-#list_files:nth-child(even) {
-    background: #E50914;
-}
-
-#list_files:nth-child(odd) {
-    background: #000000;
-}
-
 .song-title {
     padding: 20px;
 }
@@ -82,15 +81,16 @@ h1 {
     padding: 15px;
     font-size: 24pt; 
     position: fixed;
-    bottom: 90px;
+    bottom: 120px;
     right: 20px;
     z-index: 100;
     box-shadow: #101010 0px 0px 10px;
-    transition: background 0.5s ease-in;
+    transition: background 0.1s ease-in,
+                color 0.1s ease-in;
 }
 
 .fab:hover {
-    background: #101010;
+    background: #000000;
     color: #E50914;
 }
 
@@ -99,26 +99,41 @@ h1 {
   font-weight: 500;  
 }
 
-.artist,.album,.year {
-    font-size: 14px;
-    font-weight: 200;
+.song-title {
+    display: flex;
+    align-items: center;
 }
 
+/* 
 .title:hover{
-
     font-size: 18px;
     font-weight: 800;  
-    text-shadow: 2px 2px 4px #ffffff;
-}
+     text-shadow: 2px 2px 4px #ffffff;
+} */
 
 .artist:hover,.album:hover,.year:hover {
-    font-size: 14px;
-    font-weight: 500;
-    text-shadow: 2px 2px 4px #ffffff
+    /* font-size: 14px;
+    font-weight: 500; */
+    /* text-shadow: 0px 0px 1px #ffffff; */
 }
 
-.jp-audio, .jp-progress {
+.btn-play, .btn-delete, .btn-download {
+    color: #c50914;
+    transition: color 0.1s ease;
+}
+
+.btn-play:hover, .btn-delete:hover, .btn-download:hover {
+    color: #ffffff;
+    transition: color 0.2s ease;
+}
+
+.jp-audio {
     width: 100% !important;
+    border: none !important;
+}
+
+.jp-progress {
+    width: 93% !important;
     border: none !important;
 }
 
@@ -135,6 +150,7 @@ h1 {
     background-color: #101010 !important;
     border: none !important;
     color: aliceblue;
+    font-family: "Poppins", "sans-serif";
 }
 
 a{
@@ -147,10 +163,33 @@ a:hover{
     text-shadow: 1px 1px 2px #ffffff;
 }
 
+.jp-interface {
+    padding: 10px !important
+}
+
 .jp-play {
     background: url('../assets/jplayer_icons/play-circle-solid.svg') !important;
 }
 
 .jp-play-bar {
     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
+}
+
+.jp-progress {
+    height: 5px !important;
+    top: 37px !important;
+}
+
+.jp-current-time, .jp-duration {
+    font-style: normal !important;
+    color: #ffffff !important;
+}
+
+.jp-current-time {
+    margin-left: 110px;
+}
+
+.cover_image {
+    width: 100px;
+    height: 100px;
 }

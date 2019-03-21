@@ -1,4 +1,3 @@
-
 /*import {MDCList} from "@material/list";
 const list = MDCList.attachTo(document.querySelector('.mdc-list'));
 list.wrapFocus = true;
@@ -31,6 +30,7 @@ $(window).on('pageshow', function () {
 function updateFiles() {
     files_global = Array()
     tags_global = Array()
+    dataJSON = Array()
     var host = window.location.hostname
     var protocol = window.location.protocol
     var port = window.location.port
@@ -110,7 +110,7 @@ function updateFiles() {
                     //Scenes below
                     // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
 
-                    var title, artist, album, year;
+                    var title = "", artist = "", album = "", year = "", pic = "", picArray = null;
 
                     if (dataJSON[i].title) {
                         title = (JSON.stringify(dataJSON[i].title)).split("\"").join("")
@@ -118,49 +118,72 @@ function updateFiles() {
                         title = data.listFiles[i].file_name
                     }
                     if (dataJSON[i].artist) {
-                        artist = "<span class = artist>Artist : " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
+                        artist = "<span class = artist>Artist: " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
                     } else {
                         artist = ""
                     }
                     if (dataJSON[i].album) {
-                        album = "<span class = album>Album : " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
+                        album = "<span class = album>Album: " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
                     } else {
                         album = ""
                     }
                     if (dataJSON[i].year && dataJSON[i].year != "NaN") {
-                        year = "<span class = year>Year : " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
+                        year = "<span class = year>Year: " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
                     } else {
                         year = ""
+                    }
+                    if (dataJSON[i].raw && dataJSON[i].raw.APIC) {
+                        console.log(dataJSON[i].raw.APIC)
+                        picArray = new Uint8Array(dataJSON[i].raw.APIC.imageBuffer.data)
+                        // picBuffer = new ArrayBuffer(picArray, 'binary')
+                        pic = new Blob([picArray], { type: 'image/jpeg' })
+                        console.log(picArray, pic)
+                    } else {
+                        pic = new Blob([])
                     }
 
                     tags_global.push({
                         title: title,
                         artist: artist,
-                        album, album,
-                        year: year
+                        album: album,
+                        year: year,
+                        pic: pic
                     })
 
                     // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
-                    html_to_append = "<div class=\" row song-title\">"
-                        + "<div class=\"col-sm-9\"><br><span class = 'title'>"
+                    html_to_append = "<div class=\"row song-title\">"
+                        + "<div class='col-sm-1'>"
+                        + "<img class='cover_image img-circle' id='cover_image_" + i + "'></img>"
+                        + "</div>"
+                        + "<div class=\"col-xs-8 col-sm-8\"><span class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
                         + year
                         + "</div>"
-                        + "<div class=\"col-sm-1\">"
+                        + "<div class=\" col-xs-1 col-sm-1\">"
                         + "<a class='btn-play' id=\"play_btn" + i + "\"><i class='fas fa-play-circle fa-2x'></i></a>"
                         + "</div>"
-                        + "<div class=\"col-sm-1\">"
-                        + "<a  id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
+                        + "<div class=\"col-xs-1 col-sm-1\">"
+                        + "<a class=\"btn-download\" id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
                         + "</div>"
-                        + "<div class=\"col-sm-1\">"
+                        + "<div class=\"col-xs-1 col-sm-1\">"
                         + "<a class='btn-delete' id=\"delete_btn" + i + "\"><i class='fas fa-trash-alt fa-2x'></i></a>"
                         + "</div>"
-                        + "<hr style= \"color: white;\">"
 
                     //// console.log("object data is " + JSON.stringify(dataJSON))
                     $.when($(html_to_append).hide().appendTo("#list_files").fadeIn(500))
+
+
+                    if (picArray) {
+                        var imageUrl = URL.createObjectURL(pic)
+                        $("#cover_image_" + i).attr("src", imageUrl)
+                    } else {
+                        console.log(i)
+                        console.log()
+                        $("#cover_image_" + i).attr("src", "../images/logo1.png")
+                    }
+
                     // $('#list_files')
                     //     .append("<div class=\" row song-title\">"
                     //         + "<div class=\"col-sm-8\">"

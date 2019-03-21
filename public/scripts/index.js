@@ -2,6 +2,12 @@ function test() {
     alert("Hello!");
 }
 
+$(document).ready(function() {
+    $('#login_form').submit(function(evt) {
+        evt.preventDefault()
+    })
+})
+
 $(window).on('pageshow', function() {
     var usernamefield = document.getElementById('username')
     var passwordfield = document.getElementById('password')
