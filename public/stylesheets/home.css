@@ -185,9 +185,32 @@ a:hover{
     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
 }
 
+.jp-play:hover {
+    background: url('../assets/jplayer_icons/play-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.jp-state-playing:hover .jp-play{
+    background: url('../assets/jplayer_icons/pause-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.jp-stop:hover {
+    background: url('../assets/jplayer_icons/stop-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.random{
+    height: 30px;
+    width: 30px;
+    background: url('../assets/jplayer_icons/random-solid.svg');
+    z-index: 100;
+}
+
 .jp-progress {
     height: 5px !important;
     top: 37px !important;
+    left: 160px !important;
 }
 
 .jp-current-time, .jp-duration {
@@ -204,3 +227,7 @@ a:hover{
     height: 100px;
 }
 
+.random {
+    margin-right: 10px;
+    margin-top: 5px;
+}
