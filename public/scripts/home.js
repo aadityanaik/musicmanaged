@@ -250,6 +250,7 @@ function updateFiles() {
                     if (currentSong.playStatus == false){
                         //SAME SONG, BUT RESUME
                         console.log('REACHED HERE' + currentSong.playStatus)
+                        console.log(pauseIconUrl)
                         buttonCorrector(currentSong.id)    
                         document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
