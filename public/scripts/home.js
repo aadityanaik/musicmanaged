@@ -250,6 +250,7 @@ function updateFiles() {
                     if (currentSong.playStatus == false){
                         //SAME SONG, BUT RESUME
                         console.log('REACHED HERE' + currentSong.playStatus)
+                        console.log(pauseIconUrl)
                         buttonCorrector(currentSong.id)    
                         document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
@@ -265,6 +266,24 @@ function updateFiles() {
                         $('.jp-play').css("background", String(playIconUrl));
                     }
 
+                })
+
+                $('.random').click(function(){
+                    new_id = parseInt(Math.random()*(files_global.length - 1))
+                    console.log(new_id)
+                    console.log('ENTERED FUNC')
+                    while(new_id == currentSong.id){
+                        new_id = parseInt(Math.random()*(files_global.length - 1))    
+                        console.log(new_id)
+                    }
+                    currentSong.id = new_id
+                    currentSong.playStatus = true
+                    currentSong.currentTime = 0
+                    $("#jquery_jplayer_1").jPlayer("setMedia", {
+                        title: tags_global[currentSong.id].title,
+                        mp3: files_global[currentSong.id].source, // files_global[0].source
+                        mp4: files_global[currentSong.id].source  // files_global[0].source
+                    }).jPlayer('play',currentSong.currentTime)
                 })
 
                 $('.btn-play').click(function () {

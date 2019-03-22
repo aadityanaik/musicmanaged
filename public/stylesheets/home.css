@@ -110,7 +110,7 @@ h1 {
 
 
 .btn-play, .btn-delete, .btn-download {
-    color: #c50914;
+    color: #E50914;
     transition: color 0.1s ease;
     text-shadow: none;
 }
@@ -128,6 +128,8 @@ h1 {
 .jp-progress {
     width: 93% !important;
     border: none !important;
+    border-top-right-radius: 2px !important;
+    border-bottom-right-radius: 2px !important;
 }
 
 .jp-controls-holder {
@@ -164,13 +166,44 @@ a:hover{
     background: url('../assets/jplayer_icons/play-circle-solid.svg') !important;
 }
 
+.jp-state-playing .jp-play{
+    background: url('../assets/jplayer_icons/pause-circle-solid.svg') !important;
+}
+
+.jp-stop {
+    background: url('../assets/jplayer_icons/stop-circle-solid.svg') !important;
+}
+
 .jp-play-bar {
     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
+}
+
+.jp-play:hover {
+    background: url('../assets/jplayer_icons/play-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.jp-state-playing:hover .jp-play{
+    background: url('../assets/jplayer_icons/pause-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.jp-stop:hover {
+    background: url('../assets/jplayer_icons/stop-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.random{
+    height: 30px;
+    width: 30px;
+    background: url('../assets/jplayer_icons/random-solid.svg');
+    z-index: 100;
 }
 
 .jp-progress {
     height: 5px !important;
     top: 37px !important;
+    left: 160px !important;
 }
 
 .jp-current-time, .jp-duration {
@@ -209,4 +242,9 @@ a:hover{
     padding: 10px;
     width: 70vw;
     border-radius: 0.5rem;
+}
+
+.random {
+    margin-right: 10px;
+    margin-top: 5px;
 }
