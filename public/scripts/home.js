@@ -262,7 +262,7 @@ function updateFiles() {
                         document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-play-circle fa-2x'>"
                         currentSong.playStatus = false
                         currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
-                        $('.jp-play').css("background", String(pauseIconUrl));
+                        $('.jp-play').css("background", String(playIconUrl));
                     }
 
                 })
@@ -294,7 +294,7 @@ function updateFiles() {
                         document.getElementById(this.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
                         currentSong.playStatus = true   
-                        $('.jp-play').css("background", String(pauseIconUrl)); 
+                        $('.jp-play').css("background", String(pauseIconUrl)) 
                     }else {
                         //SAME SONG, BUT PAUSE
                         
@@ -302,7 +302,7 @@ function updateFiles() {
                         document.getElementById(this.id).innerHTML= "<i class='fas fa-play-circle fa-2x'>"
                         currentSong.playStatus = false
                         currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
-                        $('.jp-play').css("background", String(playIconUrl));
+                        $('.jp-play').css("background", String(playIconUrl))
                     
                     }
                 })
@@ -384,3 +384,8 @@ function updateFiles() {
 //         updateFiles()
 //     }, "json")
 // }
+
+// modal code:
+$(".fab").click(function() {
+    $(".modal").fadeToggle()
+})
