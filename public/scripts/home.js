@@ -268,6 +268,24 @@ function updateFiles() {
 
                 })
 
+                $('.random').click(function(){
+                    new_id = parseInt(Math.random()*(files_global.length - 1))
+                    console.log(new_id)
+                    console.log('ENTERED FUNC')
+                    while(new_id == currentSong.id){
+                        new_id = parseInt(Math.random()*(files_global.length - 1))    
+                        console.log(new_id)
+                    }
+                    currentSong.id = new_id
+                    currentSong.playStatus = true
+                    currentSong.currentTime = 0
+                    $("#jquery_jplayer_1").jPlayer("setMedia", {
+                        title: tags_global[currentSong.id].title,
+                        mp3: files_global[currentSong.id].source, // files_global[0].source
+                        mp4: files_global[currentSong.id].source  // files_global[0].source
+                    }).jPlayer('play',currentSong.currentTime)
+                })
+
                 $('.btn-play').click(function () {
                     var id = this.id.slice(8)
 
