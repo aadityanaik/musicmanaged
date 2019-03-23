@@ -127,6 +127,7 @@ h1 {
 
 .jp-progress {
     width: 93% !important;
+
     border: none !important;
     border-top-right-radius: 2px !important;
     border-bottom-right-radius: 2px !important;
@@ -197,7 +198,13 @@ a:hover{
     height: 30px;
     width: 30px;
     background: url('../assets/jplayer_icons/random-solid.svg');
-    z-index: 100;
+    margin-right: 10px;
+    margin-top: 5px; 
+}
+
+.random:hover{
+    background: url('../assets/jplayer_icons/random-solid-white.svg');
+    transition: background 0.2s ease;
 }
 
 .jp-progress {
