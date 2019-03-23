@@ -7,14 +7,14 @@ list.wrapFocus = true;
 
 
 currentSong = {
-    id : 0,
-    playStatus : false,
-    currentTime : 0
+    id: 0,
+    playStatus: false,
+    currentTime: 0
 }
 
 playIconUrl = "url('../assets/jplayer_icons/play-circle-solid.svg') !important"
 pauseIconUrl = "url('../assets/jplayer_icons/pause-circle-solid.svg') !important"
-console.log(pauseIconUrl  + '\n' + playIconUrl)
+console.log(pauseIconUrl + '\n' + playIconUrl)
 var files_global = Array()
 var tags_global = Array()
 var html_to_append = ""
@@ -239,28 +239,28 @@ function updateFiles() {
                 // .jp-play {
                 //     background: url('../assets/jplayer_icons/play-circle-solid.svg') !important;
                 // }
-                
+
                 // .jp-play-bar {
                 //     background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
                 // }
-                
+
                 //PLAY-PAUSE FUNCTIONALITY
-                
-                $('.jp-play').click(function(){
-                    if (currentSong.playStatus == false){
+
+                $('.jp-play').click(function () {
+                    if (currentSong.playStatus == false) {
                         //SAME SONG, BUT RESUME
                         console.log('REACHED HERE' + currentSong.playStatus)
                         console.log(pauseIconUrl)
-                        buttonCorrector(currentSong.id)    
-                        document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
+                        buttonCorrector(currentSong.id)
+                        document.getElementById('play_btn' + currentSong.id).innerHTML = "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
-                        currentSong.playStatus = true   
-                        $('.jp-play').css("background", String(pauseIconUrl)); 
-                    }else {
+                        currentSong.playStatus = true
+                        $('.jp-play').css("background", String(pauseIconUrl));
+                    } else {
                         //SAME SONG, BUT PAUSE
                         console.log('REACHED HERE' + currentSong.playStatus)
                         $('#jquery_jplayer_1').jPlayer('pause');
-                        document.getElementById('play_btn'+currentSong.id).innerHTML= "<i class='fas fa-play-circle fa-2x'>"
+                        document.getElementById('play_btn' + currentSong.id).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
                         currentSong.playStatus = false
                         currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
                         $('.jp-play').css("background", String(playIconUrl));
@@ -268,12 +268,12 @@ function updateFiles() {
 
                 })
 
-                $('.random').click(function(){
-                    new_id = parseInt(Math.random()*(files_global.length - 1))
+                $('.random').click(function () {
+                    new_id = parseInt(Math.random() * (files_global.length - 1))
                     console.log(new_id)
                     console.log('ENTERED FUNC')
-                    while(new_id == currentSong.id){
-                        new_id = parseInt(Math.random()*(files_global.length - 1))    
+                    while (new_id == currentSong.id) {
+                        new_id = parseInt(Math.random() * (files_global.length - 1))
                         console.log(new_id)
                     }
                     currentSong.id = new_id
@@ -283,18 +283,18 @@ function updateFiles() {
                         title: tags_global[currentSong.id].title,
                         mp3: files_global[currentSong.id].source, // files_global[0].source
                         mp4: files_global[currentSong.id].source  // files_global[0].source
-                    }).jPlayer('play',currentSong.currentTime)
+                    }).jPlayer('play', currentSong.currentTime)
                 })
 
                 $('.btn-play').click(function () {
                     var id = this.id.slice(8)
 
                     //NEW SONG
-                    if(currentSong.id != id){
+                    if (currentSong.id != id) {
 
                         url = "http://" + host + ":" + port
                         buttonCorrector(id)
-                        document.getElementById(this.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
+                        document.getElementById(this.id).innerHTML = "<i class='fas fa-pause-circle fa-2x'>"
                         currentSong.id = id
                         currentSong.playStatus = true
                         currentSong.currentTime = 0
@@ -302,35 +302,35 @@ function updateFiles() {
                             title: tags_global[id].title,
                             mp3: files_global[id].source, // files_global[0].source
                             mp4: files_global[id].source  // files_global[0].source
-                        }).jPlayer('play',currentSong.currentTime)
+                        }).jPlayer('play', currentSong.currentTime)
 
                         $('.jp-play').css("background", String(pauseIconUrl));
 
-                    }else if (currentSong.playStatus == false){
+                    } else if (currentSong.playStatus == false) {
                         //SAME SONG, BUT RESUME
-                        
-                        buttonCorrector(id)    
-                        document.getElementById(this.id).innerHTML= "<i class='fas fa-pause-circle fa-2x'>"
+
+                        buttonCorrector(id)
+                        document.getElementById(this.id).innerHTML = "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
-                        currentSong.playStatus = true   
-                        $('.jp-play').css("background", String(pauseIconUrl)) 
-                    }else {
+                        currentSong.playStatus = true
+                        $('.jp-play').css("background", String(pauseIconUrl))
+                    } else {
                         //SAME SONG, BUT PAUSE
-                        
+
                         $('#jquery_jplayer_1').jPlayer('pause');
-                        document.getElementById(this.id).innerHTML= "<i class='fas fa-play-circle fa-2x'>"
+                        document.getElementById(this.id).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
                         currentSong.playStatus = false
                         currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
                         $('.jp-play').css("background", String(playIconUrl))
-                    
+
                     }
                 })
 
-                function buttonCorrector(id){
+                function buttonCorrector(id) {
                     console.log("ID is" + id)
                     console.log("len is " + files_global.length)
-                    for (let i=0; i < files_global.length;i++){
-                        if( i != id ){
+                    for (let i = 0; i < files_global.length; i++) {
+                        if (i != id) {
                             document.getElementById('play_btn' + i).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
                         }
                     }
@@ -405,6 +405,24 @@ function updateFiles() {
 // }
 
 // modal code:
-$(".fab").click(function() {
-    $(".modal").fadeToggle()
+$(".fab").click(function () {
+    $(".modal").fadeToggle(function () {
+        $(".container-fluid").animate({
+            opacity: "0.3"
+        }).css("filter", "blur(3px)")
+    })
+})
+
+$(".close-button").click(function () {
+    $(".modal").fadeToggle(function () {
+        $(".container-fluid").animate({
+            opacity: "1"
+        }).css("filter", "none")
+    })
+})
+
+$('#file').bind('change', function () {
+    var fileName = ''
+    fileName = $(this).val()
+    $('#file-selected').html(fileName)
 })
