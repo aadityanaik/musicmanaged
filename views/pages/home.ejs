@@ -20,7 +20,7 @@
 </head>
 
 <body>
-	<script src="scripts/upload.js"></script>
+	<!-- <script src="scripts/upload.js"></script> -->
 	<script src="scripts/upload-bind.js"></script>
 	<% include ../partials/navbar.ejs %>
 
@@ -35,15 +35,14 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-lg-12">
-					<label for="file">Select a song from your Device</label>
-					<input type="file" accept="audio/" name="file" id="file" onchange="onChange()">
-					<span id="file-selected"></span>
+			<form name="upload_file_form" id="upload_file_form">
+				<div class="row">
+					<div class="col-lg-12">
+						<label for="file">Select a song from your Device</label>
+						<input type="file" accept="audio/" name="file" id="file" onchange="onChange()">
+						<span id="file-selected"></span>
+					</div>
 				</div>
-			</div>
-
-			<form name="upload_file_form">
 				<div class="row">
 					<!-- Song and title -->
 					<div class="col-lg-6">
