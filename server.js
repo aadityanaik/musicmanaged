@@ -49,6 +49,10 @@ app.get('/', function (req, res) {
     }
 });
 
+app.get('/blog', function(req, res) {
+    res.render('pages/blog')
+})
+
 app.get('/signup', function (req, res) {
     res.render('pages/index');
 });
@@ -231,11 +235,40 @@ app.get('/api/getmusicfile', function (req, res) {
     res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
     res.setHeader('Content-type', 'audio/mpeg')
 
+    fileBuffer = Buffer([])
+
     mongoDBManager.getMusic(username, filename, fileid, res, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
         if (writechunk && writechunk == true) {
-            res.write(chunkToWrite)
+            // res.write(chunkToWrite)
+            fileBuffer = Buffer.concat([fileBuffer, chunkToWrite])
         } else if (endResponse && endResponse == true) {
-            res.end()
+            // console.log(fileBuffer.length)
+            // res.end()
+            if(req.headers.range) {
+                var total = fileBuffer.length;
+                var range = req.headers.range;
+                var parts = range.replace(/bytes=/, "").split("-");
+                var partialstart = parts[0];
+                var partialend = parts[1];
+                var start = parseInt(partialstart, 10);
+                var end = partialend ? parseInt(partialend, 10) : total-1;
+                var chunksize = (end-start)+1;
+                res.writeHead(206, {
+                    'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
+                    'Accept-Ranges': 'bytes', 'Content-Length': chunksize,
+                    'Content-Type': 'video/mp4'
+                });
+                res.write(fileBuffer.slice(start, end))
+                res.end()
+            } else {
+                var total = fileBuffer.length;
+                res.writeHead(200, {
+                    'Content-Length': total,
+                    'Content-Type': 'audio/mpeg'
+                })
+                res.write(fileBuffer)
+                res.end()
+            }
         } else {
             res.json({
                 stat: resStat,

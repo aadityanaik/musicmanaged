@@ -9,12 +9,18 @@
 html {
     padding: 0;
     margin: 0;
+    /* overflow-x: hidden;
+    overflow-y: hidden; */
 }
 
 #content-container {
-    padding-bottom: 300px;
     background: linear-gradient(to bottom, #00000000 0%, #000000 100%);
+    padding-bottom: 300px;
 }
+
+.container-fluid {
+}
+
 body {
     font-family: "Poppins", "sans-serif";
     background: #d50914;
@@ -45,7 +51,7 @@ body {
 h1 {
     padding: 10px 0px;
     width: auto;
-    text-align: left;
+    text-align: center;
     font-weight: 500;
 }
 
@@ -96,4 +102,6 @@ button {
 
 p {
     font-weight: 300;
+    text-align: center;
 }
+

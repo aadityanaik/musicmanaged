@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+
+html {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Poppins", "sans-serif";
+}
+
+footer {
+    color: aliceblue;
+}
+
+#content-container {
+    min-height: 100%;
+    margin-bottom: -200px;
+}
+
+#content-container:after {
+    content: "";
+    display: block;
+    height: 200px;
+}
+
+figure {
+    align-self: center;
+    align-content: center;
+    text-align: center;
+}
+
+figure img {
+    max-height: 200px;
+    width: auto;
+    padding: 10px;
+}
+
+figure figcaption {
+    font-size: 8;
+    padding: 10px;
+}
+
+.post-title, .post-title div {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :link {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :visited {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :active {
+    text-decoration: none;
+    color: black;
+}
+
+.post-title :hover {
+    text-decoration: none;
+    color: black;
+}
