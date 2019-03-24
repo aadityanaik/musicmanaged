@@ -20,13 +20,13 @@
 }
 
 #search-form button {
-    background: #101010;
+    background: #000000;
     color: #ffffff;
 }
 
 #search-bar {
     /* padding: 10px; */
-    background: #101010;
+    background: #000000;
     height: 50px;
     border: none;
     color: #ffffff;
@@ -39,7 +39,7 @@
     color: #ffffff;
 }
 .navbar-item, .navbar-item a {
-    background: #101010;
+    background: #000000;
     color: #ffffff;
     font-size: 12pt;
     font-weight: 500;
