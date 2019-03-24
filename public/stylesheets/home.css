@@ -4,14 +4,11 @@
     margin: 0;
 }
 
-html {
-    overflow-x: hidden;
-}
-
 body {
     font-family: "Poppins", "sans-serif";
     background: #000000;
     color: #ffffff;
+    overflow-y: auto;
 }
 
 .artist, .album, .year {
@@ -28,6 +25,7 @@ html, body {
 .song-container {
     min-height: 75%;
     margin-bottom: -150px;
+    background: linear-gradient(#000000 0%, #d5091450 100%);
 }
 
 .song-container:after {
@@ -119,6 +117,17 @@ h1 {
     color: #ffffff;
     transition: color 0.2s ease;
 }
+
+.btn-upload {
+    margin: 10px;
+}
+
+#cover_image {
+    border-radius: 5px;
+    border: 2px solid #d50914;
+    background: #101010;
+}
+
 
 .jp-audio {
     width: 100% !important;
@@ -236,6 +245,7 @@ a:hover{
     display: none;
     background: #00000099;
     transform: scale(1.1);
+    overflow-y: auto;
     /* transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s; */
 }
 
@@ -293,4 +303,5 @@ input {
 
 .img-circle {
     border: 2px solid #666666;
+    background: #000000;
 }
