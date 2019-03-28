@@ -52,13 +52,14 @@
 					</div>
 				</div>
 				<div class="row">
-						<div class="col-lg-12">
-							<h2>
-								2. Review the details.
-							</h2>
-							<p>Review the information we found with the song - we will save you the information you see below!</p>
-						</div>
+					<div class="col-lg-12">
+						<h2>
+							2. Review the details.
+						</h2>
+						<p>Review the information we found with the song - we will save you the information you see
+							below!</p>
 					</div>
+				</div>
 				<div class="row">
 					<!-- Song and title -->
 					<div class="col-lg-6">
@@ -100,13 +101,13 @@
 				</div>
 
 				<div class="row">
-						<div class="col-lg-12">
-							<h2>
-								3. The face of your music.
-							</h2>
-							<p>Cover Art is the 'face' of your music. We will save the Cover Art you select below!</p>
-						</div>
+					<div class="col-lg-12">
+						<h2>
+							3. The face of your music.
+						</h2>
+						<p>Cover Art is the 'face' of your music. We will save the Cover Art you select below!</p>
 					</div>
+				</div>
 				<div class="row">
 					<!-- Cover art -->
 					<div class="col-lg-4">
@@ -126,17 +127,17 @@
 				</div>
 
 				<div class="row">
-						<div class="col-lg-12">
-							<h2>
-								4. Finally, add the song to Your Library.
-							</h2>
-						</div>
+					<div class="col-lg-12">
+						<h2>
+							4. Finally, add the song to Your Library.
+						</h2>
 					</div>
+				</div>
 				<div class="row">
 					<!-- Upload Button -->
 					<div class="col">
-						<button class="btn btn-primary btn-upload" name="uploadButton" id="uploadButton" onclick="uploadFile()"
-							type='button'>
+						<button class="btn btn-primary btn-upload" name="uploadButton" id="uploadButton"
+							onclick="uploadFile()" type='button'>
 							Add to library
 						</button>
 					</div>
@@ -152,6 +153,12 @@
 				<div class="col-md-12 col-lg-12">
 					<h1>We're setting up Your Library.</h1>
 					<p>Hold on while we fetch a few things - nearly there!</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<img src="/images/loading.gif" height=50 width=50>
 				</div>
 			</div>
 		</div>
@@ -184,15 +191,19 @@
 	</script>
 
 	<div class="container-fluid song-container">
-		<h2>
-			Your Library
-			<a href="upload" class="btn btn-primary">
-				Upload
-			</a>
-			<a href="/logout" class="btn btn-primary">
-				Log Out
-			</a>
-		</h2>
+		<div class="row">
+			<div class="col-lg-12 col-sm-12 col-xs-12">
+				<h1>
+					Your Library
+				</h1>
+				<h2>
+					<a href="/logout" class="btn btn-danger">
+						Log Out.
+					</a>
+				</h2>
+			</div>
+		</div>
+
 		<div class="row list-container">
 			<div class="col-sm-12" id="list_files">
 			</div>
