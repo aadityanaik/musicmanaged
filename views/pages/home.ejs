@@ -25,9 +25,9 @@
 	<!-- <script src="scripts/backgrounds.js"></script> -->
 	<% include ../partials/navbar.ejs %>
 
-	<div class="modal">
+	<div class="modal" id="upload-modal">
 		<div class="modal-content">
-			<span class="close-button"><i class="fas fa-times"></i></span>
+			<span class="upload-close-button"><i class="fas fa-times"></i></span>
 			<div class="row">
 				<div class="col-md-12 col-lg-12">
 					<h1>Add files to your Music Managed library below.</h1>
@@ -144,9 +144,19 @@
 			</form>
 		</div>
 	</div>
-	</form>
+
+	<div class="modal" id="loading-modal">
+		<div class="modal-content">
+			<span class="loading-close-button"><i class="fas fa-times"></i></span>
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<h1>We're setting up Your Library.</h1>
+					<p>Hold on while we fetch a few things - nearly there!</p>
+				</div>
+			</div>
+		</div>
 	</div>
-	</div>
+
 
 	<script type="text/javascript">
 		$(document).ready(function () {

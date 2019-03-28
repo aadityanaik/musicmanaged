@@ -46,6 +46,12 @@ function updateFiles() {
 
         url: url + "/api/getMusicFiles", success: function (data) {
 
+            $("#upload-modal").fadeToggle(function () {
+                $(".container-fluid").animate({
+                    opacity: "1"
+                }).css("filter", "none")
+            })
+            
             if (data.listFiles) {
                 for (var i = 0; i < data.listFiles.length; i++) {
                     counter = i
@@ -377,9 +383,16 @@ function updateFiles() {
 
             }
             // list_of_files = Object.assign(list_of_files, files)
-        }, cache: false, async: true
+        }, cache: false, async: true, beforeSend: function () {
+            $("#upload-modal").fadeToggle(function () {
+                $(".container-fluid").animate({
+                    opacity: "0.3"
+                }).css("filter", "blur(3px)")
+            })
+        }
     }).then(function (data, err) {
         // TODO: Set audio paths
+
     })
 
 
@@ -419,15 +432,15 @@ function updateFiles() {
 
 // modal code:
 $(".fab").click(function () {
-    $(".modal").fadeToggle(function () {
+    $("#upload-modal").fadeToggle(function () {
         $(".container-fluid").animate({
             opacity: "0.3"
         }).css("filter", "blur(3px)")
     })
 })
 
-$(".close-button").click(function () {
-    $(".modal").fadeToggle(function () {
+$(".upload-close-button").click(function () {
+    $("#upload-modal").fadeToggle(function () {
         $(".container-fluid").animate({
             opacity: "1"
         }).css("filter", "none")
