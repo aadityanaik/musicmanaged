@@ -384,7 +384,7 @@ function updateFiles() {
             }
             // list_of_files = Object.assign(list_of_files, files)
         }, cache: false, async: true, beforeSend: function () {
-            $("#upload-modal").fadeToggle(function () {
+            $("#loading-modal").fadeToggle(function () {
                 $(".container-fluid").animate({
                     opacity: "0.3"
                 }).css("filter", "blur(3px)")
