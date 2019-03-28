@@ -9,7 +9,7 @@ var session = require('express-session')
 const nodeid3 = require('node-id3')
 var portNo = 5000
 // import * as ID3 from 'id3-parser'
-// var ID3 = require('id3-parser')
+var ID3 = require('id3-parser')
 
 var mongoDBManager = new mongoDB.MongoDBHandler()
 
@@ -48,6 +48,10 @@ app.get('/', function (req, res) {
         res.render('pages/index');
     }
 });
+
+app.get('/blog', function(req, res) {
+    res.render('pages/blog')
+})
 
 app.get('/signup', function (req, res) {
     res.render('pages/index');
@@ -88,16 +92,12 @@ app.post('/api/adduser', function (req, res) {
         if (username) {
             req.session.username = username
         }
-        if (req.headers.host == "localhost:" + portNo) {
-            res.redirect('/')
-        } else {
-            res.json({
-                stat: resStat,
-                msg: resMsg
-            })
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
 
-            res.end()
-        }
+        res.end()
     })
     // console.log(req)
 })
@@ -111,19 +111,12 @@ app.post('/api/verifyuser', function (req, res) {
         if (username) {
             req.session.username = username
         }
+        res.json({
+            stat: resStat,
+            msg: resMsg
+        })
 
-        console.log(req.connection.remoteAddress + " HELLO")
-
-        // if (req.headers.host == "localhost:" + portNo) {
-            res.redirect('/')
-        // } else {
-        //     res.json({
-        //         stat: resStat,
-        //         msg: resMsg
-        //     })
-
-        //     res.end()
-        // }
+        res.end()
     })
 
 })
@@ -182,43 +175,48 @@ app.post('/api/addmusicfile', function (req, res) {
         // let tags = nodeid3.read(buffer)
         // console.log(tags)
         // var ismp3 = require('is-mp3')
-        // const tag = ID3.parse(buffer);
-        // console.log(tag);
+        const tag = ID3.parse(buffer);
+        console.log(tag);
 
         // console.log(ismp3(buffer))
-
-        var buffer2 = new Buffer(buffer)
-        let tags = {
-            title: "Tomorrow",
-            artist: "Kevin Penkin",
-            album: "TVアニメ「メイドインアビス」オリジナルサウンドトラック",
-            APIC: "./example/mia_cover.jpg",
-            TRCK: "27"
-        }
-
-        let ID3FrameBuffer = nodeid3.create(tags)
-        let success = nodeid3.write(tags, buffer2)
-
-        console.log(success)
-
-        if(success) {
-            let tag = nodeid3.read(success)
-            console.log(tag)
-        }
-
 
         // nodeid3.read(buffer, {}, function(err, tags) {
         //     console.log("tags")
         //     console.log(tags)
         // })
 
-        mongoDBManager.addMusic(username, fileName, buffer, function (resStat, resMsg) {
-            res.json({
-                stat: resStat,
-                msg: resMsg
-            })
-
-            res.end()
+        mongoDBManager.addMusic(username, fileName, buffer, function (resStat, resMsg, tags) {
+            if(resMsg) {
+                res.json({
+                    stat: resStat,
+                    msg: resMsg
+                })
+                res.end()
+    
+            } else {
+                if(resStat == 200) {
+                    if(tags) {
+                        res.json({
+                            stat: 200,
+                            msg: "Tags found",
+                            tags: tags
+                        })
+                        res.end()
+                    } else {
+                        res.json({
+                            stat: 200,
+                            msg: "Tags not found"
+                        })
+                        res.end()
+                    }
+                } else {
+                    res.json({
+                        stat: resStat,
+                        msg: resMsg
+                    })
+                    res.end()
+                }
+            }
         })
     })
 })
@@ -234,11 +232,43 @@ app.get('/api/getmusicfile', function (req, res) {
     var filename = req.query.filename
     var fileid = req.query.fileid
 
-    mongoDBManager.getMusic(username, filename, fileid, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
+    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
+    res.setHeader('Content-type', 'audio/mpeg')
+
+    fileBuffer = Buffer([])
+
+    mongoDBManager.getMusic(username, filename, fileid, res, function (resStat, resMsg, writechunk, chunkToWrite, endResponse) {
         if (writechunk && writechunk == true) {
-            res.write(chunkToWrite)
+            // res.write(chunkToWrite)
+            fileBuffer = Buffer.concat([fileBuffer, chunkToWrite])
         } else if (endResponse && endResponse == true) {
-            res.end()
+            // console.log(fileBuffer.length)
+            // res.end()
+            if(req.headers.range) {
+                var total = fileBuffer.length;
+                var range = req.headers.range;
+                var parts = range.replace(/bytes=/, "").split("-");
+                var partialstart = parts[0];
+                var partialend = parts[1];
+                var start = parseInt(partialstart, 10);
+                var end = partialend ? parseInt(partialend, 10) : total-1;
+                var chunksize = (end-start)+1;
+                res.writeHead(206, {
+                    'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
+                    'Accept-Ranges': 'bytes', 'Content-Length': chunksize,
+                    'Content-Type': 'video/mp4'
+                });
+                res.write(fileBuffer.slice(start, end))
+                res.end()
+            } else {
+                var total = fileBuffer.length;
+                res.writeHead(200, {
+                    'Content-Length': total,
+                    'Content-Type': 'audio/mpeg'
+                })
+                res.write(fileBuffer)
+                res.end()
+            }
         } else {
             res.json({
                 stat: resStat,
@@ -247,6 +277,28 @@ app.get('/api/getmusicfile', function (req, res) {
 
             res.end()
         }
+    })
+})
+
+app.get('/api/getTags', function(req, res) {
+    mongoDBManager.createConnectionIfNotThere()
+    // console.log(req.body)
+    // res.attachment('./media/mudmud/audio/The Godfather Theme Song.wav')
+    // res.download('./media/mudmud/audio/The Godfather Theme Song.wav')
+
+    // res.json(req.query.filename)
+    var username = req.session.username
+    var filename = req.query.filename
+    var fileid = req.query.fileid
+
+    mongoDBManager.getMusicTags(username, filename, fileid, function (resStat, resMsg, tag) {
+        res.json({
+            stat: resStat,
+            msg: resMsg,
+            tags: tag
+        })
+
+        res.end()
     })
 })
 
@@ -288,8 +340,9 @@ app.get('/api/getMusicFiles', function (req, res) {
     })
 })
 
-var server = app.listen(portNo, function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Example app listening at http://%s:%s", host, port)
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
+var server = app.listen(server_port, function () {
+    console.log("Example app listening at http://%s:%s", server_ip_address, server_port)
 })

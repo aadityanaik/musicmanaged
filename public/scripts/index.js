@@ -2,6 +2,32 @@ function test() {
     alert("Hello!");
 }
 
+$(document).ready(function() {
+    $('#login_form').submit(function(evt) {
+        evt.preventDefault()
+    })
+})
+
+$(window).on('pageshow', function() {
+    var usernamefield = document.getElementById('username')
+    var passwordfield = document.getElementById('password')
+
+    usernamefield.addEventListener('keyup', function(event) {
+        console.log('OK')
+        if(event.keyCode == 13) {
+            event.preventDefault()
+            document.getElementById('submit_button').click()
+        }
+    })
+
+    passwordfield.addEventListener('keyup', function(event) {
+        if(event.keyCode == 13) {
+            event.preventDefault()
+            document.getElementById('submit_button').click()
+        }
+    })
+})
+
 // function validateInput() {
 //     let valid_flag = false;
 //     let username = document.credentials_form.username.value;
@@ -32,7 +58,7 @@ function test() {
 // }
 
 function getResponseOfAPI(endpoint) {
-    fetch('http://localhost:5000/api/' + endpoint).then(
+    fetch('http://http://musicmanaged-musicmanaged.1d35.starter-us-east-1.openshiftapps.com/api/' + endpoint).then(
         function(data) {
             return data.json()
         }
@@ -74,7 +100,12 @@ function adduser(username, password) {
     }
     
     $.post(url, info, function(data) {
-        console.log(data)
+        // console.log(data)
+        if(data.stat == 200) {
+            location.reload()
+        } else {
+            alert("Couldn't sign up- " + data.msg)
+        }
     }, "json");
 }
 
@@ -90,6 +121,8 @@ function verifyUsr(username, password) {
     var protocol = window.location.protocol
     var port = window.location.port
 
+    // console.log(host, port)
+
     var url = "http://" + host + ":" + port + "/api/verifyuser"
     
     var info = {
@@ -98,13 +131,17 @@ function verifyUsr(username, password) {
     }
 
     $.post(url, info, function(data) {
-        console.log(data)
+        if(data.stat == 200) {
+            location.reload()
+        } else {
+            alert("Wrong credentials- " + data.msg)
+        }
     }, "json")
 }
 
 function verifyUserCreds() {
-    username = document.getElementById('username').value
-    password = document.getElementById('password').value
+    username = document.login_form.username.value
+    password = document.login_form.password.value
     verifyUsr(username, password)
 }
 

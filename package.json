@@ -4,11 +4,13 @@
   "description": "A website to manage your music",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "prestart": "start mongod && start mongo",
+    "test": "echo Working...",
+    "start-windows": "node server.js",
+    "prestart-windows": "start mongod && start mongo",
     "start-linux": "nodemon server.js",
-    "prestart-linux": "mkdir -p $PWD/data; mongod --dbpath $PWD/data/ &"
+    "prestart-linux": "mkdir -p $PWD/data; mongod --dbpath $PWD/data/ &",
+    "start": "node server.js",
+    "prestart": "mkdir -p $PWD/data; mongod --dbpath $PWD/data/ &"
   },
   "author": "Aaditya Naik, Aditya Pansare & Utkarsh Pant",
   "license": "ISC",
@@ -17,6 +19,9 @@
     "@material/fab": "^0.44.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "bower": "^1.8.8",
+    "browser-id3-writer": "^4.1.0",
+    "browserify": "^16.2.3",
     "connect-busboy": "0.0.2",
     "cors": "^2.8.5",
     "ejs": "^2.6.1",
@@ -26,11 +31,14 @@
     "ffmetadata": "^1.5.0",
     "file-saver": "^2.0.0",
     "helmet": "^3.15.0",
+    "id3-parser": "^2.0.0",
+    "jsmediatags": "^3.8.1",
     "mongodb": "^3.1.10",
     "mysql": "^2.16.0",
     "node-id3": "^0.1.7",
     "nodemon": "^1.18.10",
     "npm": "^6.6.0",
+    "rgbaster": "^2.1.1",
     "start": "^5.1.0"
   }
 }

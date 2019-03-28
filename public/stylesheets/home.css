@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 
 * {
-    padding: 0;
-    margin: 0;
-}
-
-html {
-    padding: 0;
     margin: 0;
 }
 
@@ -14,23 +8,43 @@ body {
     font-family: "Poppins", "sans-serif";
     background: #000000;
     color: #ffffff;
-    padding: 0;
+    overflow-y: auto;
+}
+
+.artist, .album, .year {
+    color: darkgray;
+    font-size: 14px;
+    font-weight: 200;
 }
 
 
+html, body {
+    height: 100%;
+}
+
+.song-container {
+    min-height: 75%;
+    margin-bottom: -150px;
+    background: linear-gradient(#000000 0%, #d5091450 100%);
+}
+
+.song-container:after {
+    content: "";
+    display: block;
+    height: 150px;
+}
+
 h1 {
-    border-bottom: 2px solid #000000;
     padding: 10px 0px;
-    width: auto;
     text-align: left;
 }
 
-
 .player {
     width: 100vw;
+    height: 150px;
     padding: 10px;
-    background: red;
-    position: absolute;
+    background: #101010;
+    position: fixed;
     bottom: 0;
 }
 
@@ -41,14 +55,6 @@ h1 {
 
 .list-container {
     padding: 20px;
-}
-
-#list_files:nth-child(even) {
-    background: red;
-}
-
-#list_files:nth-child(odd) {
-    background: #000000;
 }
 
 .song-title {
@@ -69,15 +75,233 @@ h1 {
     align-items: center;
     padding: 15px;
     font-size: 24pt; 
-    position: absolute;
-    bottom: 90px;
+    position: fixed;
+    bottom: 120px;
     right: 20px;
     z-index: 100;
     box-shadow: #101010 0px 0px 10px;
-    transition:
+    transition: background 0.1s ease-in,
+                color 0.1s ease-in;
 }
 
 .fab:hover {
-    background: #101010;
+    background: #000000;
     color: #E50914;
+}
+
+.title{
+  font-size: 18px;
+  font-weight: 500;  
+}
+
+.song-title {
+    display: flex;
+    align-items: center;
+}
+
+/* 
+.title:hover{
+    font-size: 18px;
+    font-weight: 800;  
+     text-shadow: 2px 2px 4px #ffffff;
+} */
+
+
+.btn-play, .btn-delete, .btn-download {
+    color: #E50914;
+    transition: color 0.1s ease;
+    text-shadow: none;
+}
+
+.btn-play:hover, .btn-delete:hover, .btn-download:hover {
+    color: #ffffff;
+    transition: color 0.2s ease;
+}
+
+.btn-upload {
+    margin: 10px;
+}
+
+#cover_image {
+    border-radius: 5px;
+    border: 2px solid #d50914;
+    background: #101010;
+}
+
+
+.jp-audio {
+    width: 100% !important;
+    border: none !important;
+}
+
+.jp-progress {
+    width: 93% !important;
+
+    border: none !important;
+    border-top-right-radius: 2px !important;
+    border-bottom-right-radius: 2px !important;
+}
+
+.jp-controls-holder {
+    width: 80% !important;
+}
+
+.jp-volume-controls {
+    right: -70px !important;
+    left: auto !important;
+}
+
+.jp-audio * {
+    background-color: #101010 !important;
+    border: none !important;
+    color: aliceblue;
+    font-family: "Poppins", "sans-serif";
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: white;
+    /* text-shadow: 1px 1px 2px #ffffff; */
+}
+
+.jp-interface {
+    padding: 10px !important
+}
+
+.jp-play {
+    background: url('../assets/jplayer_icons/play-circle-solid.svg') !important;
+}
+
+.jp-state-playing .jp-play{
+    background: url('../assets/jplayer_icons/pause-circle-solid.svg') !important;
+}
+
+.jp-stop {
+    background: url('../assets/jplayer_icons/stop-circle-solid.svg') !important;
+}
+
+.jp-play-bar {
+    background: url('../assets/jplayer_icons/progressbar\ 200X15.png') repeat-x !important;
+}
+
+.jp-play:hover {
+    background: url('../assets/jplayer_icons/play-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.jp-state-playing:hover .jp-play{
+    background: url('../assets/jplayer_icons/pause-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.jp-stop:hover {
+    background: url('../assets/jplayer_icons/stop-circle-solid-white.svg') !important;
+    transition: background 0.2s ease;
+}
+
+.random{
+    height: 30px;
+    width: 30px;
+    background: url('../assets/jplayer_icons/random-solid.svg');
+    margin-right: 10px;
+    margin-top: 5px; 
+}
+
+.random:hover{
+    background: url('../assets/jplayer_icons/random-solid-white.svg');
+    transition: background 0.2s ease;
+}
+
+.jp-progress {
+    height: 5px !important;
+    top: 37px !important;
+    left: 160px !important;
+}
+
+.jp-current-time, .jp-duration {
+    font-style: normal !important;
+    color: #ffffff !important;
+}
+
+.jp-current-time {
+    margin-left: 110px;
+}
+
+.cover_image {
+    width: 100px;
+    height: 100px;
+}
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: #00000099;
+    transform: scale(1.1);
+    overflow-y: auto;
+    /* transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s; */
+}
+
+.modal-content {
+    border: none;
+    color: #ffffff;
+    background: none;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    /* transform: translate(-15%, -30%); */
+    padding: 30px;
+    width: 80vw;
+    overflow-y: auto;
+}
+
+.random {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+/* 
+label {
+    padding: 10px;
+} */
+
+.modal .row {
+    margin: 10px auto;
+}
+
+input[type="file"] {
+    display: none;
+    visibility: hidden;
+    border: 2px solid #d50914;
+    background: #000000;
+    padding: 5px;
+    font-weight: 500;
+}
+
+label[for="file"] {
+    background: #d50914;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+span#file-selected {
+    padding: 10px;
+}
+
+input {
+    background: #101010;
+    border: 2px solid #d50914;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.img-circle {
+    border: 2px solid #666666;
+    background: #000000;
 }

@@ -1,24 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 
+#navbar-container {
+    height: 70px;
+    box-shadow: #00000080 0px 0px 15px;
+}
+
+#logo-img {
+    height: 70px;
+    padding: 10px;
+    margin: 0px -50px;
+}
 .logo {
-    background: #d50914;
-    color: #ffffff;
-    font-size: 12pt;
-    font-weight: 500;
     display: flex;
-    justify-content: center;
+    background: #d50914;
+    justify-content: space-evenly;
     align-items: center;
     height: 70px;
+    /* padding: 5px; */
 }
 
 #search-form button {
-    background: #101010;
+    background: #000000;
     color: #ffffff;
 }
 
 #search-bar {
-    padding: 10px;
-    background: #101010;
+    /* padding: 10px; */
+    background: #000000;
     height: 50px;
     border: none;
     color: #ffffff;
@@ -30,8 +38,8 @@
 #search-bar::placeholder {
     color: #ffffff;
 }
-.navbar-item {
-    background: #101010;
+.navbar-item, .navbar-item a {
+    background: #000000;
     color: #ffffff;
     font-size: 12pt;
     font-weight: 500;
@@ -41,7 +49,7 @@
     height: 70px;
 }
 .navbar-brand {
-    padding: 20px; 
+    /* padding: 20px;  */
     font-size: 18pt;
     color: #ffffff;
     background: #ffffff;
@@ -49,4 +57,13 @@
 
 a.footer-link::after, a.nav-link::after, .strong-link a::after, .project-link::after {
     content: "→";
+}
+
+a img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#logo {
+    margin-left: 50px;
 }

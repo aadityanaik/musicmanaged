@@ -4,7 +4,17 @@ var mongo = require('mongodb')
 const ObjectID = require('mongodb').ObjectID;
 const { Readable } = require('stream')
 
-const url = 'mongodb://localhost:27017'
+const nodeid3 = require('node-id3')
+
+var url = null; // = 'mongodb://' + (process.env.MONGODB_SERVICE_HOST || "localhost") + ":27017" || process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL
+if(process.env.MONGODB_SERVICE_HOST) {
+    url = 'mongodb://musicmanaged:musicmanaged@' + process.env.MONGODB_SERVICE_HOST + ':27017/musicmanaged'
+    // Connection URL: mongodb://musicmanaged:musicmanaged@mongodb/musicmanaged
+
+} else {
+    url = 'mongodb://localhost:27017/musicmanaged'
+}
+
 const dbname = 'musicmanaged'
 
 const client = new MongoClient(url)
@@ -17,14 +27,15 @@ function MongoDBHandler() { }
 
 MongoDBHandler.prototype.createConnectionIfNotThere = function () {
     if (!client.isConnected()) {
-        console.log('Connecting')
+        console.log('Connecting at ' + url)
+        // console.log(process.env)
         client.connect(function (connectErr, res) {
             if (connectErr) {
                 throw (connectErr)
             } else {
                 console.log('Initiated connection to mongodb server')
                 var db = client.db(dbname)
-
+                
                 db.collection('user_login').createIndex(
                     { "user_id": 1 },
                     { unique: true },
@@ -44,7 +55,7 @@ MongoDBHandler.prototype.createConnectionIfNotThere = function () {
                             throw (err)
                         }
                     }
-                )
+                )        
             }
         })
     }
@@ -196,7 +207,68 @@ MongoDBHandler.prototype.addMusic = function (username, fileName, fileBuffer, ca
     })
 }
 
-MongoDBHandler.prototype.getMusic = function (username, filename, fileid, callback) {
+MongoDBHandler.prototype.getMusicTags = function(username, filename, fileid, callback) {
+    var db = client.db(dbname)
+
+    // first to check if the user has the file needed
+    db.collection('user_files').find({ "user_id": username }).toArray(function (error, resArr) {
+        if (error) {
+            callback(66601, "No user " + username + " found")
+        } else {
+            if (resArr[0]) {
+                var userFiles = resArr[0].files
+                // console.log(userFiles)
+                var file, i, len = userFiles.length
+                for (i = 0; i < len; i++) {
+                    // console.log(userFiles[i])
+                    file = userFiles[i]
+                    if (file.file_name == filename && file.file_id == fileid) {
+                        // file found
+                        // console.log('Hurrah!!!!')
+                        break
+                    }
+                }
+
+                if (i < len) {
+                    // file found
+                    // console.log('found')
+                    // console.log(userFiles[i])
+                    let bucket = new mongo.GridFSBucket(db, {
+                        bucketName: 'music_files'
+                    })
+
+                    var fileBuffer = new Buffer([])
+
+                    let downloadStream = bucket.openDownloadStream(new ObjectID(userFiles[i].file_id))
+
+                    downloadStream.on('data', function (chunk) {
+                        fileBuffer = Buffer.concat([fileBuffer, chunk])
+                    })
+
+                    downloadStream.on('error', function () {
+                        callback(400, "Failed to send file over download")
+                    })
+
+                    downloadStream.on('end', function () {
+                        // callback(0, 0, false, 0, true)
+                        let success = nodeid3.read(fileBuffer)
+
+                        callback(200, null, success)
+                    })
+
+                } else {
+                    callback(66603, "Could not get requested file")
+                }
+            } else {
+
+                callback(66601, "No user " + username + " found")
+            }
+        }
+    })
+    // } else {
+}
+
+MongoDBHandler.prototype.getMusic = function (username, filename, fileid, response, callback) {
     // if(client.isConnected()) {
     var db = client.db(dbname)
 
@@ -225,6 +297,16 @@ MongoDBHandler.prototype.getMusic = function (username, filename, fileid, callba
                     // console.log(userFiles[i])
                     let bucket = new mongo.GridFSBucket(db, {
                         bucketName: 'music_files'
+                    })
+
+                    bucket.find(new ObjectID(userFiles[i].file_id)).toArray(function(errorArr, resArr) {
+                        if(errorArr) {
+                            console.log(errorArr)
+                        } else if(resArr[0]) {
+                            // console.log(resArr[0].length)
+                            // response.setHeader('Content-length', resArr[0].length)
+                            // response.setHeader('Content-range', 'bytes 0-' + resArr[0].length + '/' + resArr[0].length)
+                        }
                     })
 
                     let downloadStream = bucket.openDownloadStream(new ObjectID(userFiles[i].file_id))

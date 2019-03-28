@@ -10,36 +10,225 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" media="screen" href="stylesheets/home.css" />
+	<link rel="stylesheet" type="text/css" href="scripts/dist/skin/blue.monday/css/jplayer.blue.monday.css" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
 		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
+	<!-- <script src="scripts/upload.js"></script> -->
+	<script src="scripts/upload-bind.js"></script>
+	<!-- <script src="scripts/backgrounds.js"></script> -->
 	<% include ../partials/navbar.ejs %>
-	<div class="container-fluid">
+
+	<div class="modal">
+		<div class="modal-content">
+			<span class="close-button"><i class="fas fa-times"></i></span>
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<h1>Add files to your Music Managed library below.</h1>
+					<p>Once you upload a song, you'll be able to change/review some basic information about the song you
+						are adding to your Library.</p>
+				</div>
+			</div>
+
+			<form name="upload_file_form" id="upload_file_form">
+				<div class="row">
+					<div class="col-lg-12">
+						<h2>
+							1. Select the song you want to upload.
+						</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<label for="file">Select a song from your Device</label>
+						<input type="file" accept="audio/" name="file" id="file" onchange="onChange()">
+						<span id="file-selected"></span>
+					</div>
+				</div>
+				<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								2. Review the details.
+							</h2>
+							<p>Review the information we found with the song - we will save you the information you see below!</p>
+						</div>
+					</div>
+				<div class="row">
+					<!-- Song and title -->
+					<div class="col-lg-6">
+						<label>Song Title</label>
+					</div>
+					<div class="col-lg-6">
+						<input type="text" name='song_title' id='song_title'></label>
+					</div>
+				</div>
+
+				<div class="row">
+					<!-- Artist Details -->
+					<div class="col-lg-6">
+						<label>Artist</label>
+					</div>
+					<div class="col-lg-6">
+						<input type="text" name='artist' id='artist'>
+					</div>
+				</div>
+
+				<div class="row">
+					<!-- Album Details -->
+					<div class="col-lg-6">
+						<label>Album:</label>
+					</div>
+					<div class="col-lg-6">
+						<input type="text" name='album' id='album' value="">
+					</div>
+				</div>
+
+				<div class="row">
+					<!-- Release Year -->
+					<div class="col-lg-6">
+						<label>Release Year:</label>
+					</div>
+					<div class="col-lg-6">
+						<input type="number" min=1890 max=9999 name='year' id='year'>
+					</div>
+				</div>
+
+				<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								3. The face of your music.
+							</h2>
+							<p>Cover Art is the 'face' of your music. We will save the Cover Art you select below!</p>
+						</div>
+					</div>
+				<div class="row">
+					<!-- Cover art -->
+					<div class="col-lg-4">
+						<label>Cover Art</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<label for="file">Doesn't look right? Select the right Art.</label>
+						<input type="file" accept="image/" name='cover_art' id='cover_art'
+							onchange="onCoverArtChange()">
+					</div>
+					<div class="col-lg-6">
+						<img src="images/logo1.png" id="cover_image" name="cover_image"
+							style="height:200px; width: 200px;">
+					</div>
+				</div>
+
+				<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								4. Finally, add the song to Your Library.
+							</h2>
+						</div>
+					</div>
+				<div class="row">
+					<!-- Upload Button -->
+					<div class="col">
+						<button class="btn btn-primary btn-upload" name="uploadButton" id="uploadButton" onclick="uploadFile()"
+							type='button'>
+							Add to library
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	</form>
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var dtToday = new Date();
+			var year = dtToday.getFullYear().toString();
+
+			$('#year').attr('max', year);
+			console.log('' + year)
+
+			if (document.upload_file_form.cover_art.files[0]) {
+				var file = document.upload_file_form.cover_art.files[0]
+				if (file && file.type.lastIndexOf("image/", 0) == 0) {
+					$('#cover_image').attr('src', URL.createObjectURL(file))
+				} else {
+					$('#cover_image').attr('src', 'images/logo1.png');
+				}
+			}
+
+			$('#cover_image').click(function () {
+				$('#cover_art').val("")
+				$('#cover_image').attr('src', 'images/logo1.png')
+			})
+		});
+
+	</script>
+
+	<div class="container-fluid song-container">
 		<h2>
 			Your Library
 			<a href="upload" class="btn btn-primary">
-					Upload
-				</a>
-				<a href="/logout" class="btn btn-primary">
-					Log Out
-				</a>
+				Upload
+			</a>
+			<a href="/logout" class="btn btn-primary">
+				Log Out
+			</a>
 		</h2>
 		<div class="row list-container">
-			<div class="col-lg-12" id="list_files">
+			<div class="col-sm-12" id="list_files">
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid">
+
+	<div class="container-fluid player-container">
 		<div class="row">
 			<div class="col fab">
-					<i class="fas fa-plus"></i>
+				<i class="fas fa-plus"></i>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col player">
-				<audio controls="controls" src="" id="player">Your browser doesn't support HTML5 Audio Playback.</audio>
+				<!-- <audio controls="controls" id="player">Your browser doesn't support HTML5 Audio Playback.</audio> -->
+				<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+				<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+					<div class="jp-type-single">
+						<div class="jp-gui jp-interface">
+							<div class="jp-controls-holder">
+								<div class="jp-controls">
+									<button class="random"></button>
+									<!-- <button class="jp-previous" tabindex="0">previous</button> -->
+									<button class="jp-play fas fa-play-circle" tabindex="0">play</button>
+									<!-- <button class="jp-next" tabindex="0">next</button> -->
+									<button class="jp-stop" tabindex="0">stop</button>
+								</div>
+								<div class="jp-progress">
+									<div class="jp-seek-bar">
+										<div class="jp-play-bar"></div>
+									</div>
+								</div>
+								<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+								<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+							</div>
+						</div>
+						<div class="jp-details">
+							<div class="jp-title" aria-label="title">&nbsp;</div>
+						</div>
+						<div class="jp-no-solution">
+							<span>Update Required</span>
+							To play the media you will need to either update your browser to a recent version or update
+							your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -47,7 +236,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.js"
-		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+	<script src="scripts/dist/jplayer/jquery.jplayer.js"></script>
 	<script src="scripts/home.js"></script>
 </body>

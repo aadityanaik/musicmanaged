@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+/* @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
 @import "@material/drawer/mdc-drawer";
 @import "@material/list/mdc-list";
 
@@ -23,11 +23,11 @@ body {
 }
 
 nav {
-    /* background: #ffffff; */
+    background: #ffffff;
 }
 
 .mm-navbar {
-    /* background: blue; */
+    background: blue;
     display: flex;
     flex-flow: row wrap;
     align-items: baseline;
@@ -36,7 +36,7 @@ nav {
 
 .mm-navbar-brand {
     margin: 10px 0px;
-    /* background: red; */
+    background: red;
     padding: 10px;
     font-size: 16pt;
     font-weight: 500;
@@ -44,7 +44,7 @@ nav {
 
 .mm-navbar-items {
     padding: 0px 10px;
-    /* background: brown; */
+    background: brown;
     font-size: 12pt;
     height: 100%;
     display: flex;
@@ -56,18 +56,18 @@ nav {
     padding: 20px;
     text-decoration: solid underline #ffffff;
     color: #000000;
-    /* background: red; */
+    background: red;
 }
 
 .mm-nav-link:hover {
     transition: all 0.5s ease-in;
     transition-property: text-decoration;
     padding: 20px;
-    /* background: rgba(255, 255, 255, 0.15); */
+    background: rgba(255, 255, 255, 0.15);
     text-decoration: solid underline #000000;
-    /* border-bottom: 2px solid rgb(255, 255, 255, 1); */
+    border-bottom: 2px solid rgb(255, 255, 255, 1);
     color: #000000;
-    /* background: red; */
+    background: red;
 }
 
 h1 {
@@ -96,16 +96,12 @@ a {
     height: 100%;
 }
 
-/* .navbar {
-    background: yellow;
-} */
-
 .navbar-nav {
     background: #000000;
 }
 
 .some {
-    /* background: blue; */
+    background: blue;
     height: 600px;
     display: flex;
     flex-flow: column wrap;
@@ -151,4 +147,4 @@ p {
 
 table {
     border: none;
-}
+} */
