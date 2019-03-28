@@ -46,12 +46,12 @@ function updateFiles() {
 
         url: url + "/api/getMusicFiles", success: function (data) {
 
-            $("#upload-modal").fadeToggle(function () {
+            $("#loading-modal").fadeToggle(function () {
                 $(".container-fluid").animate({
                     opacity: "1"
                 }).css("filter", "none")
             })
-            
+
             if (data.listFiles) {
                 for (var i = 0; i < data.listFiles.length; i++) {
                     counter = i
