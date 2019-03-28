@@ -159,10 +159,10 @@ function updateFiles() {
 
                     // console.log("tags are: " + JSON.stringify(dataJSON) + "\nStatus is " + status)
                     html_to_append = "<div class=\"row song-title\">"
-                        + "<div class='col-sm-1'>"
+                        + "<div class='col-sm-2'>"
                         + "<img class='cover_image img-circle' id='cover_image_" + i + "'></img>"
                         + "</div>"
-                        + "<div class=\"col-xs-12 col-sm-12 col-lg-8\"><div class = 'title'>"
+                        + "<div class=\"col-xs-12 col-sm-12 col-lg-7\"><div class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
