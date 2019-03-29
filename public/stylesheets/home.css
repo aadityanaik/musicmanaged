@@ -290,6 +290,12 @@ label[for="file"] {
     border-radius: 5px;
 }
 
+label[for="cover_art"] {
+    background: #d50914;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 span#file-selected {
     padding: 10px;
 }

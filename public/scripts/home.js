@@ -410,9 +410,6 @@ function updateFiles() {
         // TODO: Set audio paths
 
     })
-
-
-
 }
 
 

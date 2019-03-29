@@ -161,6 +161,7 @@ global.uploadFile = function () {
                                             if (data.stat) {
                                                 if (data.stat == 200) {
                                                     alert('Uploaded successfully')
+                                                    location.reload()
                                                 } else {
                                                     alert('Error- ' + data.msg)
                                                 }
@@ -203,6 +204,7 @@ global.uploadFile = function () {
                                     if (data.stat) {
                                         if (data.stat == 200) {
                                             alert('Uploaded successfully')
+                                            location.reload()
                                         } else {
                                             alert('Error- ' + data.msg)
                                         }
@@ -227,6 +229,7 @@ global.uploadFile = function () {
                                 if (data.stat) {
                                     if (data.stat == 200) {
                                         alert('Uploaded successfully')
+                                        location.reload()
                                     } else {
                                         alert('Error- ' + data.msg)
                                     }
@@ -298,6 +301,7 @@ global.uploadFile = function () {
                                             if (data.stat) {
                                                 if (data.stat == 200) {
                                                     alert('Uploaded successfully')
+                                                    location.reload()
                                                 } else {
                                                     alert('Error- ' + data.msg)
                                                 }
@@ -336,6 +340,7 @@ global.uploadFile = function () {
                                     if (data.stat) {
                                         if (data.stat == 200) {
                                             alert('Uploaded successfully')
+                                            location.reload()
                                         } else {
                                             alert('Error- ' + data.msg)
                                         }
@@ -360,6 +365,7 @@ global.uploadFile = function () {
                                 if (data.stat) {
                                     if (data.stat == 200) {
                                         alert('Uploaded successfully')
+                                        location.reload()
                                     } else {
                                         alert('Error- ' + data.msg)
                                     }
