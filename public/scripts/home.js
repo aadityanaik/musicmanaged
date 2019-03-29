@@ -5,16 +5,34 @@ list.wrapFocus = true;
 
 // var list_of_files = Array()
 
+playIconUrl = "url('../assets/jplayer_icons/play-circle-solid.svg') !important"
+pauseIconUrl = "url('../assets/jplayer_icons/pause-circle-solid.svg') !important"
+
 currentSong = {
     id: 0,
     playStatus: false,
     currentTime: 0
 }
 
+$(function() {
+    $('#jquery_jplayer_1').bind($.jPlayer.event.play, function() {
+        console.log('Playing')
+        $('.jp-play').css("background", String(pauseIconUrl));
+    })
+
+    $('#jquery_jplayer_1').bind($.jPlayer.event.pause, function() {
+        console.log('Paused')
+        $('.jp-play').css("background", String(playIconUrl));
+    })
+
+    // $('#jquery_jplayer_1').bind($.jPlayer.event.seeking, function() {
+    //     console.log('Seeking')
+    //     $('.jp-play').css("background", String(pauseIconUrl));
+    // })
+})
+
 var randomEnabled = false
 
-playIconUrl = "url('../assets/jplayer_icons/play-circle-solid.svg') !important"
-pauseIconUrl = "url('../assets/jplayer_icons/pause-circle-solid.svg') !important"
 console.log(pauseIconUrl + '\n' + playIconUrl)
 var files_global = Array()
 var tags_global = Array()
@@ -266,7 +284,7 @@ function updateFiles() {
                         document.getElementById('play_btn' + currentSong.id).innerHTML = "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
                         currentSong.playStatus = true
-                        $('.jp-play').css("background", String(pauseIconUrl));
+                        
                     } else {
                         //SAME SONG, BUT PAUSE
                         console.log('REACHED HERE' + currentSong.playStatus)
@@ -274,7 +292,7 @@ function updateFiles() {
                         document.getElementById('play_btn' + currentSong.id).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
                         currentSong.playStatus = false
                         currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
-                        $('.jp-play').css("background", String(playIconUrl));
+                        // $('.jp-play').css("background", String(playIconUrl));
                     }
 
                 })
@@ -332,7 +350,6 @@ function updateFiles() {
                         document.getElementById(this.id).innerHTML = "<i class='fas fa-pause-circle fa-2x'>"
                         $("#jquery_jplayer_1").jPlayer('play', currentSong.currentTime)
                         currentSong.playStatus = true
-                        $('.jp-play').css("background", String(pauseIconUrl))
                     } else {
                         //SAME SONG, BUT PAUSE
 
@@ -340,7 +357,6 @@ function updateFiles() {
                         document.getElementById(this.id).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
                         currentSong.playStatus = false
                         currentSong.currentTime = $("#jquery_jplayer_1").data('jPlayer').status.currentTime
-                        $('.jp-play').css("background", String(playIconUrl))
 
                     }
                 })
