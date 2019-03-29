@@ -22,6 +22,7 @@
 <body>
 	<!-- <script src="scripts/upload.js"></script> -->
 	<script src="scripts/upload-bind.js"></script>
+	<!-- <script src="scripts/backgrounds.js"></script> -->
 	<% include ../partials/navbar.ejs %>
 
 	<div class="modal">
@@ -38,11 +39,26 @@
 			<form name="upload_file_form" id="upload_file_form">
 				<div class="row">
 					<div class="col-lg-12">
+						<h2>
+							1. Select the song you want to upload.
+						</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
 						<label for="file">Select a song from your Device</label>
 						<input type="file" accept="audio/" name="file" id="file" onchange="onChange()">
 						<span id="file-selected"></span>
 					</div>
 				</div>
+				<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								2. Review the details.
+							</h2>
+							<p>Review the information we found with the song - we will save you the information you see below!</p>
+						</div>
+					</div>
 				<div class="row">
 					<!-- Song and title -->
 					<div class="col-lg-6">
@@ -84,6 +100,14 @@
 				</div>
 
 				<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								3. The face of your music.
+							</h2>
+							<p>Cover Art is the 'face' of your music. We will save the Cover Art you select below!</p>
+						</div>
+					</div>
+				<div class="row">
 					<!-- Cover art -->
 					<div class="col-lg-4">
 						<label>Cover Art</label>
@@ -91,20 +115,27 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6">
-						<label for="file">Select some cover art</label>
+						<label for="file">Doesn't look right? Select the right Art.</label>
 						<input type="file" accept="image/" name='cover_art' id='cover_art'
 							onchange="onCoverArtChange()">
 					</div>
 					<div class="col-lg-6">
 						<img src="images/logo1.png" id="cover_image" name="cover_image"
-							style="height:50px; width: 50px;">
+							style="height:200px; width: 200px;">
 					</div>
 				</div>
 
 				<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								4. Finally, add the song to Your Library.
+							</h2>
+						</div>
+					</div>
+				<div class="row">
 					<!-- Upload Button -->
 					<div class="col">
-						<button class="btn btn-primary" name="uploadButton" id="uploadButton" onclick="uploadFile()"
+						<button class="btn btn-primary btn-upload" name="uploadButton" id="uploadButton" onclick="uploadFile()"
 							type='button'>
 							Add to library
 						</button>

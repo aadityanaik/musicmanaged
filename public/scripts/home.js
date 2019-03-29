@@ -31,6 +31,8 @@ $(function() {
     // })
 })
 
+var randomEnabled = false
+
 console.log(pauseIconUrl + '\n' + playIconUrl)
 var files_global = Array()
 var tags_global = Array()
@@ -135,17 +137,17 @@ function updateFiles() {
                         title = data.listFiles[i].file_name
                     }
                     if (dataJSON[i].artist) {
-                        artist = "<span class = artist>Artist: " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</span><br>"
+                        artist = "<div class = artist>Artist: " + (JSON.stringify(dataJSON[i].artist)).split("\"").join("") + "</div>"
                     } else {
                         artist = ""
                     }
                     if (dataJSON[i].album) {
-                        album = "<span class = album>Album: " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</span><br>"
+                        album = "<div class = album>Album: " + (JSON.stringify(dataJSON[i].album)).split("\"").join("") + "</div>"
                     } else {
                         album = ""
                     }
                     if (dataJSON[i].year && dataJSON[i].year != "NaN") {
-                        year = "<span class = year>Year: " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</span>"
+                        year = "<div class = year>Year: " + (JSON.stringify(dataJSON[i].year)).split("\"").join("") + "</div>"
                     } else {
                         year = ""
                     }
@@ -172,20 +174,24 @@ function updateFiles() {
                         + "<div class='col-sm-1'>"
                         + "<img class='cover_image img-circle' id='cover_image_" + i + "'></img>"
                         + "</div>"
-                        + "<div class=\"col-xs-8 col-sm-8\"><span class = 'title'>"
+                        + "<div class=\"col-xs-12 col-sm-12 col-lg-8\"><div class = 'title'>"
                         + title + "<br>"
                         + artist
                         + album
                         + year
                         + "</div>"
-                        + "<div class=\" col-xs-1 col-sm-1\">"
+                        + "</div>"
+                        + "<div class=\"col-sm-12 col-xs-12 col-lg-3\">"
+                        + "<div class=\"row\">"
+                        + "<div class=\"col-xs-4 col-sm-4 col-lg-4\">"
                         + "<a class='btn-play' id=\"play_btn" + i + "\"><i class='fas fa-play-circle fa-2x'></i></a>"
                         + "</div>"
-                        + "<div class=\"col-xs-1 col-sm-1\">"
+                        + "<div class=\"col-xs-4 col-sm-4 col-lg-4\">"
                         + "<a class=\"btn-download\" id='download_btn" + i + "' href='" + encodeURI(url + "/api/getmusicfile?filename=" + data.listFiles[i].file_name + "&fileid=" + data.listFiles[i].file_id) + "'><i class='fas fa-arrow-circle-down fa-2x'></i></a>"
                         + "</div>"
-                        + "<div class=\"col-xs-1 col-sm-1\">"
+                        + "<div class=\"col-xs-4 col-sm-4 col-lg-4\">"
                         + "<a class='btn-delete' id=\"delete_btn" + i + "\"><i class='fas fa-trash-alt fa-2x'></i></a>"
+                        + "</div>"
                         + "</div>"
 
                     //// console.log("object data is " + JSON.stringify(dataJSON))
@@ -284,23 +290,31 @@ function updateFiles() {
                     }
 
                 })
+                
+                if(files_global.length>3){
+                    randomEnabled = true
+                }
 
                 $('.random').click(function () {
-                    new_id = parseInt(Math.random() * (files_global.length - 1))
-                    console.log(new_id)
-                    console.log('ENTERED FUNC')
-                    while (new_id == currentSong.id) {
+                    if (randomEnabled){
                         new_id = parseInt(Math.random() * (files_global.length - 1))
                         console.log(new_id)
+                        console.log('ENTERED FUNC')
+                        while (new_id == currentSong.id) {
+                            new_id = parseInt(Math.random() * (files_global.length - 1))
+                            console.log(new_id)
+                        }
+                        currentSong.id = new_id
+                        currentSong.playStatus = true
+                        currentSong.currentTime = 0
+                        $("#jquery_jplayer_1").jPlayer("setMedia", {
+                            title: tags_global[currentSong.id].title,
+                            mp3: files_global[currentSong.id].source, // files_global[0].source
+                            mp4: files_global[currentSong.id].source  // files_global[0].source
+                        }).jPlayer('play', currentSong.currentTime)
+                    }else{
+                        alert('RANDOM button is only enabled when library has more than 3 songs')
                     }
-                    currentSong.id = new_id
-                    currentSong.playStatus = true
-                    currentSong.currentTime = 0
-                    $("#jquery_jplayer_1").jPlayer("setMedia", {
-                        title: tags_global[currentSong.id].title,
-                        mp3: files_global[currentSong.id].source, // files_global[0].source
-                        mp4: files_global[currentSong.id].source  // files_global[0].source
-                    }).jPlayer('play', currentSong.currentTime)
                 })
 
                 $('.btn-play').click(function () {
