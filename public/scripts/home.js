@@ -23,6 +23,8 @@ $(function() {
     $('#jquery_jplayer_1').bind($.jPlayer.event.pause, function() {
         console.log('Paused')
         $('.jp-play').css("background", String(playIconUrl));
+        document.getElementById('play_btn'+currentSong.id).innerHTML = "<i class='fas fa-play-circle fa-2x'>"
+        currentSong.playStatus = false;
     })
 
     // $('#jquery_jplayer_1').bind($.jPlayer.event.seeking, function() {
@@ -42,7 +44,6 @@ var dataJSON = Array()
 var status = false
 
 $(window).on('pageshow', function () {
-    $('.jp-play').css("background", String(playIconUrl));
     updateFiles()
 })
 

@@ -251,17 +251,15 @@ app.get('/api/getmusicfile', function (req, res) {
                 var partialstart = parts[0];
                 var partialend = parts[1];
                 var start = parseInt(partialstart, 10);
-                var end = partialend ? parseInt(partialend, 10) : total-1;
+                var end = partialend ? parseInt(partialend, 10) : total - 1;
                 var chunksize = (end-start)+1;
                 res.writeHead(206, {
                     'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
                     'Accept-Ranges': 'bytes', 'Content-Length': chunksize,
                     'Content-Type': 'audio/mpeg'
                 });
-                res.write(fileBuffer.slice(start, end))
-                if(start == end) {
-                    res.end()
-                }
+                res.write(fileBuffer.slice(start, end + 1))
+                console.log(start, end)
             } else {
                 var total = fileBuffer.length;
                 res.writeHead(200, {
