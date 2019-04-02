@@ -259,7 +259,9 @@ app.get('/api/getmusicfile', function (req, res) {
                     'Content-Type': 'audio/mpeg'
                 });
                 res.write(fileBuffer.slice(start, end))
-                res.end()
+                if(start == end) {
+                    res.end()
+                }
             } else {
                 var total = fileBuffer.length;
                 res.writeHead(200, {
