@@ -42,6 +42,7 @@ var dataJSON = Array()
 var status = false
 
 $(window).on('pageshow', function () {
+    $('.jp-play').css("background", String(playIconUrl));
     updateFiles()
 })
 

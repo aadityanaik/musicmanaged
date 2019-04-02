@@ -256,10 +256,10 @@ app.get('/api/getmusicfile', function (req, res) {
                 res.writeHead(206, {
                     'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
                     'Accept-Ranges': 'bytes', 'Content-Length': chunksize,
-                    'Content-Type': 'video/mp4'
+                    'Content-Type': 'audio/mpeg'
                 });
                 res.write(fileBuffer.slice(start, end))
-                // res.end()
+                res.end()
             } else {
                 var total = fileBuffer.length;
                 res.writeHead(200, {
